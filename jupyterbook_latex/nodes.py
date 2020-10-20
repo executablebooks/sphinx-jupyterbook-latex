@@ -2,10 +2,10 @@
 from docutils import nodes
 
 
-class HiddenNode(nodes.Element):
+class HiddenCellNode(nodes.Element):
     def __init__(self, rawsource="", *children, **attributes):
         super().__init__("", **attributes)
 
 
-def visit_HiddenNode(self, node):
+def visit_HiddenCellNode(self, node):
     raise nodes.SkipNode
