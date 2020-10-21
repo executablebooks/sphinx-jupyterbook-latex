@@ -1,8 +1,14 @@
 from .nodes import HiddenCellNode, visit_HiddenCellNode
 from .transforms import codeCellTransforms
+from sphinx import builders
 
 __version__ = "0.1.0"
 """jupyterbook-latex version"""
+
+
+def post_transform_handler(app):
+    if isinstance(app.builder, builders.latex.LaTeXBuilder):
+        app.add_post_transform(codeCellTransforms)
 
 
 def setup(app):
@@ -15,4 +21,4 @@ def setup(app):
         text=(visit_HiddenCellNode, None),
         man=(visit_HiddenCellNode, None),
     )
-    app.add_transform(codeCellTransforms)
+    app.connect("builder-inited", post_transform_handler)

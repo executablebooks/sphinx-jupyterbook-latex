@@ -1,10 +1,10 @@
 from typing import Any
 from myst_nb import nodes
 from .nodes import HiddenCellNode
-from sphinx.transforms import SphinxTransform
+from sphinx.transforms.post_transforms import SphinxPostTransform
 
 
-class codeCellTransforms(SphinxTransform):
+class codeCellTransforms(SphinxPostTransform):
     default_priority = 400
 
     def apply(self, **kwargs: Any) -> None:
