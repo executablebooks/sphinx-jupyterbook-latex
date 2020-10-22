@@ -12,4 +12,19 @@ class codeCellTransforms(SphinxPostTransform):
             if "tag_hide-cell" in node["classes"]:
                 hiddenNode = HiddenCellNode("")
                 hiddenNode["classes"] = node["classes"]
+                hiddenNode.children = node.children
                 node.replace_self([hiddenNode])
+            if "tag_hide-input" in node["classes"]:
+                inputNode = node.traverse(nodes.CellInputNode)
+                for node in inputNode:
+                    hiddenNode = HiddenCellNode("")
+                    hiddenNode["classes"] = node["classes"]
+                    hiddenNode.children = node.children
+                    node.replace_self([hiddenNode])
+            if "tag_hide-output" in node["classes"]:
+                outputNode = node.traverse(nodes.CellOutputNode)
+                for node in outputNode:
+                    hiddenNode = HiddenCellNode("")
+                    hiddenNode["classes"] = node["classes"]
+                    hiddenNode.children = node.children
+                    node.replace_self([hiddenNode])
