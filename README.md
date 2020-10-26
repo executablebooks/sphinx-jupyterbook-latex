@@ -5,10 +5,6 @@ Supporting LaTeX infrastructure for Jupyter Book
 This repository is a **development** project to improve LaTeX support
 in `Jupyter Book`.
 
-The following features are being developed:
-
-- [ ] Support for [hidden code-cell content](https://jupyterbook.org/interactive/hiding.html#hide-code-cell-content) [**Approach**: `post_transform` and add `HiddenCellNode`]
-
 Issues
 ------
 
