@@ -1,5 +1,10 @@
 # Install pre-commit hooks via
 # pre-commit install
+exclude: >
+  (?x)^(
+    tests/.*\.xml|
+    tests/.*\.myst
+  )$
 
 repos:
 
