@@ -6,3 +6,17 @@ dist/
 *.egg-info/
 _build/
 .DS_Store
+
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.pytest_cache/
+*_build
