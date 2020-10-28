@@ -12,7 +12,6 @@ Installation
 
 ```
 git fork https://github.com/executablebooks/jupyterbook-latex.git
-cd jupyterbook-latex
 ```
 
 2. Install using the setup file
