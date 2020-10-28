@@ -5,13 +5,29 @@ Supporting LaTeX infrastructure for Jupyter Book
 This repository is a **development** project to improve LaTeX support
 in `Jupyter Book`.
 
+Installation
+------------
+
+1. Clone this repository
+
+```
+git fork https://github.com/executablebooks/jupyterbook-latex.git
+cd jupyterbook-latex
+```
+
+2. Install using the setup file
+
+```
+cd jupyterbook-latex
+python setup.py install
+```
+
 Issues
 ------
 
 A list of issues that need to be addressed:
 
-1. [Jupyter Book LaTeX issues list](https://github.com/executablebooks/jupyter-book/issues?q=is%3Aissue+is%3Aopen+latex)
-2. [Myst NB LaTeX issues list](https://github.com/executablebooks/MyST-NB/issues?q=is%3Aissue+is%3Aopen+latex)
+https://github.com/executablebooks/meta/issues/169
 
 Developer Notes
 ---------------
