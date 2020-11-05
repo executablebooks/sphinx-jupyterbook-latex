@@ -5,3 +5,5 @@ exclude tox.ini
 include LICENSE
 include MANIFEST.in
 include README.md
+
+recursive-include jupyterbook_latex/theme *
