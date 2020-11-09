@@ -16,6 +16,7 @@ def build_init_handler(app):
 
 
 def add_necessary_config(app, config):
+    config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
 
 
