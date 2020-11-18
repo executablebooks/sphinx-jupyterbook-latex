@@ -1,5 +1,5 @@
 from .nodes import HiddenCellNode, visit_HiddenCellNode
-from .transforms import codeCellTransforms
+from .transforms import codeCellTransforms, LatexMasterDocTransforms
 from sphinx import builders
 from sphinx.util.fileutil import copy_asset_file
 from pathlib import Path
@@ -12,6 +12,7 @@ def build_init_handler(app):
     # only allow latex builder to access rest of the features
     if isinstance(app.builder, builders.latex.LaTeXBuilder):
         app.add_post_transform(codeCellTransforms)
+        app.add_transform(LatexMasterDocTransforms)
         copy_static_files(app)
 
 
