@@ -1,5 +1,12 @@
-from .nodes import HiddenCellNode, visit_HiddenCellNode
+from .nodes import (
+    HiddenCellNode,
+    visit_HiddenCellNode,
+    H2Node,
+    visit_H2Node,
+    depart_H2Node,
+)
 from .transforms import codeCellTransforms, LatexMasterDocTransforms
+
 from sphinx import builders
 from sphinx.util.fileutil import copy_asset_file
 from pathlib import Path
@@ -36,6 +43,11 @@ def setup(app):
         textinfo=(visit_HiddenCellNode, None),
         text=(visit_HiddenCellNode, None),
         man=(visit_HiddenCellNode, None),
+    )
+    app.add_node(
+        H2Node,
+        override=True,
+        latex=(visit_H2Node, depart_H2Node),
     )
     app.connect("config-inited", add_necessary_config)
     app.connect("builder-inited", build_init_handler)

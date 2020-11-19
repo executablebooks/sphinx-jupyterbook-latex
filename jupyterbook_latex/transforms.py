@@ -5,7 +5,7 @@ from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.transforms import SphinxTransform
 
 from .utils import get_filename
-from .nodes import HiddenCellNode
+from .nodes import HiddenCellNode, H2Node
 
 
 class codeCellTransforms(SphinxPostTransform):
@@ -58,11 +58,9 @@ class LatexMasterDocTransforms(SphinxTransform):
                 if count != 0:
                     for child in sect.children:
                         if isinstance(child, docutils.nodes.title):
-                            newnode = docutils.nodes.strong("")
-                            newnode["classes"] = child["classes"]
-                            newnode["ids"] = child["ids"]
-                            newnode.children = child.children
-                            child = newnode
+                            h2Node = H2Node("")
+                            h2Node.children = child.children
+                            child = h2Node
                         parentSect.append(child)
                     dummyNode = HiddenCellNode("")
                     dummyNode["classes"] = sect["classes"]
