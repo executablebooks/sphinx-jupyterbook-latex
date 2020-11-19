@@ -17,13 +17,17 @@ class H2Node(nodes.Element):
 
 
 def visit_H2Node(self, node):
+    self.h2Text = node.astext()
+
     strong = nodes.strong("")
     strong.children = node.children
-    self.h2Text = node.astext()
+
     line = nodes.line("")
     line.append(strong)
+
     line_block = nodes.line_block("")
     line_block.append(line)
+
     node.children = []
     node.append(line_block)
 
