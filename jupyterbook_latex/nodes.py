@@ -16,9 +16,13 @@ class H2Node(nodes.Element):
         super().__init__("", **attributes)
 
 
+class H3Node(nodes.Element):
+    def __init__(self, rawsource="", *children, **attributes):
+        super().__init__("", **attributes)
+
+
 def visit_H2Node(self, node):
     self.h2Text = node.astext()
-
     strong = nodes.strong("")
     strong.children = node.children
 
@@ -35,3 +39,12 @@ def visit_H2Node(self, node):
 def depart_H2Node(self, node):
     index = self.body.index(self.h2Text)
     self.body[index] = "\\Large " + self.h2Text
+
+
+def visit_H3Node(self, node):
+    visit_H2Node(self, node)
+
+
+def depart_H3Node(self, node):
+    index = self.body.index(self.h2Text)
+    self.body[index] = "\\large " + self.h2Text
