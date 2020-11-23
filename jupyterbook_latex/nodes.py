@@ -1,5 +1,16 @@
 """AST nodes to designate notebook components."""
 from docutils import nodes
+from .utils import sphinxEncode
+
+
+def getIndex(body, text):
+    index = 0
+    indices = [i for i, x in enumerate(body) if x == text]
+    for i in indices:
+        if body[i - 1] == "\\sphinxstylestrong{":
+            index = i
+            break
+    return index
 
 
 class HiddenCellNode(nodes.Element):
@@ -23,6 +34,8 @@ class H3Node(nodes.Element):
 
 def visit_H2Node(self, node):
     self.h2Text = node.astext()
+    self.h2Text = sphinxEncode(self.h2Text)
+
     strong = nodes.strong("")
     strong.children = node.children
 
@@ -37,8 +50,10 @@ def visit_H2Node(self, node):
 
 
 def depart_H2Node(self, node):
-    index = self.body.index(self.h2Text)
-    self.body[index] = "\\Large " + self.h2Text
+    index = getIndex(self.body, self.h2Text)
+    if index:
+        self.body[index] = "\\Large " + self.h2Text
+    # else throw an error
 
 
 def visit_H3Node(self, node):
@@ -46,5 +61,7 @@ def visit_H3Node(self, node):
 
 
 def depart_H3Node(self, node):
-    index = self.body.index(self.h2Text)
-    self.body[index] = "\\large " + self.h2Text
+    index = getIndex(self.body, self.h2Text)
+    if index:
+        self.body[index] = "\\large " + self.h2Text
+    # else throw an error
