@@ -8,7 +8,7 @@ from .nodes import (
     visit_H3Node,
     depart_H3Node,
 )
-from .transforms import codeCellTransforms, LatexMasterDocTransforms
+from .transforms import codeCellTransforms, LatexMasterDocTransforms, ToctreeTransforms
 
 from sphinx import builders
 from sphinx.util.fileutil import copy_asset_file
@@ -23,12 +23,20 @@ def build_init_handler(app):
     if isinstance(app.builder, builders.latex.LaTeXBuilder):
         app.add_post_transform(codeCellTransforms)
         app.add_transform(LatexMasterDocTransforms)
+        app.add_post_transform(ToctreeTransforms)
         copy_static_files(app)
 
 
 def add_necessary_config(app, config):
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
+    config["latex_toplevel_sectioning"] = "part"
+    config["latex_elements"] = {
+        "preamble": r"""
+            % fixing title of the toc
+            \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+        """
+    }
 
 
 def copy_static_files(app):
