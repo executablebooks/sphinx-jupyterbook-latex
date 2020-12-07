@@ -169,6 +169,6 @@ class ToctreeTransforms(SphinxPostTransform):
                             replaceWithNode(node, HiddenCellNode, False)
                             sectionName.append(nodecopy)
                             self.document.append(compoundParent)
-                            # append at the end
-                            if len(bibNodes):
-                                self.document.extend(bibNodes)
+            # append bib at the end
+            if len(bibNodes):
+                self.document.extend(bibNodes)
