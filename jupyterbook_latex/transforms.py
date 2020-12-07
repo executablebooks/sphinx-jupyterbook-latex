@@ -6,6 +6,7 @@ from myst_nb import nodes
 from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.transforms import SphinxTransform
 from sphinx import addnodes
+from sphinx.builders.latex.nodes import thebibliography
 
 from .utils import get_filename
 from .nodes import HiddenCellNode, H2Node, H3Node
@@ -13,10 +14,10 @@ from .nodes import HiddenCellNode, H2Node, H3Node
 # Utility functions
 
 
-def replaceWithNode(srcNode, toReplace, allowChildren):
+def replaceWithNode(srcNode, toReplace, copyChildren):
     node = toReplace("")
     node["classes"] = srcNode["classes"]
-    if allowChildren:
+    if copyChildren:
         node.children = srcNode.children
     srcNode.replace_self([node])
 
@@ -27,6 +28,18 @@ def depth(node, parentId):
         d += 1
         node = node.parent
     return d
+
+
+def find_parent(node, parentTag):
+    while node.tagname != parentTag:
+        node = node.parent
+        if node is None:
+            return
+
+    if node.tagname == parentTag:
+        return node
+
+    return None
 
 
 # Transforms and postTransforms
@@ -97,6 +110,21 @@ class LatexMasterDocTransforms(SphinxTransform):
                 self.document.extend(tocwrrapper)
 
 
+class handleSubSections(SphinxPostTransform):
+    default_priority = 700
+
+    def apply(self, **kwargs: Any) -> None:
+        docname = self.document["source"]
+        if get_filename(docname) == self.app.config.master_doc:
+            for compound in self.document.traverse(docutils.nodes.compound):
+                if "toctree-wrapper" in compound["classes"]:
+                    nodecopy = compound
+                    node = find_parent(nodecopy, "section")
+                    if node:
+                        replaceWithNode(compound, HiddenCellNode, False)
+                        node.parent.append(nodecopy)
+
+
 class ToctreeTransforms(SphinxPostTransform):
     default_priority = 800
 
@@ -105,14 +133,22 @@ class ToctreeTransforms(SphinxPostTransform):
             if "chapters" in part:
                 nodefile = node.children[0].attributes["docname"]
                 chapfiles = part["chapters"]
-                if nodefile in chapfiles[0].values():
-                    return True
+                for chap in chapfiles:
+                    if nodefile in chap.values():
+                        return True
             return False
 
         docname = self.document["source"]
         if get_filename(docname) == self.app.config.master_doc:
             TOC_PATH = Path(self.app.confdir).joinpath("_toc.yml")
             tocfile = yaml.safe_load(TOC_PATH.read_text("utf8"))
+
+            # store bibliography nodes to append it at the end of doc
+            bibNodes = []
+            for bibnode in self.document.traverse(thebibliography):
+                bibNodes.append(bibnode)
+                replaceWithNode(bibnode, HiddenCellNode, False)
+
             for f in tocfile:
                 if "part" in f:
                     for node in self.document.traverse(docutils.nodes.compound):
@@ -133,3 +169,6 @@ class ToctreeTransforms(SphinxPostTransform):
                             replaceWithNode(node, HiddenCellNode, False)
                             sectionName.append(nodecopy)
                             self.document.append(compoundParent)
+                            # append at the end
+                            if len(bibNodes):
+                                self.document.extend(bibNodes)

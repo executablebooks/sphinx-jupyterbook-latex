@@ -3,6 +3,8 @@
 
 \RequirePackage{xcolor}
 \RequirePackage[utf8]{inputenc}
+\RequirePackage{graphicx}
+
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
 

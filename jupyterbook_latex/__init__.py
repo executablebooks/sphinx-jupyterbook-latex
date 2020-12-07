@@ -8,7 +8,12 @@ from .nodes import (
     visit_H3Node,
     depart_H3Node,
 )
-from .transforms import codeCellTransforms, LatexMasterDocTransforms, ToctreeTransforms
+from .transforms import (
+    codeCellTransforms,
+    LatexMasterDocTransforms,
+    ToctreeTransforms,
+    handleSubSections,
+)
 
 from sphinx import builders
 from sphinx.util.fileutil import copy_asset_file
@@ -24,6 +29,7 @@ def build_init_handler(app):
         app.add_post_transform(codeCellTransforms)
         app.add_transform(LatexMasterDocTransforms)
         app.add_post_transform(ToctreeTransforms)
+        app.add_post_transform(handleSubSections)
         copy_static_files(app)
 
 
@@ -31,6 +37,9 @@ def add_necessary_config(app, config):
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
     config["latex_toplevel_sectioning"] = "part"
+    config["myst_amsmath_enable"] = True
+
+    # preamble to overwrite things from sphinx latex writer
     config["latex_elements"] = {
         "preamble": r"""
             % fixing title of the toc
@@ -59,7 +68,9 @@ def setup(app):
         H2Node,
         override=True,
         latex=(visit_H2Node, depart_H2Node),
+        html=(visit_H2Node, depart_H2Node),
     )
     app.add_node(H3Node, override=True, latex=(visit_H3Node, depart_H3Node))
+    app.setup_extension("sphinx.ext.imgconverter")
     app.connect("config-inited", add_necessary_config)
     app.connect("builder-inited", build_init_handler)
