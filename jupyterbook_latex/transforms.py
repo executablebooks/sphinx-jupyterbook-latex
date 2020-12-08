@@ -30,11 +30,18 @@ def depth(node, parentId):
     return d
 
 
-def find_parent(node, parentTag):
-    while node.tagname != parentTag:
+def find_parent(env, node, parentTag):
+    while 1:
         node = node.parent
         if node is None:
             return
+        # parent should be a document in toc
+        if (
+            "docname" in node.attributes
+            and env.titles[node.attributes["docname"]].astext().lower()
+            in node.attributes["names"]
+        ):
+            return node
 
     if node.tagname == parentTag:
         return node
@@ -119,10 +126,10 @@ class handleSubSections(SphinxPostTransform):
             for compound in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in compound["classes"]:
                     nodecopy = compound
-                    node = find_parent(nodecopy, "section")
+                    node = find_parent(self.app.env, nodecopy, "section")
                     if node:
                         replaceWithNode(compound, HiddenCellNode, False)
-                        node.parent.append(nodecopy)
+                        node.append(nodecopy)
 
 
 class ToctreeTransforms(SphinxPostTransform):
@@ -151,6 +158,7 @@ class ToctreeTransforms(SphinxPostTransform):
 
             for f in tocfile:
                 if "part" in f:
+                    self.app.config["latex_toplevel_sectioning"] = "part"
                     for node in self.document.traverse(docutils.nodes.compound):
                         flag = checkNodeIsInPart(f, node)
                         if flag:

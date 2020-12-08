@@ -36,7 +36,6 @@ def build_init_handler(app):
 def add_necessary_config(app, config):
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
-    config["latex_toplevel_sectioning"] = "part"
     config["myst_amsmath_enable"] = True
 
     # preamble to overwrite things from sphinx latex writer
