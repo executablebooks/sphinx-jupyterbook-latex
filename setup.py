@@ -14,7 +14,7 @@ setup(
     long_description=open("README.md").read(),
     packages=find_packages(),
     license="MIT",
-    install_requires=["sphinx>=3", "myst_nb", "sphinx.ext.imgconverter", "pyyaml"],
+    install_requires=["sphinx>=3", "myst_nb", "pyyaml"],
     extras_require={
         "code_style": ["flake8<3.8.0,>=3.7.0", "black", "pre-commit==1.17.0"],
         "testing": [
