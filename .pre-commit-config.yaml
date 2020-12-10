@@ -3,7 +3,8 @@
 exclude: >
   (?x)^(
     tests/.*\.xml|
-    tests/.*\.myst
+    tests/.*\.myst|
+    tests/.*\.tex|
     tests/.*\_build
   )$
 
