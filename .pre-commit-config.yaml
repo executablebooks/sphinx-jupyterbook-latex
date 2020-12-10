@@ -4,6 +4,7 @@ exclude: >
   (?x)^(
     tests/.*\.xml|
     tests/.*\.myst
+    tests/.*\_build
   )$
 
 repos:
