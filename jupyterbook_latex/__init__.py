@@ -14,23 +14,32 @@ from .transforms import (
     ToctreeTransforms,
     handleSubSections,
 )
-
+import os
 from sphinx import builders
+from sphinx.util import logging
 from sphinx.util.fileutil import copy_asset_file
 from pathlib import Path
 
 __version__ = "0.1.0"
 """jupyterbook-latex version"""
 
+logger = logging.getLogger(__name__)
+
 
 def build_init_handler(app):
     # only allow latex builder to access rest of the features
     if isinstance(app.builder, builders.latex.LaTeXBuilder):
         app.add_post_transform(codeCellTransforms)
+        copy_static_files(app)
+        TOC_PATH = Path(app.confdir).joinpath("_toc.yml")
+        if not os.path.exists(TOC_PATH):
+            logger.info(
+                "Some features of this exetension will work only with a jupyter-book application"  # noqa: E501
+            )
+            return
         app.add_transform(LatexMasterDocTransforms)
         app.add_post_transform(ToctreeTransforms)
         app.add_post_transform(handleSubSections)
-        copy_static_files(app)
 
 
 def add_necessary_config(app, config):
