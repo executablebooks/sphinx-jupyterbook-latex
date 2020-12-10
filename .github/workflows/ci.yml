@@ -39,7 +39,7 @@ jobs:
           texlive                 \
           texlive-xetex           \
           texlive-latex-extra     \
-          texlive-gnu-freefont    \
+          texlive-fonts-extra     \
           latexmk
 
     - name: Run pytest
