@@ -1,6 +1,8 @@
+import pytest
 from jupyter_book import commands
 
 
+@pytest.mark.requires_tex
 def test_toc(cli, file_regression, rootdir):
     path_partsToc = rootdir.joinpath("test-partsToc")
     cmd = f"{path_partsToc} --builder pdflatex"
