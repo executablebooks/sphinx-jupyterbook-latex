@@ -2,6 +2,7 @@ import shutil
 import pytest
 from sphinx.testing.path import path
 from pathlib import Path
+from click.testing import CliRunner
 
 pytest_plugins = "sphinx.testing.fixtures"
 
@@ -44,3 +45,10 @@ def warnings():
         return app._warning.getvalue().strip()
 
     return read
+
+
+@pytest.fixture()
+def cli():
+    """Provides a click.testing CliRunner object for invoking CLI commands."""
+    runner = CliRunner()
+    return runner

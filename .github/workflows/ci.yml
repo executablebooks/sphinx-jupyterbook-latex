@@ -32,15 +32,27 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .[testing]
+    - name: Install latex dependencies
+      run: |
+        sudo apt-get -qq update
+        sudo apt-get install -y   \
+          texlive                 \
+          texlive-xetex           \
+          texlive-latex-extra     \
+          texlive-fonts-extra     \
+          latexmk
+
     - name: Run pytest
       run: pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
+
     - name: Create cov
       run: coverage xml
+
     - name: Upload to Codecov
-      if: matrix.python-version == 3.7
+      if: github.repository == 'executablebooks/jupyterbook-latex'
       uses: codecov/codecov-action@v1
       with:
-        name: jupyterbook_latex-pytest-py3.7
+        name: jupyterbook-latex-pytest-py3.7
         flags: pytests
         file: ./coverage.xml
         fail_ci_if_error: true
