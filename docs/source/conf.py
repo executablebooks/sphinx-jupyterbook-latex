@@ -3,7 +3,7 @@
 project = "jupyterbook-latex"
 copyright = "2020"
 author = "The Jupyter Book Community"
-master_doc = "index"
+master_doc = "intro"
 
 
 # -- General configuration ---------------------------------------------------

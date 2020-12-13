@@ -1,5 +1,9 @@
 # Jupyterbook-latex
 
+```{toctree}
+contributing
+```
+
 **An extension to handle latex side of things for jupyter-book**.
 
 This package contains a [Sphinx](http://www.sphinx-doc.org/en/master/) extension to handle LaTeX builds for [jupyter-book](https://jupyterbook.org/) projects and to implement features specific to LaTeX.
@@ -24,7 +28,7 @@ and then install using the setup file
 cd jupyterbook-latex
 python setup.py install
 ```
-#### Configuration
+### Configuration
 
 Add this extension to the extensions list in your sphinx project's `conf.py`:
 
@@ -78,54 +82,3 @@ A list of available tags can be found in https://jupyterbook.org/reference/cheat
 * `xelatex` is used as the default LaTeX engine because of its support for unicode characters.
 
 
-## Contributing Guide
-
-Any contributions to this repo are highly appreciated ✨.
-
-This page contains information to help you get started with development on this project.
-
-### Development
-
-#### Guidelines
-
-For information about development conventions, practices, and infrastructure, please see [the `executablebooks/` development guidelines](https://github.com/executablebooks/.github/blob/master/CONTRIBUTING.md).
-
-#### Set-up
-
-Get the source code of this project using git:
-
-```bash
-git clone https://github.com/executablebooks/jupyterbook-latex
-cd jupyterbook-latex
-```
-
-Install all the dependencies of this project, including packages for coding style and testing using:
-
-```
-pip install -e .[code_style,testing]
-```
-
-#### Unit Testing
-
-We use pytest for testing, pytest-regression to regenerate expected outcomes of test and pytest-cov for checking coverage.
-
-To simply run existing tests:
-
-```bash
-pytest
-```
-
-To run tests with coverage and an html coverage report:
-
-```bash
-pytest --cov=jupyterbook_latex --cov-report=html
-```
-
-#### Coding Style
-
-The consistency and code style in this project is enforced with multiple automated pre-commit hooks. You can install(recommend) and run them using:
-
-```bash
-pre-commit install
-pre-commit run --all
-```
