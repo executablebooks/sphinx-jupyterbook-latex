@@ -80,5 +80,3 @@ A list of available tags can be found in https://jupyterbook.org/reference/cheat
 * Direct LaTeX syntax for math is handled by default in source documents using `myst_amsmath_enable` key of `jupyter-book`. More info in [https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html#syntax-amsmath](https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html#syntax-amsmath)
 
 * `xelatex` is used as the default LaTeX engine because of its support for unicode characters.
-
-
