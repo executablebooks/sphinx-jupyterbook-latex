@@ -1,4 +1,5 @@
 from jupyter_book import commands
+from TexSoup import TexSoup
 
 
 def test_toc(cli, file_regression, rootdir):
@@ -8,6 +9,5 @@ def test_toc(cli, file_regression, rootdir):
     assert result.exit_code == 0
 
     path_output_file = path_partsToc.joinpath("_build", "latex", "book.tex")
-    file_regression.check(
-        path_output_file.read_text(), extension=".tex", encoding="utf8"
-    )
+    file_content = TexSoup(path_output_file.read_text())
+    file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")

@@ -22,6 +22,7 @@ setup(
             "pytest-cov~=2.8",
             "coverage<5.0",
             "pytest-regressions",
+            "texsoup",
             "jupyter-book",
         ],
         "rtd": [

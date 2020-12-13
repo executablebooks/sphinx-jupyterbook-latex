@@ -46,7 +46,6 @@ def add_necessary_config(app, config):
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
     config["myst_amsmath_enable"] = True
-
     # preamble to overwrite things from sphinx latex writer
     config["latex_elements"] = {
         "preamble": r"""
