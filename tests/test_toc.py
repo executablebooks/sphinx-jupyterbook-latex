@@ -7,6 +7,7 @@ def test_toc(cli, file_regression, rootdir):
     path_partsToc = rootdir.joinpath("test-partsToc")
     cmd = f"{path_partsToc} --builder pdflatex"
     result = cli.invoke(commands.build, cmd.split())
+    print(result.stdout)
     assert result.exit_code == 0
 
     # reading the tex file

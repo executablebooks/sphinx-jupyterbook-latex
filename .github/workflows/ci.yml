@@ -43,7 +43,7 @@ jobs:
           latexmk
 
     - name: Run pytest
-      run: pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
+      run: pytest -s --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
 
     - name: Create cov
       run: coverage xml
