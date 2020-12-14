@@ -1,9 +1,5 @@
 # Jupyterbook-latex
 
-```{toctree}
-contributing
-```
-
 **An extension to handle latex side of things for jupyter-book**.
 
 This package contains a [Sphinx](http://www.sphinx-doc.org/en/master/) extension to handle LaTeX builds for [jupyter-book](https://jupyterbook.org/) projects and to implement features specific to LaTeX.
