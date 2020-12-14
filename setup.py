@@ -22,7 +22,9 @@ setup(
             "pytest-cov~=2.8",
             "coverage<5.0",
             "pytest-regressions",
+            "texsoup",
             "jupyter-book",
+            "sphinxcontrib-bibtex==1.0.0",
         ],
         "rtd": [
             "sphinx>=3.0",

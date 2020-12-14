@@ -43,10 +43,9 @@ jobs:
           latexmk
 
     - name: Run pytest
-      run: pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
-
-    - name: Create cov
-      run: coverage xml
+      run: |
+        pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
+        coverage xml
 
     - name: Upload to Codecov
       if: github.repository == 'executablebooks/jupyterbook-latex'
