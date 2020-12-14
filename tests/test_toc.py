@@ -17,5 +17,10 @@ def test_toc(cli, file_regression, rootdir):
     # reading the xml file
     doctree_path = path_partsToc.joinpath("_build", ".doctrees", "intro.doctree")
     doc = pickle.load(open(doctree_path, "rb"))
-    xml = doc.asdom().toprettyxml()
-    file_regression.check(str(xml), extension=".xml", encoding="utf8")
+    pseudoxml = doc.pformat()
+
+    # to remove source attribute of document as it is a temp
+    index = pseudoxml.index("\n")
+    substr = pseudoxml[index:]
+    pseudoxml = "<document>" + substr
+    file_regression.check(str(pseudoxml), extension=".xml", encoding="utf8")

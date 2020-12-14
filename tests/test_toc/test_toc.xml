@@ -1,21 +1,22 @@
-<?xml version="1.0" ?>
-<document source="/private/var/folders/3_/k3nn92hj7mvfq6r5_wjdglv0d_8fpn/T/pytest-of-u6533564/pytest-99/test_toc0/roots/test-partsToc/intro.md">
-	<section ids="this-is-the-intro" names="this\ is\ the\ intro">
-		<title>This is the intro</title>
-		<paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel nunc vestibulum, pretium urna ac, hendrerit diam. Nulla ut mi sit amet dui placerat tempor at quis magna. Sed porttitor blandit consequat. Fusce efficitur mi eget pharetra cursus. Sed vel blandit dui, et pharetra velit. Ut eget erat rutrum, maximus felis ullamcorper, congue urna. Ut pellentesque, orci vel consectetur aliquam, velit elit vehicula libero, eu blandit tellus risus rhoncus massa. Curabitur id libero ut sapien aliquet dapibus nec et dolor. Pellentesque tincidunt iaculis ipsum vitae pretium. Quisque et egestas orci, sed dignissim sem. Vestibulum sed commodo dui. Nulla rutrum vulputate nisl nec interdum. Cras pharetra quam et tellus convallis, ut hendrerit mi mollis. Integer finibus tellus porttitor tellus bibendum, a auctor purus dapibus. Etiam mauris est, blandit ut dapibus eget, rutrum et dolor.</paragraph>
-		<HiddenCellNode ids="this-is-h2" names="this\ is\ h2"/>
-		<H2Node>This is H2</H2Node>
-		<paragraph>Etiam interdum tempor augue at volutpat. Nulla sit amet volutpat elit. In vehicula dapibus velit, a placerat neque blandit et. Etiam non mollis nibh. Mauris tortor purus, semper vel libero at, faucibus mattis enim. Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.</paragraph>
-		<HiddenCellNode ids="this-is-h3" names="this\ is\ h3"/>
-		<H3Node>This is H3</H3Node>
-		<paragraph>Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.</paragraph>
-		<HiddenCellNode classes="toctree-wrapper"/>
-		<HiddenCellNode classes="toctree-wrapper"/>
-	</section>
-	<compound classes="toctree-wrapper">
-		<toctree caption="part1" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="True" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" rawentries="" titlesonly="True"/>
-	</compound>
-	<compound classes="toctree-wrapper">
-		<toctree caption="part2" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="True" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" rawentries="Gallery\ of\ Jupyter\ Books" titlesonly="True"/>
-	</compound>
-</document>
+<document>
+    <section ids="this-is-the-intro" names="this\ is\ the\ intro">
+        <title>
+            This is the intro
+        <paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel nunc vestibulum, pretium urna ac, hendrerit diam. Nulla ut mi sit amet dui placerat tempor at quis magna. Sed porttitor blandit consequat. Fusce efficitur mi eget pharetra cursus. Sed vel blandit dui, et pharetra velit. Ut eget erat rutrum, maximus felis ullamcorper, congue urna. Ut pellentesque, orci vel consectetur aliquam, velit elit vehicula libero, eu blandit tellus risus rhoncus massa. Curabitur id libero ut sapien aliquet dapibus nec et dolor. Pellentesque tincidunt iaculis ipsum vitae pretium. Quisque et egestas orci, sed dignissim sem. Vestibulum sed commodo dui. Nulla rutrum vulputate nisl nec interdum. Cras pharetra quam et tellus convallis, ut hendrerit mi mollis. Integer finibus tellus porttitor tellus bibendum, a auctor purus dapibus. Etiam mauris est, blandit ut dapibus eget, rutrum et dolor.
+        <HiddenCellNode ids="this-is-h2" names="this\ is\ h2">
+        <H2Node>
+            This is H2
+        <paragraph>
+            Etiam interdum tempor augue at volutpat. Nulla sit amet volutpat elit. In vehicula dapibus velit, a placerat neque blandit et. Etiam non mollis nibh. Mauris tortor purus, semper vel libero at, faucibus mattis enim. Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <HiddenCellNode ids="this-is-h3" names="this\ is\ h3">
+        <H3Node>
+            This is H3
+        <paragraph>
+            Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <HiddenCellNode classes="toctree-wrapper">
+        <HiddenCellNode classes="toctree-wrapper">
+    <compound classes="toctree-wrapper">
+        <toctree caption="part1" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="True" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" rawentries="" titlesonly="True">
+    <compound classes="toctree-wrapper">
+        <toctree caption="part2" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="True" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" rawentries="Gallery\ of\ Jupyter\ Books" titlesonly="True">
