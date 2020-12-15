@@ -159,24 +159,24 @@ class ToctreeTransforms(SphinxPostTransform):
             for f in tocfile:
                 if "part" in f:
                     self.app.config["latex_toplevel_sectioning"] = "part"
+                    partname = f["part"]
+                    compoundParent = docutils.nodes.compound("")
+                    compoundParent["classes"] = "toctree-wrapper"
+                    startOfFile = addnodes.start_of_file("")
+                    startOfFile["docname"] = partname
+                    title = docutils.nodes.title(text=partname)
+                    sectionName = docutils.nodes.section("")
+                    sectionName["docname"] = partname
+                    startOfFile.append(sectionName)
+                    sectionName.append(title)
+                    compoundParent.append(startOfFile)
                     for node in self.document.traverse(docutils.nodes.compound):
                         flag = checkNodeIsInPart(f, node)
                         if flag:
-                            partname = f["part"]
-                            compoundParent = docutils.nodes.compound("")
-                            compoundParent["classes"] = "toctree-wrapper"
-                            startOfFile = addnodes.start_of_file("")
-                            startOfFile["docname"] = partname
-                            title = docutils.nodes.title(text=partname)
-                            sectionName = docutils.nodes.section("")
-                            sectionName["docname"] = partname
-                            startOfFile.append(sectionName)
-                            sectionName.append(title)
-                            compoundParent.append(startOfFile)
                             nodecopy = node
                             replaceWithNode(node, HiddenCellNode, False)
                             sectionName.append(nodecopy)
-                            self.document.append(compoundParent)
+                    self.document.append(compoundParent)
             # append bib at the end
             if len(bibNodes):
                 self.document.extend(bibNodes)

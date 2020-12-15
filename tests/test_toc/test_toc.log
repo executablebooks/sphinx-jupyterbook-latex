@@ -1,0 +1,33 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.10.6)  15 DEC 2020 09:54
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**/Users/u6533564/Documents/Office/ExecutableBookProject/jupyterbook-latex/tests/test_toc/test_toc.tex
+(/Users/u6533564/Documents/Office/ExecutableBookProject/jupyterbook-latex/tests/test_toc/test_toc.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-03-06>
+
+! LaTeX Error: File `jupyterBook.cls' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: cls)
+
+Enter file name:
+/Users/u6533564/Documents/Office/ExecutableBookProject/jupyterbook-latex/tests/test_toc/test_toc.tex:4: Emergency stop.
+<read *>
+
+l.4 \ifdefined
+              \pdfpxdimen^^M
+*** (cannot \read from terminal in nonstop modes)
+
+
+Here is how much of TeX's memory you used:
+ 24 strings out of 480608
+ 838 string characters out of 5903630
+ 239610 words of memory out of 5000000
+ 16014 multiletter control sequences out of 15000+600000
+ 532338 words of font info for 24 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 14i,0n,17p,156b,10s stack positions out of 5000i,500n,10000p,200000b,80000s
+/Users/u6533564/Documents/Office/ExecutableBookProject/jupyterbook-latex/tests/test_toc/test_toc.tex:4:  ==> Fatal error occurred, no output PDF file produced!
