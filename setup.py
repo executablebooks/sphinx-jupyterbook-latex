@@ -18,7 +18,7 @@ setup(
     extras_require={
         "code_style": ["flake8<3.8.0,>=3.7.0", "black", "pre-commit==1.17.0"],
         "testing": [
-            "pytest~=5.4",
+            "coverage" "pytest>=3.6,<4",
             "pytest-cov~=2.8",
             "coverage<5.0",
             "pytest-regressions",
