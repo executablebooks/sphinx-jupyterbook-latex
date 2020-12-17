@@ -20,10 +20,17 @@ from sphinx.util import logging
 from sphinx.util.fileutil import copy_asset_file
 from pathlib import Path
 
+from docutils import nodes as docnodes
+
 __version__ = "0.1.0"
 """jupyterbook-latex version"""
 
 logger = logging.getLogger(__name__)
+
+
+# Helper node
+def skip(self, node):
+    raise docnodes.SkipNode
 
 
 def build_init_handler(app):
@@ -76,8 +83,19 @@ def setup(app):
         override=True,
         latex=(visit_H2Node, depart_H2Node),
         html=(visit_H2Node, depart_H2Node),
+        textinfo=(skip, None),
+        text=(skip, None),
+        man=(skip, None),
     )
-    app.add_node(H3Node, override=True, latex=(visit_H3Node, depart_H3Node))
+    app.add_node(
+        H3Node,
+        override=True,
+        latex=(visit_H3Node, depart_H3Node),
+        html=(visit_H3Node, depart_H3Node),
+        textinfo=(skip, None),
+        text=(skip, None),
+        man=(skip, None),
+    )
     app.setup_extension("sphinx.ext.imgconverter")
     app.connect("config-inited", add_necessary_config)
     app.connect("builder-inited", build_init_handler)
