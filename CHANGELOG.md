@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.2 - 2020-12-17
+
+This release just includes a minor update to ci for publishing to pypi ([#19](https://github.com/executablebooks/jupyterbook-latex/pull/19) [@AakashGfude](https://github.com/AakashGfude))
+
 ## 0.1.1 - 2020-12-17
 
 This is a minor release with a couple of bug fixes
