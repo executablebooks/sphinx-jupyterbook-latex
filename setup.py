@@ -11,9 +11,10 @@ setup(
     name="jupyterbook-latex",
     version=version,
     description="Latex specific features for jupyter book",
-    long_description=open("README.md").read(),
     packages=find_packages(),
-    license="MIT",
+    long_description=open("./README.md", "r").read(),
+    long_description_content_type="text/markdown",
+    license="BSD",
     install_requires=["sphinx>=3", "myst_nb", "pyyaml"],
     extras_require={
         "code_style": ["flake8<3.8.0,>=3.7.0", "black", "pre-commit==1.17.0"],
