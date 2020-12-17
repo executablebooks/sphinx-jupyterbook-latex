@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.1.1 - 2020-12-17
+
+This is a minor release with a couple of bug fixes
+
+### 🐛 Bugs Fixed
+
+- Handled H2, H3 nodes for html outputs ( [#16](https://github.com/executablebooks/jupyterbook-latex/pull/16) [@AakashGfude](https://github.com/AakashGfude))
+- updating ci.yml publish step, and added some necessary keys in setup.py file ( [#17](https://github.com/executablebooks/jupyterbook-latex/pull/17) [@AakashGfude](https://github.com/AakashGfude))
+
 ## 0.1.0 - 2020-12-17
 
 ([full changelog](https://github.com/executablebooks/jupyterbook-latex/commits/v0.1.0))
