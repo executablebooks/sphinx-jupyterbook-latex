@@ -37,7 +37,7 @@ extensions = ["jupyterbook_latex"]
 
 A list of features implemented in this project:
 
-**Table Of Contents Page** :
+#### Table Of Contents Page :
 
 * `part` key in `_toc.yml` is handled in the pdf output. With the part name specified in `_toc.yml` being the part
 name in the output.
@@ -53,11 +53,11 @@ release is underway.
 
 * The table of contents page title is fixed to be `Contents` at present.
 
-**Master Document** :
+#### Master Document :
 
 Master doc page is treated as a front matter page. Like an `Introduction` to the book and does not appear in Table Of Contents. All the sections and sub-sections in the Master doc are internally converted to bolded text of varying sizes based on the level of the section.
 
-**Code Cell Tags** :
+#### Code Cell Tags :
 
 A list of available tags can be found in https://jupyterbook.org/reference/cheatsheet.html#tags
 
@@ -67,7 +67,7 @@ A list of available tags can be found in https://jupyterbook.org/reference/cheat
 
 * `hide-output` is handled by removing the outputs of a cell in the pdf output.
 
-**Others**:
+#### Others :
 
 * Handling of `png` and `gif` images using `sphinx.ext.imgconverter` package. Which uses [ImageMagick](https://www.imagemagick.org/script/index.php) , so make sure to have it installed in your system.
 
