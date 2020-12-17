@@ -49,9 +49,6 @@ jobs:
         pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
         coverage xml
 
-    - name: Create cov
-      run: coverage xml
-
     - name: Upload to Codecov
       if: github.repository == 'executablebooks/jupyterbook-latex'
       uses: codecov/codecov-action@v1
@@ -80,3 +77,25 @@ jobs:
 
     - name: Run pytest
       run: pytest --durations=10 -m 'not requires_tex'
+
+  publish:
+    name: Publish to PyPi
+    needs: [pre-commit, tests]
+    if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Build package
+        run: |
+          pip install wheel
+          python setup.py sdist bdist_wheel
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@v1.1.0
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_KEY }}
