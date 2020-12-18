@@ -1,10 +1,16 @@
 # Change Log
 
+## 0.1.4 - 2020-12-18
+
+This release includes bug fixes in configuration and setup file. ([#21](https://github.com/executablebooks/jupyterbook-latex/pull/21) [@AakashGfude](https://github.com/AakashGfude))
+
 ## 0.1.2 - 2020-12-17
 
 This release just includes a minor update to ci for publishing to pypi ([#19](https://github.com/executablebooks/jupyterbook-latex/pull/19) [@AakashGfude](https://github.com/AakashGfude))
 
 ## 0.1.1 - 2020-12-17
+
+([full changelog](https://github.com/executablebooks/jupyterbook-latex/compare/v0.1.0...v0.1.1))
 
 This is a minor release with a couple of bug fixes
 
