@@ -44,15 +44,17 @@ def build_init_handler(app):
                 "Some features of this exetension will work only with a jupyter-book application"  # noqa: E501
             )
             return
+        app.config["myst_amsmath_enable"] = True
+        app.setup_extension("sphinx.ext.imgconverter")
         app.add_transform(LatexMasterDocTransforms)
         app.add_post_transform(ToctreeTransforms)
         app.add_post_transform(handleSubSections)
 
 
 def add_necessary_config(app, config):
+    # only allow latex builder to access rest of the features
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
-    config["myst_amsmath_enable"] = True
     # preamble to overwrite things from sphinx latex writer
     config["latex_elements"] = {
         "preamble": r"""
@@ -96,6 +98,5 @@ def setup(app):
         text=(skip, None),
         man=(skip, None),
     )
-    app.setup_extension("sphinx.ext.imgconverter")
     app.connect("config-inited", add_necessary_config)
     app.connect("builder-inited", build_init_handler)
