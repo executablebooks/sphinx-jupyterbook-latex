@@ -10,6 +10,14 @@ for line in lines.read_text().split("\n"):
 setup(
     name="jupyterbook-latex",
     version=version,
+    python_requires=">=3.6",
+    author="Executable Book Project",
+    author_email="jupyter@googlegroups.com",
+    url="https://executablebooks.org/",
+    project_urls={
+        "Source": "https://github.com/executablebooks/jupyter-book/",
+        "Tracker": "https://github.com/executablebooks/jupyter-book/issues",
+    },
     description="Latex specific features for jupyter book",
     packages=find_packages(),
     long_description=open("./README.md", "r").read(),
@@ -34,4 +42,5 @@ setup(
             "myst-parser",
         ],
     },
+    include_package_data=True,
 )
