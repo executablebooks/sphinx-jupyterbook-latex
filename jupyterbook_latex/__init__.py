@@ -65,6 +65,7 @@ def add_necessary_config(app, config):
 def copy_static_files(app):
     themePath = Path(__file__).parent.joinpath("theme")
     clsFile = themePath.joinpath("jupyterBook.cls")
+    logger.info("clsFile", clsFile)
     copy_asset_file(str(clsFile), app.outdir)
 
 
