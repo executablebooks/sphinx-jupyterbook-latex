@@ -22,7 +22,7 @@ from pathlib import Path
 
 from docutils import nodes as docnodes
 
-__version__ = "0.1.2"
+__version__ = "0.1.4"
 """jupyterbook-latex version"""
 
 logger = logging.getLogger(__name__)
