@@ -171,11 +171,12 @@ class ToctreeTransforms(SphinxPostTransform):
                     sectionName.append(title)
                     compoundParent.append(startOfFile)
                     for node in self.document.traverse(docutils.nodes.compound):
-                        flag = checkNodeIsInPart(f, node)
-                        if flag:
-                            nodecopy = node
-                            replaceWithNode(node, HiddenCellNode, False)
-                            sectionName.append(nodecopy)
+                        if "toctree-wrapper" in node["classes"]:
+                            flag = checkNodeIsInPart(f, node)
+                            if flag:
+                                nodecopy = node
+                                replaceWithNode(node, HiddenCellNode, False)
+                                sectionName.append(nodecopy)
                     self.document.append(compoundParent)
             # append bib at the end
             if len(bibNodes):
