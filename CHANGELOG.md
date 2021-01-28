@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.5 - 2021-01-28
+
+This release includes a minor bug fix. ([#26](https://github.com/executablebooks/jupyterbook-latex/pull/26) [@AakashGfude](https://github.com/AakashGfude))
+
 ## 0.1.4 - 2020-12-18
 
 This release includes bug fixes in configuration and setup file. ([#21](https://github.com/executablebooks/jupyterbook-latex/pull/21) [@AakashGfude](https://github.com/AakashGfude))
