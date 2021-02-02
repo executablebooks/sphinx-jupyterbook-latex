@@ -5,6 +5,7 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{graphicx}
 \RequirePackage{amsmath}
+\RequirePackage{mathrsfs}
 
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
@@ -15,3 +16,4 @@
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\gt}{>}
