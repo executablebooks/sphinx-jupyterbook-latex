@@ -4,6 +4,8 @@
 \RequirePackage{xcolor}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{graphicx}
+\RequirePackage{amsmath}
+\RequirePackage{mathrsfs}
 
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
@@ -11,3 +13,7 @@
 \renewcommand{\normalsize}{\fontsize{9}{10}\selectfont}
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\gt}{>}
