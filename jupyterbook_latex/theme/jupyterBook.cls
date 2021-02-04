@@ -10,6 +10,7 @@
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
 
+
 \renewcommand{\normalsize}{\fontsize{9}{10}\selectfont}
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
