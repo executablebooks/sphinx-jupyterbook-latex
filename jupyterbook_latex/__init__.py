@@ -55,16 +55,22 @@ def add_necessary_config(app, config):
     # only allow latex builder to access rest of the features
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
+
     # preamble to overwrite things from sphinx latex writer
-    config["latex_elements"] = {
-        "preamble": r"""
-            \usepackage[Latin,Greek]{ucharclasses}
-            \usepackage{newunicodechar}
-            \newunicodechar{β}{\beta}
-            % fixing title of the toc
-            \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+    configPreamble = ""
+    if "preamble" in config["latex_elements"]:
+        configPreamble = config["latex_elements"]["preamble"]
+
+    config["latex_elements"]["preamble"] = (
+        configPreamble
+        + r"""
+         \usepackage[Latin,Greek]{ucharclasses}
+        \usepackage{newunicodechar}
+        \newunicodechar{β}{\beta}
+        % fixing title of the toc
+        \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
         """
-    }
+    )
 
 
 def copy_static_files(app):
