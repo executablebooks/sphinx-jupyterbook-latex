@@ -1,5 +1,14 @@
 # Change Log
 
+## 0.1.6 - 2021-02-08
+
+### 👌 IMPROVE
+
+- removed explicit setting of fontsize in class file. The default sphinx fontsize is not used, and users can also set their own desired font size in config using
+  using LaTeX customization of sphinx.
+- support for math symbols liks argmin, \argmax \gt (greater then) \mathscr
+- support for β greek character.
+
 ## 0.1.5 - 2021-01-28
 
 This release includes a minor bug fix. ([#26](https://github.com/executablebooks/jupyterbook-latex/pull/26) [@AakashGfude](https://github.com/AakashGfude))
