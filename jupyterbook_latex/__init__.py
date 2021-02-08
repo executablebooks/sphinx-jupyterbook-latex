@@ -58,6 +58,9 @@ def add_necessary_config(app, config):
     # preamble to overwrite things from sphinx latex writer
     config["latex_elements"] = {
         "preamble": r"""
+            \usepackage[Latin,Greek]{ucharclasses}
+            \usepackage{newunicodechar}
+            \newunicodechar{β}{\beta}
             % fixing title of the toc
             \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
         """
