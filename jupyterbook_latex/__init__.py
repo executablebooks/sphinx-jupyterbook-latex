@@ -65,8 +65,7 @@ def add_necessary_config(app, config):
         configPreamble
         + r"""
          \usepackage[Latin,Greek]{ucharclasses}
-        \usepackage{newunicodechar}
-        \newunicodechar{β}{\beta}
+        \usepackage{unicode-math}
         % fixing title of the toc
         \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
         """
