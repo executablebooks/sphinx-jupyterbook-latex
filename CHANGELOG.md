@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.7 - 2021-02-11
+
+This release introduces `unicode-math` for handling math characters.
+
 ## 0.1.6 - 2021-02-08
 
 ### 👌 IMPROVE
