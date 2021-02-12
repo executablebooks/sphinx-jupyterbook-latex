@@ -47,9 +47,8 @@ jobs:
           latexmk
     - name: Build PDF from LaTeX (Docs)
       run: |
-        git clone https://github.com/executablebooks/jupyter-book
+        git clone -b latex-tocd https://github.com/AakashGfude/jupyter-book.git
         cd jupyter-book
-        git checkout latex-tocd
         pip install -e .[sphinx]
         jb build docs --builder pdflatex -n -W --keep-going
     - uses: actions/upload-artifact@v2
