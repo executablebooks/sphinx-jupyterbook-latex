@@ -45,6 +45,15 @@ jobs:
           texlive-latex-extra     \
           texlive-fonts-extra     \
           latexmk
+    - name: Build PDF from LaTeX (Docs)
+      run: |
+        git clone https://github.com/executablebooks/jupyter-book
+        cd jupyter-book
+        jb build docs --builder pdflatex -n -W --keep-going
+    - uses: actions/upload-artifact@v2
+      with:
+        name: PDF_LATEX
+        path: docs/_build/latex/book.pdf
 
     - name: Run pytest
       run: |
@@ -79,6 +88,8 @@ jobs:
 
     - name: Run pytest
       run: pytest --durations=10 -m 'not requires_tex'
+
+
 
   publish:
     name: Publish to PyPi
