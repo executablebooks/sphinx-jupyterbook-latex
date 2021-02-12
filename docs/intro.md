@@ -6,27 +6,20 @@ This package contains a [Sphinx](http://www.sphinx-doc.org/en/master/)
 extension to handle LaTeX builds for [jupyter-book](https://jupyterbook.org/)
 projects and to implement features specific to LaTeX.
 
-```{warning}
-jupyterbook-latex is in an active development stage and may change rapidly.
-```
-
 (getting-started)=
 ## Getting Started
 
-To get started with `jupyterbook-latex`, first clone the Github [repo](https://github.com/executablebooks/jupyterbook-latex) locally:
-
-```bash
-git clone https://github.com/executablebooks/jupyterbook-latex
+```{note}
+This package is already configured with the installation of `jupyter-book`. If
+this package is not used by deafult with your latex builds, chances are that
+your `jupyter-book` package is an older version.
 ```
 
-and then install using the setup file
+if you want to install this package directly, it can be installed through pip:
 
 ```bash
-cd jupyterbook-latex
-python setup.py install
+pip install jupyterbook-latex
 ```
-
-### Configuration
 
 Add this extension to the extensions list in your sphinx project's `conf.py`:
 
