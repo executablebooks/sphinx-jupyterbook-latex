@@ -44,6 +44,7 @@ jobs:
           texlive-xetex           \
           texlive-latex-extra     \
           texlive-fonts-extra     \
+          xindy                   \
           latexmk
     - name: Build PDF from LaTeX (Docs)
       run: |
