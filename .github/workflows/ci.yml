@@ -81,8 +81,6 @@ jobs:
     - name: Run pytest
       run: pytest --durations=10 -m 'not requires_tex'
 
-
-
   publish:
     name: Publish to PyPi
     needs: [pre-commit, tests, test-with-cov]
