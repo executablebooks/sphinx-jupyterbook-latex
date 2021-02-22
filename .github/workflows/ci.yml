@@ -61,6 +61,13 @@ jobs:
         file: ./coverage.xml
         fail_ci_if_error: true
 
+    - name: Build PDF from LaTeX (Jupyterbook Docs)
+      run: |
+        git clone -b latex-tocd https://github.com/AakashGfude/jupyter-book.git
+        cd jupyter-book
+        pip install -e .[sphinx]
+        jb build docs --builder pdflatex -n -W --keep-going
+
   tests:
 
     strategy:
@@ -80,13 +87,6 @@ jobs:
 
     - name: Run pytest
       run: pytest --durations=10 -m 'not requires_tex'
-
-  Build PDF from LaTeX (Jupyterbook Docs):
-    run: |
-      git clone -b latex-tocd https://github.com/AakashGfude/jupyter-book.git
-      cd jupyter-book
-      pip install -e .[sphinx]
-      jb build docs --builder pdflatex -n -W --keep-going
 
 
 
