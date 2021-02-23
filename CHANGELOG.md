@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.1.8 - 2021-02-22
+
+Included packages for handling maths, plots and outputs. Taken from the following [conf.py](https://github.com/QuantEcon/lecture-python/blob/b37408c7b5aeb3875767949c6449113bcd4b1702/conf.py)
+
 ## 0.1.7 - 2021-02-11
 
 This release introduces `unicode-math` for handling math characters.
