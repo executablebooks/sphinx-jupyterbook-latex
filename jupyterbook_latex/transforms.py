@@ -8,7 +8,7 @@ from sphinx.transforms import SphinxTransform
 from sphinx import addnodes
 from sphinx.builders.latex.nodes import thebibliography
 
-from .utils import get_filename
+from .utils import getFilename, removeExtension
 from .nodes import HiddenCellNode, H2Node, H3Node
 
 # Utility functions
@@ -103,7 +103,7 @@ class LatexMasterDocTransforms(SphinxTransform):
                     replaceWithNode(sect, HiddenCellNode, False)
 
         # check if the document is the masterdoc
-        if get_filename(self.document["source"]) == self.app.config.master_doc:
+        if getFilename(self.document["source"]) == self.app.config.master_doc:
             # pull the toctree-wrapper and append it later to the topmost document level
             for node in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in node["classes"]:
@@ -122,7 +122,7 @@ class handleSubSections(SphinxPostTransform):
 
     def apply(self, **kwargs: Any) -> None:
         docname = self.document["source"]
-        if get_filename(docname) == self.app.config.master_doc:
+        if getFilename(docname) == self.app.config.master_doc:
             for compound in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in compound["classes"]:
                     nodecopy = compound
@@ -141,12 +141,15 @@ class ToctreeTransforms(SphinxPostTransform):
                 nodefile = node.children[0].attributes["docname"]
                 chapfiles = part["chapters"]
                 for chap in chapfiles:
-                    if nodefile in chap.values():
+                    chapname = removeExtension(
+                        list(chap.values())[0]
+                    )  # get filename without extension
+                    if nodefile in chapname:
                         return True
             return False
 
         docname = self.document["source"]
-        if get_filename(docname) == self.app.config.master_doc:
+        if getFilename(docname) == self.app.config.master_doc:
             TOC_PATH = Path(self.app.confdir).joinpath("_toc.yml")
             tocfile = yaml.safe_load(TOC_PATH.read_text("utf8"))
 
@@ -178,6 +181,7 @@ class ToctreeTransforms(SphinxPostTransform):
                                 replaceWithNode(node, HiddenCellNode, False)
                                 sectionName.append(nodecopy)
                     self.document.append(compoundParent)
+
             # append bib at the end
             if len(bibNodes):
                 self.document.extend(bibNodes)
