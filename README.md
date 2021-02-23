@@ -5,34 +5,20 @@ Supporting LaTeX infrastructure for Jupyter Book
 This repository is a **development** project to improve LaTeX support
 in `Jupyter Book`.
 
-Getting Started
-------------
+## Get started
 
-1. Clone this repository
-
-```
-git fork https://github.com/executablebooks/jupyterbook-latex.git
-```
-
-2. Install using the setup file
+To get started with `jupyterbook-latex`, first install it through `pip`:
 
 ```
-cd jupyterbook-latex
-python setup.py install
+pip install jupyterbook-latex
 ```
 
-3. Add jupyterbook-latex to the `config.yml` file in your jupyterbook projects:
+then, add `jupyterbook_latex` to the `config.yml` file in your jupyterbook projects:
 
 ```
 sphinx:
     extra_extensions:
         - jupyterbook_latex
-```
-
-or `conf.py` in your sphinx projects:
-
-```
-extensions = ['jupyterbook_latex']
 ```
 
 Issues
