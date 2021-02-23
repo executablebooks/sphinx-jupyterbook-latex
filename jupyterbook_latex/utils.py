@@ -5,10 +5,10 @@ def removeExtension(filename):
     return filename
 
 
-def getRelativeFilename(source, slashes):
-    """gets the filename along with the path upto the number of slashes.
+def getFilenameWithSubpath(source, slashes):
+    """Gets the filename along with the relative path upto the number of slashes.
     :param source: full source path
-    :param slashes: slashes denote the level of subpath
+    :param slashes: denotes the level of subpath
     """
     filename = ""
     original = str(source)

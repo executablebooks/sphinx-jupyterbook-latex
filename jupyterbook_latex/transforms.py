@@ -8,7 +8,7 @@ from sphinx.transforms import SphinxTransform
 from sphinx import addnodes
 from sphinx.builders.latex.nodes import thebibliography
 
-from .utils import getRelativeFilename, removeExtension
+from .utils import getFilenameWithSubpath, removeExtension
 from .nodes import HiddenCellNode, H2Node, H3Node
 
 # Utility functions
@@ -104,8 +104,9 @@ class LatexMasterDocTransforms(SphinxTransform):
 
         # check if the document is the masterdoc
         numbSlashes = self.app.config.master_doc.count("/")
+
         if (
-            getRelativeFilename(self.document["source"], numbSlashes)
+            getFilenameWithSubpath(self.document["source"], numbSlashes)
             == self.app.config.master_doc
         ):
             # pull the toctree-wrapper and append it later to the topmost document level
@@ -126,7 +127,7 @@ class handleSubSections(SphinxPostTransform):
 
     def apply(self, **kwargs: Any) -> None:
         docname = self.document["source"]
-        if getRelativeFilename(docname, 0) == self.app.config.master_doc:
+        if getFilenameWithSubpath(docname, 0) == self.app.config.master_doc:
             for compound in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in compound["classes"]:
                     nodecopy = compound
@@ -153,7 +154,7 @@ class ToctreeTransforms(SphinxPostTransform):
             return False
 
         docname = self.document["source"]
-        if getRelativeFilename(docname, 0) == self.app.config.master_doc:
+        if getFilenameWithSubpath(docname, 0) == self.app.config.master_doc:
             TOC_PATH = Path(self.app.confdir).joinpath("_toc.yml")
             tocfile = yaml.safe_load(TOC_PATH.read_text("utf8"))
 
