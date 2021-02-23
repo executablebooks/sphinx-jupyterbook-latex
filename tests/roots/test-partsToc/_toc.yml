@@ -2,11 +2,11 @@
 
 - part: part1
   chapters:
-  - file: part1/chap1
+  - file: part1/chap1.md
   - file: part1/chap2
     sections:
       - file: part1/sec1
-      - file: part1/sec2
+      - file: part1/sec2.md
 
 - part: part2
   chapters:
