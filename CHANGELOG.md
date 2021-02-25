@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.2.0 - 2021-02-25
+
+### 👌 IMPROVE
+
+- Handling master_doc having being inside a subdirectory in `_toc.yml`.
+
+### 🐛 Bugs Fixed
+
+- `_toc.yml` can have extensions of the file names as well.
+
 ## 0.1.8 - 2021-02-22
 
 Included packages for handling maths, plots and outputs. Taken from the following [conf.py](https://github.com/QuantEcon/lecture-python/blob/b37408c7b5aeb3875767949c6449113bcd4b1702/conf.py)
