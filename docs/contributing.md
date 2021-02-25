@@ -27,15 +27,16 @@ pip install -e .[code_style,testing]
 
 ### Unit Testing
 
-We use pytest for testing, pytest-regression to regenerate expected outcomes of test and pytest-cov for checking coverage.
+We use `pytest` for testing, `pytest-regression` to regenerate expected outcomes of test,
+and `pytest-cov` for checking coverage.
 
-To simply run existing tests:
+To run all tests:
 
 ```bash
 pytest
 ```
 
-To run tests with coverage and an html coverage report:
+To run tests with `coverage` and an html coverage report:
 
 ```bash
 pytest --cov=jupyterbook_latex --cov-report=html
@@ -43,7 +44,9 @@ pytest --cov=jupyterbook_latex --cov-report=html
 
 ### Coding Style
 
-The consistency and code style in this project is enforced with multiple automated pre-commit hooks. You can install(recommend) and run them using:
+The consistency and code style in this project is enforced with multiple automated pre-commit hooks.
+
+To set up please run:
 
 ```bash
 pre-commit install
