@@ -48,4 +48,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: PDF_LATEX
-        path: docs/_build/latex/book.pdf
+        path: jupyter-book/docs/_build/latex/book.pdf
