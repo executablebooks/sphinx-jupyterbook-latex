@@ -9,13 +9,7 @@ projects and to implement features specific to LaTeX.
 (getting-started)=
 ## Getting Started
 
-```{note}
-This package is already configured with the installation of `jupyter-book`. If
-this package is not used by default with your latex builds, chances are that
-your `jupyter-book` package is an older version.
-```
-
-For other users, if you want to install this package directly, it can be installed through pip:
+To get started with `jupyterbook-latex`, first install it through pip:
 
 ```bash
 pip install jupyterbook-latex
