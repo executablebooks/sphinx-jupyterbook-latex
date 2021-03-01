@@ -34,6 +34,8 @@ def skip(self, node):
 
 
 def build_init_handler(app):
+    from sphinx.util.console import bold
+
     # only allow latex builder to access rest of the features
     if isinstance(app.builder, builders.latex.LaTeXBuilder):
         app.add_post_transform(codeCellTransforms)
@@ -49,6 +51,11 @@ def build_init_handler(app):
         app.add_transform(LatexMasterDocTransforms)
         app.add_post_transform(ToctreeTransforms)
         app.add_post_transform(handleSubSections)
+        logger.info(
+            bold("jupyterbook-latex v%s:") + "(latex_engine='%s')",
+            __version__,
+            app.config["latex_engine"],
+        )
 
 
 def add_necessary_config(app, config):
