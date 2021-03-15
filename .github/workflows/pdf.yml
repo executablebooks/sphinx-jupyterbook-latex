@@ -41,7 +41,7 @@ jobs:
 
     - name: Build PDF from LaTeX (Docs)
       run: |
-        git clone https://github.com/AakashGfude/jupyter-book.git
+        git clone https://github.com/executablebooks/jupyter-book.git
         cd jupyter-book
         pip install -e .[sphinx]
         jb build docs --builder pdflatex -n -W --keep-going
