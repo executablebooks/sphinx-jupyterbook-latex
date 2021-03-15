@@ -1,10 +1,19 @@
-# jupyterbook-latex
+# Jupyterbook-latex
 
 **Improvements to LaTeX for jupyter-book**.
 
 This package contains a [Sphinx](http://www.sphinx-doc.org/en/master/)
 extension to handle LaTeX builds for [jupyter-book](https://jupyterbook.org/)
 projects and to implement features specific to LaTeX.
+
+## Site Contents
+
+```{toctree}
+---
+maxdepth: 1
+---
+contributing.md
+```
 
 (getting-started)=
 ## Getting Started
@@ -22,7 +31,7 @@ extensions = ["jupyterbook_latex"]
 ```
 
 (feature-list)=
-## Feature List
+## Features List
 
 A list of features that are implemented in this `jupyter-book` extension:
 
@@ -35,8 +44,8 @@ A list of features that are implemented in this `jupyter-book` extension:
   to chapters in pdf output.
 
 * Files specified under the `sections:` key are included
-  in the parent `chapter` document with file title being `h2`
-  headers in the document.
+  in the parent `chapter` document, with the file title being the `h2`
+  header in the document.
 
 * The `master document` is not included in table of contents page
   and is instead treated as a `frontmatter`.
@@ -44,10 +53,10 @@ A list of features that are implemented in this `jupyter-book` extension:
 * `url` key in `_toc.yml` is being ignored in the final
   pdf output.
 
-* Support for `tableofcontents`](https://jupyterbook.org/customize/toc.html#add-a-table-of-contents-to-a-page-s-content) directives in `LaTeX`
-  is translated as a list with links preserved.
+* [`tableofcontents`](https://jupyterbook.org/customize/toc.html#add-a-table-of-contents-to-a-page-s-content) directive
+  is translated as a list, with the links preserved.
 
-* The table of contents page title is fixed to be `Contents` at present.
+* The `Table Of Contents` page title is fixed, with the value being "Contents".
 
 ### Master Document:
 
@@ -55,7 +64,7 @@ The `masterdoc` page is treated strictly as `front matter`. This is similar to a
 
 ### Code Cell Tags:
 
-A list of available tags can be found in https://jupyterbook.org/reference/cheatsheet.html#tags
+A list of available tags can be found in [https://jupyterbook.org/reference/cheatsheet.html#tags]
 
 * `hide-cell` is handled by removing the input and output cell content in the `pdf` output.
 
@@ -67,11 +76,11 @@ A list of available tags can be found in https://jupyterbook.org/reference/cheat
 
 * Handling of `png` and `gif` images using `sphinx.ext.imgconverter` package.
   Which uses [ImageMagick](https://www.imagemagick.org/script/index.php), which
-  will need to be installed on your system to work.
+  needs to be installed on your system to work.
 
 ```{note}
 [ImageMagick](https://www.imagemagick.org/script/index.php) is not installed by default
-so it is up to users to provide this software
+so it is up to the users to install this software.
 ```
 
 * Fonts used at the moment are [GNU Free Fonts](https://www.gnu.org/software/freefont/),
@@ -79,6 +88,6 @@ so it is up to users to provide this software
 
 * Direct LaTeX syntax for math is handled by default in source documents
   using `myst_amsmath_enable` key of `jupyter-book`.
-  More info on [myst_amsmath_enable](https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html#syntax-amsmath).
+  More info on [this](https://myst-parser.readthedocs.io/en/latest/using/syntax-optional.html#syntax-amsmath) page.
 
 * `xelatex` is used as the **default LaTeX engine** because of its support for unicode characters.

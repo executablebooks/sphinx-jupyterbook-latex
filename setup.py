@@ -34,7 +34,7 @@ setup(
             "pytest-regressions",
             "texsoup",
             "jupyter-book",
-            "sphinxcontrib-bibtex",
+            "sphinxcontrib-bibtex~=2.1.0",
         ],
         "rtd": [
             "sphinx>=3.0",
