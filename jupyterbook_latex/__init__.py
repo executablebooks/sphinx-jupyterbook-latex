@@ -1,26 +1,27 @@
-from .nodes import (
-    HiddenCellNode,
-    visit_HiddenCellNode,
-    H2Node,
-    visit_H2Node,
-    depart_H2Node,
-    H3Node,
-    visit_H3Node,
-    depart_H3Node,
-)
-from .transforms import (
-    codeCellTransforms,
-    LatexMasterDocTransforms,
-    ToctreeTransforms,
-    handleSubSections,
-)
 import os
-from sphinx import builders
-from sphinx.util import logging
-from sphinx.util.fileutil import copy_asset_file
 from pathlib import Path
 
 from docutils import nodes as docnodes
+from sphinx import builders
+from sphinx.util import logging
+from sphinx.util.fileutil import copy_asset_file
+
+from .nodes import (
+    H2Node,
+    H3Node,
+    HiddenCellNode,
+    depart_H2Node,
+    depart_H3Node,
+    visit_H2Node,
+    visit_H3Node,
+    visit_HiddenCellNode,
+)
+from .transforms import (
+    LatexMasterDocTransforms,
+    ToctreeTransforms,
+    codeCellTransforms,
+    handleSubSections,
+)
 
 __version__ = "0.2.0"
 """jupyterbook-latex version"""

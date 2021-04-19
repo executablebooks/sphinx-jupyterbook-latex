@@ -1,15 +1,16 @@
+from pathlib import Path
+from typing import Any
+
 import docutils
 import yaml
-from typing import Any
-from pathlib import Path
 from myst_nb import nodes
-from sphinx.transforms.post_transforms import SphinxPostTransform
-from sphinx.transforms import SphinxTransform
 from sphinx import addnodes
 from sphinx.builders.latex.nodes import thebibliography
+from sphinx.transforms import SphinxTransform
+from sphinx.transforms.post_transforms import SphinxPostTransform
 
+from .nodes import H2Node, H3Node, HiddenCellNode
 from .utils import getFilenameWithSubpath, removeExtension
-from .nodes import HiddenCellNode, H2Node, H3Node
 
 # Utility functions
 
@@ -155,7 +156,7 @@ class ToctreeTransforms(SphinxPostTransform):
 
         docname = self.document["source"]
         if getFilenameWithSubpath(docname, 0) == self.app.config.master_doc:
-            TOC_PATH = Path(self.app.confdir).joinpath("_toc.yml")
+            TOC_PATH = Path(self.app.confdir or self.app.srcdir).joinpath("_toc.yml")
             tocfile = yaml.safe_load(TOC_PATH.read_text("utf8"))
 
             # store bibliography nodes to append it at the end of doc

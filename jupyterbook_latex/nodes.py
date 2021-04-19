@@ -1,5 +1,6 @@
 """AST nodes to designate notebook components."""
 from docutils import nodes
+
 from .utils import sphinxEncode
 
 
