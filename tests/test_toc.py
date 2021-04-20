@@ -1,4 +1,5 @@
 import pickle
+
 import pytest
 from jupyter_book import commands
 from TexSoup import TexSoup

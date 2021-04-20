@@ -1,8 +1,9 @@
 import shutil
-import pytest
-from sphinx.testing.path import path
 from pathlib import Path
+
+import pytest
 from click.testing import CliRunner
+from sphinx.testing.path import path
 
 pytest_plugins = "sphinx.testing.fixtures"
 

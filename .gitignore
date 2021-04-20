@@ -22,3 +22,4 @@ coverage.xml
 *.py,cover
 .pytest_cache/
 *_build
+.vscode
