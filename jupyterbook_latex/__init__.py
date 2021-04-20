@@ -1,93 +1,39 @@
-import os
-from pathlib import Path
+""" """
 
-from docutils import nodes as docnodes
-from sphinx import builders
-from sphinx.util import logging
-from sphinx.util.fileutil import copy_asset_file
 
-from .nodes import (
-    H2Node,
-    H3Node,
-    HiddenCellNode,
-    depart_H2Node,
-    depart_H3Node,
-    visit_H2Node,
-    visit_H3Node,
-    visit_HiddenCellNode,
-)
-from .transforms import (
-    LatexMasterDocTransforms,
-    ToctreeTransforms,
-    codeCellTransforms,
-    handleSubSections,
-)
+from typing import TYPE_CHECKING, Any, cast
+
+if TYPE_CHECKING:
+    from sphinx.application import Sphinx
 
 __version__ = "0.2.0"
 """jupyterbook-latex version"""
 
-logger = logging.getLogger(__name__)
 
+def setup(app: "Sphinx") -> None:
+    """The sphinx entry-point for the extension."""
 
-# Helper node
-def skip(self, node):
-    raise docnodes.SkipNode
+    from docutils import nodes as docnodes
 
-
-def build_init_handler(app):
-    from sphinx.util.console import bold
-
-    # only allow latex builder to access rest of the features
-    if isinstance(app.builder, builders.latex.LaTeXBuilder):
-        app.add_post_transform(codeCellTransforms)
-        copy_static_files(app)
-        TOC_PATH = Path(app.confdir).joinpath("_toc.yml")
-        if not os.path.exists(TOC_PATH):
-            logger.info(
-                "Some features of this exetension will work only with a jupyter-book application"  # noqa: E501
-            )
-            return
-        app.config["myst_amsmath_enable"] = True
-        app.setup_extension("sphinx.ext.imgconverter")
-        app.add_transform(LatexMasterDocTransforms)
-        app.add_post_transform(ToctreeTransforms)
-        app.add_post_transform(handleSubSections)
-        logger.info(
-            bold("jupyterbook-latex v%s:") + "(latex_engine='%s')",
-            __version__,
-            app.config["latex_engine"],
-        )
-
-
-def add_necessary_config(app, config):
-    # only allow latex builder to access rest of the features
-    config["latex_engine"] = "xelatex"
-    config["latex_theme"] = "jupyterBook"
-
-    # preamble to overwrite things from sphinx latex writer
-    configPreamble = ""
-    if "preamble" in config["latex_elements"]:
-        configPreamble = config["latex_elements"]["preamble"]
-
-    config["latex_elements"]["preamble"] = (
-        configPreamble
-        + r"""
-         \usepackage[Latin,Greek]{ucharclasses}
-        \usepackage{unicode-math}
-        % fixing title of the toc
-        \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
-        """
+    from .events import override_latex_config, setup_latex_transforms
+    from .nodes import (
+        H2Node,
+        H3Node,
+        HiddenCellNode,
+        depart_H2Node,
+        depart_H3Node,
+        visit_H2Node,
+        visit_H3Node,
+        visit_HiddenCellNode,
     )
 
+    def skip(self, node: docnodes.Element):
+        raise docnodes.SkipNode
 
-def copy_static_files(app):
-    themePath = Path(__file__).parent.joinpath("theme")
-    clsFile = themePath.joinpath("jupyterBook.cls")
-    copy_asset_file(str(clsFile), app.outdir)
+    # add_node has the wrong typing for sphinx<4
+    add_node = cast(Any, app.add_node)
 
-
-def setup(app):
-    app.add_node(
+    add_node(
         HiddenCellNode,
         override=True,
         html=(visit_HiddenCellNode, None),
@@ -96,7 +42,7 @@ def setup(app):
         text=(visit_HiddenCellNode, None),
         man=(visit_HiddenCellNode, None),
     )
-    app.add_node(
+    add_node(
         H2Node,
         override=True,
         latex=(visit_H2Node, depart_H2Node),
@@ -105,7 +51,7 @@ def setup(app):
         text=(skip, None),
         man=(skip, None),
     )
-    app.add_node(
+    add_node(
         H3Node,
         override=True,
         latex=(visit_H3Node, depart_H3Node),
@@ -114,5 +60,6 @@ def setup(app):
         text=(skip, None),
         man=(skip, None),
     )
-    app.connect("config-inited", add_necessary_config)
-    app.connect("builder-inited", build_init_handler)
+
+    app.connect("config-inited", override_latex_config)
+    app.connect("builder-inited", setup_latex_transforms)

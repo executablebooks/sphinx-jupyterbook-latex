@@ -1,18 +1,18 @@
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 import docutils
 import yaml
-from myst_nb import nodes
 from sphinx import addnodes
+from sphinx.application import Sphinx
 from sphinx.builders.latex.nodes import thebibliography
 from sphinx.transforms import SphinxTransform
 from sphinx.transforms.post_transforms import SphinxPostTransform
+from sphinx.util import logging
 
 from .nodes import H2Node, H3Node, HiddenCellNode
-from .utils import getFilenameWithSubpath, removeExtension
 
-# Utility functions
+logger = logging.getLogger(__name__)
 
 
 def replaceWithNode(srcNode, toReplace, copyChildren):
@@ -50,24 +50,20 @@ def find_parent(env, node, parentTag):
     return None
 
 
+def remove_suffix(docname: str, suffixes: List[str]) -> str:
+    """Remove any suffixes."""
+    for suffix in suffixes:
+        if docname.endswith(suffix):
+            return docname[: -len(suffix)]
+    return docname
+
+
+def is_root_document(document: docutils.nodes.document, app: Sphinx) -> bool:
+    """Check if a document is the root_doc, based on its source path."""
+    return app.project.path2doc(document["source"]) == app.config.master_doc
+
+
 # Transforms and postTransforms
-
-
-class codeCellTransforms(SphinxPostTransform):
-    default_priority = 400
-
-    def apply(self, **kwargs: Any) -> None:
-        for node in self.document.traverse(nodes.CellNode):
-            if "tag_hide-cell" in node["classes"]:
-                replaceWithNode(node, HiddenCellNode, True)
-            if "tag_hide-input" in node["classes"]:
-                inputNode = node.traverse(nodes.CellInputNode)
-                for node in inputNode:
-                    replaceWithNode(node, HiddenCellNode, True)
-            if "tag_hide-output" in node["classes"]:
-                outputNode = node.traverse(nodes.CellOutputNode)
-                for node in outputNode:
-                    replaceWithNode(node, HiddenCellNode, True)
 
 
 class LatexMasterDocTransforms(SphinxTransform):
@@ -103,13 +99,7 @@ class LatexMasterDocTransforms(SphinxTransform):
                         parentSect.append(child)
                     replaceWithNode(sect, HiddenCellNode, False)
 
-        # check if the document is the masterdoc
-        numbSlashes = self.app.config.master_doc.count("/")
-
-        if (
-            getFilenameWithSubpath(self.document["source"], numbSlashes)
-            == self.app.config.master_doc
-        ):
+        if is_root_document(self.document, self.app):
             # pull the toctree-wrapper and append it later to the topmost document level
             for node in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in node["classes"]:
@@ -123,12 +113,49 @@ class LatexMasterDocTransforms(SphinxTransform):
                 self.document.extend(tocwrrapper)
 
 
+class MystNbPostTransform(SphinxPostTransform):
+    """Replaces hidden input/output cells with a node that is ignored when rendering."""
+
+    default_priority = 400
+
+    @classmethod
+    def check_dependency(cls) -> bool:
+        """Check that myst-nb is installed and a compatible version."""
+        try:
+            from myst_nb import __version__
+        except ImportError:
+            return False
+        major, minor = __version__.split(".")[0:2]
+        if major == "0" and minor in ("11", "12"):
+            return True
+        else:
+            logger.warning(
+                "[jb-latex]: myst-nb version not compatible with >=0.11,<0.13: "
+                f"{__version__}"
+            )
+        return False
+
+    def apply(self, **kwargs: Any) -> None:
+        from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
+
+        for node in self.document.traverse(CellNode):
+            if "tag_hide-cell" in node["classes"]:
+                replaceWithNode(node, HiddenCellNode, True)
+            if "tag_hide-input" in node["classes"]:
+                inputNode = node.traverse(CellInputNode)
+                for node in inputNode:
+                    replaceWithNode(node, HiddenCellNode, True)
+            if "tag_hide-output" in node["classes"]:
+                outputNode = node.traverse(CellOutputNode)
+                for node in outputNode:
+                    replaceWithNode(node, HiddenCellNode, True)
+
+
 class handleSubSections(SphinxPostTransform):
     default_priority = 700
 
     def apply(self, **kwargs: Any) -> None:
-        docname = self.document["source"]
-        if getFilenameWithSubpath(docname, 0) == self.app.config.master_doc:
+        if is_root_document(self.document, self.app):
             for compound in self.document.traverse(docutils.nodes.compound):
                 if "toctree-wrapper" in compound["classes"]:
                     nodecopy = compound
@@ -147,15 +174,14 @@ class ToctreeTransforms(SphinxPostTransform):
                 nodefile = node.children[0].attributes["docname"]
                 chapfiles = part["chapters"]
                 for chap in chapfiles:
-                    chapname = removeExtension(
-                        list(chap.values())[0]
-                    )  # get filename without extension
+                    chapname = remove_suffix(
+                        list(chap.values())[0], self.app.config.source_suffix
+                    )
                     if nodefile in chapname:
                         return True
             return False
 
-        docname = self.document["source"]
-        if getFilenameWithSubpath(docname, 0) == self.app.config.master_doc:
+        if is_root_document(self.document, self.app):
             TOC_PATH = Path(self.app.confdir or self.app.srcdir).joinpath("_toc.yml")
             tocfile = yaml.safe_load(TOC_PATH.read_text("utf8"))
 

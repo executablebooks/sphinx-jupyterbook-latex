@@ -1,4 +1,4 @@
-# jupyterbook-latex
+# jupyterbook-latex [IN DEVELOPMENT]
 
 Supporting LaTeX infrastructure for Jupyter Book
 
@@ -20,6 +20,21 @@ sphinx:
     extra_extensions:
         - jupyterbook_latex
 ```
+
+## Extension Details
+
+This extension does not provide an actual Sphinx LaTeX theme,
+instead it instantiates a number of transforms (for LaTeX builders only) that manipulate the AST into the required format:
+
+1. Overrides some configuration:
+
+- ``latex_engine`` -> ``xelatex``
+- ``latex_theme`` -> ``jupyterBook``
+- appends necessary LaTeX commands to the preamble
+
+2. When a latex builder is specified:
+
+- Set's up `sphinx.ext.imgconverter`
 
 Issues
 ------
