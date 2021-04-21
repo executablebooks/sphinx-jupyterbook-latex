@@ -11,10 +11,9 @@ from sphinx.util.fileutil import copy_asset_file
 
 from . import __version__, theme
 from .transforms import (
-    LatexMasterDocTransforms,
+    LatexRootDocPostTransforms,
+    LatexRootDocTransforms,
     MystNbPostTransform,
-    ToctreeTransforms,
-    handleSubSections,
 )
 
 if sys.version_info < (3, 9):
@@ -81,10 +80,10 @@ def setup_latex_transforms(app: Sphinx) -> None:
     if MystNbPostTransform.check_dependency():
         app.add_post_transform(MystNbPostTransform)
 
-    TOC_PATH = Path(app.confdir or app.srcdir).joinpath("_toc.yml")
-    if not os.path.exists(TOC_PATH):
+    toc_path = Path(app.confdir or app.srcdir).joinpath("_toc.yml")
+    if not os.path.exists(toc_path):
         logger.info(
-            "Some features of this exetension will work only with a jupyter-book application"  # noqa: E501
+            "Some features of this extension will work only with a jupyter-book application"  # noqa: E501
         )
         return
 
@@ -99,6 +98,5 @@ def setup_latex_transforms(app: Sphinx) -> None:
         )
 
     app.setup_extension("sphinx.ext.imgconverter")
-    app.add_transform(LatexMasterDocTransforms)
-    app.add_post_transform(ToctreeTransforms)
-    app.add_post_transform(handleSubSections)
+    app.add_transform(LatexRootDocTransforms)
+    app.add_post_transform(LatexRootDocPostTransforms)

@@ -14,6 +14,11 @@
             This is H3
         <paragraph>
             Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <HiddenCellNode ids="this-is-h4" names="this\ is\ h4">
+        <title>
+            This is H4
+        <paragraph>
+            Ipso facto
         <HiddenCellNode classes="toctree-wrapper">
         <HiddenCellNode classes="toctree-wrapper">
     <compound classes="toctree-wrapper">
