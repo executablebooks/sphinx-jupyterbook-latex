@@ -1,10 +1,17 @@
 """AST nodes to designate notebook components."""
 from docutils import nodes
 
-from .utils import sphinxEncode
+
+def sphinx_encode(string: str) -> str:
+    """Replace tilde, hyphen and single quotes with their LaTeX commands."""
+    return (
+        string.replace("~", "\\textasciitilde{}")
+        .replace("-", "\\sphinxhyphen{}")
+        .replace("'", "\\textquotesingle{}")
+    )
 
 
-def getIndex(body, text):
+def get_index(body, text):
     index = 0
     indices = [i for i, x in enumerate(body) if x == text]
     for i in indices:
@@ -35,7 +42,7 @@ class H3Node(nodes.Element):
 
 def visit_H2Node(self, node):
     self.h2Text = node.astext()
-    self.h2Text = sphinxEncode(self.h2Text)
+    self.h2Text = sphinx_encode(self.h2Text)
 
     strong = nodes.strong("")
     strong.children = node.children
@@ -51,7 +58,7 @@ def visit_H2Node(self, node):
 
 
 def depart_H2Node(self, node):
-    index = getIndex(self.body, self.h2Text)
+    index = get_index(self.body, self.h2Text)
     if index:
         self.body[index] = "\\Large " + self.h2Text
     # else throw an error
@@ -62,7 +69,7 @@ def visit_H3Node(self, node):
 
 
 def depart_H3Node(self, node):
-    index = getIndex(self.body, self.h2Text)
+    index = get_index(self.body, self.h2Text)
     if index:
         self.body[index] = "\\large " + self.h2Text
     # else throw an error
