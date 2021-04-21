@@ -40,12 +40,12 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     latex_elements = cast(dict, config["latex_elements"])
 
     # preamble to overwrite things from sphinx latex writer
-    configPreamble = ""
-    if "preamble" in config["latex_elements"]:
-        configPreamble = latex_elements["preamble"]
+    config_preamble = (
+        latex_elements["preamble"] if "preamble" in config["latex_elements"] else ""
+    )
 
     latex_elements["preamble"] = (
-        configPreamble
+        config_preamble
         + r"""
          \usepackage[Latin,Greek]{ucharclasses}
         \usepackage{unicode-math}
