@@ -87,16 +87,6 @@ def setup_latex_transforms(app: Sphinx) -> None:
         )
         return
 
-    # TODO why is this necessary, I don't think this should be enforced
-    if (
-        "myst_enable_extensions" in app.config
-        and "amsmath" not in app.config["myst_enable_extensions"]
-    ):
-        logger.info("[jb-latex]: Adding 'amsmath' to myst-parser extensions")
-        app.config["myst_enable_extensions"].append(  # type: ignore[attr-defined]
-            "amsmath"
-        )
-
     app.setup_extension("sphinx.ext.imgconverter")
     app.add_transform(LatexRootDocTransforms)
     app.add_post_transform(LatexRootDocPostTransforms)
