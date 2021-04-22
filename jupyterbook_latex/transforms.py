@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Tuple, Type
+from typing import Any, Iterator, List, Optional, Tuple, Type
 
 import docutils
 import yaml
@@ -11,7 +11,7 @@ from sphinx.transforms import SphinxTransform
 from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util import logging
 
-from .nodes import H2Node, H3Node, HiddenCellNode
+from .nodes import HiddenCellNode, RootHeader
 
 logger = logging.getLogger(__name__)
 
@@ -27,17 +27,6 @@ def replace_node_cls(
     if copy_children:
         node.children = src_node.children
     src_node.replace_self([node])
-
-
-def get_section_depth(node: docutils.nodes.section, root_ids: Tuple[str, ...]) -> int:
-    """Get the nesting depth of the section."""
-    d = 0
-    while tuple(node.attributes["ids"]) != root_ids:
-        d += 1
-        node = getattr(node, "parent", None)
-        if not node:
-            break
-    return d
 
 
 def find_parent(
@@ -85,48 +74,28 @@ class LatexRootDocTransforms(SphinxTransform):
 
     def apply(self, **kwargs: Any) -> None:
 
-        if not is_root_document(self.document, self.app):
+        if self.env.docname != self.app.config.master_doc:
             return
 
-        # pop the toctree-wrappers and append them to the topmost document level
+        # add docname attribute to toctree-wrapper nodes
+        # so we can identify their origin later, when LatexBuilder merges the doctrees
         for node in self.document.traverse(docutils.nodes.compound):
             if "toctree-wrapper" in node["classes"]:
-                replace_node_cls(node, HiddenCellNode, False)
-                self.document.append(node)
+                node["docname"] = self.env.docname
 
-        # map the section ids to their depth in the tree (starting at h1 == 0)
-        section_levels: Dict[Tuple[str, ...], int] = {}
-        for count, sect in enumerate(self.document.traverse(docutils.nodes.section)):
-            sect_id = tuple(sect.attributes["ids"])
-            if count == 0:
-                top_level_section = sect
-                top_level_id = sect_id
-            section_levels[sect_id] = get_section_depth(sect, top_level_id)
+        # add the docname and header_level attributes to section nodes
+        # so we can identify them later, when LatexBuilder merges the doctrees
+        def _recursive_assign_depth(
+            node: docutils.nodes.Element, section_depth: int
+        ) -> None:
+            for child in node.children:
+                if isinstance(child, docutils.nodes.section):
+                    child["docname"] = self.env.docname
+                    child["header_level"] = section_depth
+                    section_depth += 1
+                _recursive_assign_depth(child, section_depth)
 
-        if not section_levels:
-            return
-
-        # flatten the AST sections under the top-level section
-        for sect in self.document.traverse(docutils.nodes.section):
-            if sect == top_level_section:
-                continue
-            # move section children to the top-level
-            for child in sect.children:
-                # replace H2 and H3 titles with nodes that can be custom rendered
-                if isinstance(child, docutils.nodes.title):
-                    sect_id = tuple(sect.attributes["ids"])
-                    header_node = None
-                    if section_levels[sect_id] == 1:
-                        header_node = H2Node("")
-                    elif section_levels[sect_id] == 2:
-                        header_node = H3Node("")
-                    if header_node is not None:
-                        header_node.children = child.children
-                        child = header_node
-                top_level_section.append(child)
-
-            # remove the section node
-            replace_node_cls(sect, HiddenCellNode, False)
+        _recursive_assign_depth(self.document, 1)
 
 
 class MystNbPostTransform(SphinxPostTransform):
@@ -196,13 +165,88 @@ def check_node_in_part(
 
 
 class LatexRootDocPostTransforms(SphinxPostTransform):
-    """Arrange the toctrees and bibliographies into the required structure."""
+    """Arrange the sections, toctrees and bibliographies into the required structure,
+    and replace sub-section nodes from the root document,
+    to ensure that either the generated part headings, or sub-file top-level headings,
+    are the 2nd level headings.
+
+    This acts on a doctree that has been assembled with the root document
+    as the index, then recursively including all documents in toctrees (+appendices),
+    see ``LaTeXBuilder.assemble_doctree.inline_all_toctrees``.
+
+    The structure is expected to look like::
+
+        <document docname="root">
+            <section>
+                <title>
+                ...
+                <compound classes="toctree-wrapper">
+                    <start_of_file docname="part1/chap1">
+                        <section>
+                            <title>
+                            ...
+                            <compound classes="toctree-wrapper">
+                                <start_of_file docname="part1/sec1">
+                                    <section>
+                                        <title>
+                                        ...
+                    <start_of_file docname="part1/chap2">
+                        <section>
+                            <title>
+                            ...
+                <compound classes="toctree-wrapper">
+                    <start_of_file docname="part2/chap1">
+                        <section>
+                            <title>
+                            ...
+
+    """
 
     default_priority = 700
 
     def apply(self, **kwargs: Any) -> None:
+
         if not is_root_document(self.document, self.app):
             return
+
+        docname = self.app.project.path2doc(self.document["source"])
+
+        # find the top-level section for the index file
+        top_level_section = None
+        for sect in self.document.traverse(docutils.nodes.section):
+            if sect.get("docname") == docname:
+                top_level_section = sect
+                break
+
+        assert top_level_section
+
+        # For the index file only,
+        # flatten the AST sub-sections under the top-level section
+        # and replace their titles with a special node with custom rendering
+        for sect in self.document.traverse(docutils.nodes.section):
+            if (
+                sect.get("docname") != docname
+                or "header_level" not in sect
+                or sect["header_level"] <= top_level_section["header_level"]
+            ):
+                continue
+            # move section children to the top-level
+            for child in sect.children:
+                # replace titles with nodes that can be custom rendered
+                if isinstance(child, docutils.nodes.title):
+                    header_node = RootHeader(level=sect["header_level"])
+                    header_node.children = child.children
+                    child = header_node
+                top_level_section.append(child)
+
+            # remove the section node
+            replace_node_cls(sect, HiddenCellNode, False)
+
+        # pop the top-level toctree-wrappers and append them to the topmost document level
+        for node in self.document.traverse(docutils.nodes.compound):
+            if "toctree-wrapper" in node["classes"] and node.get("docname") == docname:
+                replace_node_cls(node, HiddenCellNode, False)
+                self.document.append(node)
 
         # move toctrees to the end of their parent section
         for original_node in self.document.traverse(docutils.nodes.compound):
@@ -227,6 +271,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
         #     <section>
         #       <title>
         #       <compound classes="toctree-wrapper">
+        #          ...
 
         for part_name, chapter_files in iterate_parts(self.app):
             self.app.config["latex_toplevel_sectioning"] = "part"

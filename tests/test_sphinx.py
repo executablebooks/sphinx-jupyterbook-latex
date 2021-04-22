@@ -76,7 +76,6 @@ def test_build_no_ext(
     doctree["source"] = "intro"
     file_regression.check(doctree.pformat(), extension=".xml", encoding="utf8")
 
-    # get root doctree after post-transforms
     # get root doctree after all doctrees are merged and post-transforms applied
     doctree = builder.app.builder.assemble_doctree(
         "intro", toctree_only=False, appendices=[]

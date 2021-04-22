@@ -10,11 +10,7 @@ from sphinx.util import logging
 from sphinx.util.fileutil import copy_asset_file
 
 from . import __version__, theme
-from .transforms import (
-    LatexRootDocPostTransforms,
-    LatexRootDocTransforms,
-    MystNbPostTransform,
-)
+from .transforms import LatexRootDocPostTransforms, MystNbPostTransform
 
 if sys.version_info < (3, 9):
     import importlib_resources as resources
@@ -88,5 +84,4 @@ def setup_latex_transforms(app: Sphinx) -> None:
         return
 
     app.setup_extension("sphinx.ext.imgconverter")
-    app.add_transform(LatexRootDocTransforms)
     app.add_post_transform(LatexRootDocPostTransforms)

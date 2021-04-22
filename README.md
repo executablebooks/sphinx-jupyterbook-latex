@@ -35,6 +35,7 @@ instead it instantiates a number of transforms (for LaTeX builders only) that ma
 2. When a latex builder is specified:
 
 - Set's up `sphinx.ext.imgconverter`
+- Replace headers in the root document
 
 Issues
 ------

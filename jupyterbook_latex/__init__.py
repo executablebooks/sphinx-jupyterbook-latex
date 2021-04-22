@@ -17,15 +17,13 @@ def setup(app: "Sphinx") -> None:
 
     from .events import override_latex_config, setup_latex_transforms
     from .nodes import (
-        H2Node,
-        H3Node,
         HiddenCellNode,
-        depart_H2Node,
-        depart_H3Node,
-        visit_H2Node,
-        visit_H3Node,
+        RootHeader,
+        depart_RootHeader,
         visit_HiddenCellNode,
+        visit_RootHeader,
     )
+    from .transforms import LatexRootDocTransforms
 
     def skip(self, node: docnodes.Element):
         raise docnodes.SkipNode
@@ -43,23 +41,16 @@ def setup(app: "Sphinx") -> None:
         man=(visit_HiddenCellNode, None),
     )
     add_node(
-        H2Node,
+        RootHeader,
         override=True,
-        latex=(visit_H2Node, depart_H2Node),
-        html=(visit_H2Node, depart_H2Node),
+        latex=(visit_RootHeader, depart_RootHeader),
+        html=(visit_RootHeader, depart_RootHeader),
         textinfo=(skip, None),
         text=(skip, None),
         man=(skip, None),
     )
-    add_node(
-        H3Node,
-        override=True,
-        latex=(visit_H3Node, depart_H3Node),
-        html=(visit_H3Node, depart_H3Node),
-        textinfo=(skip, None),
-        text=(skip, None),
-        man=(skip, None),
-    )
+
+    app.add_transform(LatexRootDocTransforms)
 
     app.connect("config-inited", override_latex_config)
     app.connect("builder-inited", setup_latex_transforms)
