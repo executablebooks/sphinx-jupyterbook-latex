@@ -58,6 +58,8 @@ def test_build_no_ext(
         dedent(
             """\
         master_doc = "intro"
+        latex_documents = [('intro', 'book.tex', 'My sample book',
+                            'The Jupyter Book Community', 'jupyterBook')]
         extensions = ["myst_parser", "sphinx_external_toc", "sphinxcontrib.bibtex"]
         external_toc_path = "_toc_migrated.yml"
         bibtex_bibfiles = ["references.bib"]
@@ -82,7 +84,7 @@ def test_build_no_ext(
     doctree["source"] = "intro"
     file_regression.check(doctree.pformat(), extension=".resolved.xml", encoding="utf8")
 
-    file_content = TexSoup((builder.outdir / "python.tex").read_text())
+    file_content = TexSoup((builder.outdir / "book.tex").read_text())
     file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")
 
 
@@ -98,6 +100,8 @@ def test_build_with_ext(
         dedent(
             """\
         master_doc = "intro"
+        latex_documents = [('intro', 'book.tex', 'My sample book',
+                            'The Jupyter Book Community', 'jupyterBook')]
         extensions = ["myst_parser", "sphinx_external_toc",
                       "sphinxcontrib.bibtex", "jupyterbook_latex"]
         external_toc_path = "_toc_migrated.yml"
@@ -122,5 +126,5 @@ def test_build_with_ext(
     doctree["source"] = "intro"
     file_regression.check(doctree.pformat(), extension=".resolved.xml", encoding="utf8")
 
-    file_content = TexSoup((builder.outdir / "python.tex").read_text())
+    file_content = TexSoup((builder.outdir / "book.tex").read_text())
     file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")
