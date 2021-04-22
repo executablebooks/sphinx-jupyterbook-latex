@@ -28,7 +28,7 @@
             <section docname="part1">
                 <title>
                     part1
-                <compound classes="toctree-wrapper" docname="intro">
+                <compound caption="part1" classes="toctree-wrapper" docname="intro">
                     <start_of_file docname="part1/chap1">
                         <section docname="part1/chap1" ids="chapter-1 :doc" names="chapter\ 1">
                             <title>
@@ -71,7 +71,7 @@
             <section docname="part2">
                 <title>
                     part2
-                <compound classes="toctree-wrapper" docname="intro">
+                <compound caption="part2" classes="toctree-wrapper" docname="intro">
                     <start_of_file docname="part2/chap3">
                         <section docname="part2/chap3" ids="chapter-3 :doc" names="chapter\ 3">
                             <title>

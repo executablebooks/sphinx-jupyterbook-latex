@@ -20,7 +20,7 @@
                         This is H4
                     <paragraph>
                         Ipso facto
-                    <compound classes="toctree-wrapper" docname="intro">
+                    <compound caption="part1" classes="toctree-wrapper" docname="intro">
                         <toctree caption="part1" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="True" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" rawentries="" titlesonly="True">
-                    <compound classes="toctree-wrapper" docname="intro">
+                    <compound caption="part2" classes="toctree-wrapper" docname="intro">
                         <toctree caption="part2" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="True" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" rawentries="Gallery\ of\ Jupyter\ Books" titlesonly="True">

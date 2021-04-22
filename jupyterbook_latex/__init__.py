@@ -25,6 +25,9 @@ def setup(app: "Sphinx") -> None:
     )
     from .transforms import LatexRootDocTransforms
 
+    app.add_config_value("jblatex_captions_to_parts", False, "env")
+    app.add_config_value("jblatex_load_imgconverter", True, "env")
+
     def skip(self, node: docnodes.Element):
         raise docnodes.SkipNode
 

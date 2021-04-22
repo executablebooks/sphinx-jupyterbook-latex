@@ -1,6 +1,4 @@
-import os
 import sys
-from pathlib import Path
 from typing import cast
 
 from sphinx.application import Sphinx
@@ -31,6 +29,9 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     # only allow latex builder to access rest of the features
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
+
+    if app.config["jblatex_captions_to_parts"]:
+        app.config["latex_toplevel_sectioning"] = "part"
 
     latex_elements = cast(dict, config["latex_elements"])
 
@@ -76,12 +77,6 @@ def setup_latex_transforms(app: Sphinx) -> None:
     if MystNbPostTransform.check_dependency():
         app.add_post_transform(MystNbPostTransform)
 
-    toc_path = Path(app.confdir or app.srcdir).joinpath("_toc.yml")
-    if not os.path.exists(toc_path):
-        logger.info(
-            "Some features of this extension will work only with a jupyter-book application"  # noqa: E501
-        )
-        return
-
-    app.setup_extension("sphinx.ext.imgconverter")
+    if app.config["jblatex_load_imgconverter"]:
+        app.setup_extension("sphinx.ext.imgconverter")
     app.add_post_transform(LatexRootDocPostTransforms)
