@@ -76,7 +76,10 @@ def is_root_document(document: docutils.nodes.document, app: Sphinx) -> bool:
 
 
 class LatexRootDocTransforms(SphinxTransform):
-    """Arrange the toctrees and sections in the required structure."""
+    """Arrange the toctrees and sections in the required structure.
+
+    Also replace titles with H2 and H3 nodes, for custom rendering.
+    """
 
     default_priority = 500
 
@@ -91,7 +94,7 @@ class LatexRootDocTransforms(SphinxTransform):
                 replace_node_cls(node, HiddenCellNode, False)
                 self.document.append(node)
 
-        # map the section ids to their depth in the tree (h1 == 0)
+        # map the section ids to their depth in the tree (starting at h1 == 0)
         section_levels: Dict[Tuple[str, ...], int] = {}
         for count, sect in enumerate(self.document.traverse(docutils.nodes.section)):
             sect_id = tuple(sect.attributes["ids"])
@@ -191,11 +194,21 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
                     replace_node_cls(original_node, HiddenCellNode, False)
                     parent_node.append(original_node)
 
-        # store bibliography nodes to append it at the end of doc
+        # extract any bibliography nodes to append at the end of the document
         bib_nodes = []
         for bib_node in self.document.traverse(thebibliography):
             bib_nodes.append(bib_node)
             replace_node_cls(bib_node, HiddenCellNode, False)
+
+        # check if root doc has "parts": Multiple toctrees, each with a caption
+        # if yes, change `latex_toplevel_sectioning` to "part", then
+        # replace the original toctree-wrapper with a section:
+
+        # <compound classes="toctree-wrapper">
+        #   <start_of_file>
+        #     <section>
+        #       <title>
+        #       <compound classes="toctree-wrapper">
 
         toc_path = Path(self.app.confdir or self.app.srcdir).joinpath("_toc.yml")
         tocfile = yaml.safe_load(toc_path.read_text("utf8"))
@@ -214,15 +227,13 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
                 start_of_file.append(section_node)
                 section_node.append(title)
                 compound_parent.append(start_of_file)
-                for node in self.document.traverse(docutils.nodes.compound):
-                    if "toctree-wrapper" in node["classes"]:
-                        flag = check_node_in_part(f, node, self.app)
-                        if flag:
-                            original_node = node
-                            replace_node_cls(node, HiddenCellNode, False)
+                for original_node in self.document.traverse(docutils.nodes.compound):
+                    if "toctree-wrapper" in original_node["classes"]:
+                        if check_node_in_part(f, original_node, self.app):
+                            replace_node_cls(original_node, HiddenCellNode, False)
                             section_node.append(original_node)
                 self.document.append(compound_parent)
 
-        # append bib at the end
+        # now append the bibliography nodes to the end of the document
         if bib_nodes:
             self.document.extend(bib_nodes)
