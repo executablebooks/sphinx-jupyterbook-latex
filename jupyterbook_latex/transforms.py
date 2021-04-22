@@ -174,12 +174,18 @@ def iterate_parts(app: Sphinx) -> Iterator[Tuple[str, Optional[List[dict]]]]:
             yield (item["part"], item["chapters"] if "chapters" in item else None)
 
 
-def check_node_in_part(chapter_files: Optional[List[dict]], node, app: Sphinx) -> bool:
+def check_node_in_part(
+    chapter_files: Optional[List[dict]],
+    toc_wrapper: docutils.nodes.compound,
+    app: Sphinx,
+) -> bool:
     """ """
     if not chapter_files:
         return False
 
-    nodefile = node.children[0].attributes["docname"]
+    # expect start_of_file
+    nodefile = toc_wrapper.children[0].attributes["docname"]
+
     for chapter_data in chapter_files:
         if "file" not in chapter_data:
             continue

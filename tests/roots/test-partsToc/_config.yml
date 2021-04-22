@@ -15,6 +15,9 @@ latex:
   latex_documents:
     targetname: book.tex
 
+bibtex_bibfiles:
+- references.bib
+
 sphinx:
   extra_extensions:
     - jupyterbook_latex
