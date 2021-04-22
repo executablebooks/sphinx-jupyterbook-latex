@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple, Type
+from typing import Any, Dict, Iterator, List, Optional, Tuple, Type
 
 import docutils
 import yaml
@@ -165,15 +165,27 @@ class MystNbPostTransform(SphinxPostTransform):
                     replace_node_cls(output_node, HiddenCellNode, True)
 
 
-def check_node_in_part(part, node, app: Sphinx) -> bool:
+def iterate_parts(app: Sphinx) -> Iterator[Tuple[str, Optional[List[dict]]]]:
     """ """
-    if "chapters" in part:
-        nodefile = node.children[0].attributes["docname"]
-        chapfiles = part["chapters"]
-        for chap in chapfiles:
-            chapname = remove_suffix(list(chap.values())[0], app.config.source_suffix)
-            if nodefile in chapname:
-                return True
+    toc_path = Path(app.confdir or app.srcdir).joinpath("_toc.yml")
+    tocfile = yaml.safe_load(toc_path.read_text("utf8"))
+    for item in tocfile:
+        if "part" in item:
+            yield (item["part"], item["chapters"] if "chapters" in item else None)
+
+
+def check_node_in_part(chapter_files: Optional[List[dict]], node, app: Sphinx) -> bool:
+    """ """
+    if not chapter_files:
+        return False
+
+    nodefile = node.children[0].attributes["docname"]
+    for chapter_data in chapter_files:
+        if "file" not in chapter_data:
+            continue
+        chapname = remove_suffix(chapter_data["file"], app.config.source_suffix)
+        if nodefile in chapname:
+            return True
     return False
 
 
@@ -200,7 +212,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
             bib_nodes.append(bib_node)
             replace_node_cls(bib_node, HiddenCellNode, False)
 
-        # check if root doc has "parts": Multiple toctrees, each with a caption
+        # check if root doc has "parts", i.e. Multiple toctrees, each with a caption
         # if yes, change `latex_toplevel_sectioning` to "part", then
         # replace the original toctree-wrapper with a section:
 
@@ -210,29 +222,25 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
         #       <title>
         #       <compound classes="toctree-wrapper">
 
-        toc_path = Path(self.app.confdir or self.app.srcdir).joinpath("_toc.yml")
-        tocfile = yaml.safe_load(toc_path.read_text("utf8"))
+        for part_name, chapter_files in iterate_parts(self.app):
+            self.app.config["latex_toplevel_sectioning"] = "part"
 
-        for f in tocfile:
-            if "part" in f:
-                self.app.config["latex_toplevel_sectioning"] = "part"
-                partname = f["part"]
-                compound_parent = docutils.nodes.compound("")
-                compound_parent["classes"] = "toctree-wrapper"
-                start_of_file = addnodes.start_of_file("")
-                start_of_file["docname"] = partname
-                title = docutils.nodes.title(text=partname)
-                section_node = docutils.nodes.section("")
-                section_node["docname"] = partname
-                start_of_file.append(section_node)
-                section_node.append(title)
-                compound_parent.append(start_of_file)
-                for original_node in self.document.traverse(docutils.nodes.compound):
-                    if "toctree-wrapper" in original_node["classes"]:
-                        if check_node_in_part(f, original_node, self.app):
-                            replace_node_cls(original_node, HiddenCellNode, False)
-                            section_node.append(original_node)
-                self.document.append(compound_parent)
+            compound_parent = docutils.nodes.compound("")
+            compound_parent["classes"] = "toctree-wrapper"
+            start_of_file = addnodes.start_of_file("")
+            start_of_file["docname"] = part_name
+            title = docutils.nodes.title(text=part_name)
+            section_node = docutils.nodes.section("")
+            section_node["docname"] = part_name
+            start_of_file.append(section_node)
+            section_node.append(title)
+            compound_parent.append(start_of_file)
+            for original_node in self.document.traverse(docutils.nodes.compound):
+                if "toctree-wrapper" in original_node["classes"]:
+                    if check_node_in_part(chapter_files, original_node, self.app):
+                        replace_node_cls(original_node, HiddenCellNode, False)
+                        section_node.append(original_node)
+            self.document.append(compound_parent)
 
         # now append the bibliography nodes to the end of the document
         if bib_nodes:
