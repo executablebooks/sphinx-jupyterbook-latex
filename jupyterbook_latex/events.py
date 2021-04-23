@@ -77,7 +77,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
             app.env.jblatex_captions_to_parts = True
 
     logger.info(
-        bold("jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s",
+        bold("jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s'",
         __version__,
         app.config["latex_engine"],
         app.config["latex_toplevel_sectioning"],
