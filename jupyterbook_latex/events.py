@@ -30,9 +30,6 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
 
-    if app.config["jblatex_captions_to_parts"]:
-        app.config["latex_toplevel_sectioning"] = "part"
-
     latex_elements = cast(dict, config["latex_elements"])
 
     # preamble to overwrite things from sphinx latex writer
@@ -62,10 +59,28 @@ def setup_latex_transforms(app: Sphinx) -> None:
     # note: bold is a dynamically created function
     from sphinx.util.console import bold  # type: ignore[attr-defined]
 
+    # decide whether we will convert top-level toctree captions to parts
+    app.env.jblatex_captions_to_parts = False  # type: ignore[attr-defined]
+    if app.config["jblatex_captions_to_parts"] is True:  # type: ignore[comparison-overlap]
+        app.config["latex_toplevel_sectioning"] = "part"
+        app.env.jblatex_captions_to_parts = True
+    elif app.config["jblatex_captions_to_parts"] is None:
+        # if using the sphinx-external-toc, we can look if parts are being specified
+        # TODO this should probably be made more robust
+        sitemap = getattr(app.config, "external_site_map", None)
+        if (
+            sitemap is not None
+            and sitemap.file_format == "jb-book"
+            and len(sitemap.root.subtrees) > 1
+        ):
+            app.config["latex_toplevel_sectioning"] = "part"
+            app.env.jblatex_captions_to_parts = True
+
     logger.info(
-        bold("jupyterbook-latex v%s:") + "(latex_engine='%s')",
+        bold("jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s",
         __version__,
         app.config["latex_engine"],
+        app.config["latex_toplevel_sectioning"],
     )
 
     # Copy the class theme to the output directory.

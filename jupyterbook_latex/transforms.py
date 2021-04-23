@@ -72,6 +72,7 @@ class LatexRootDocTransforms(SphinxTransform):
 
     def apply(self, **kwargs: Any) -> None:
 
+        # TODO this assumes that `latex_documents` is set with the master_doc as the startdocname
         if self.env.docname != self.app.config.master_doc:
             return
 
@@ -179,6 +180,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
 
     def apply(self, **kwargs: Any) -> None:
 
+        # TODO this assumes that `latex_documents` is set with the master_doc as the startdocname
         if not is_root_document(self.document, self.app):
             return
 
@@ -192,7 +194,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
                 break
         assert top_level_section, f"Could not find top-level section for '{docname}'"
 
-        # For the index file only,
+        # For the startdocname file only,
         # flatten the AST sub-sections under the top-level section
         # and replace their titles with a special node with custom rendering
         for sect in self.document.traverse(docutils.nodes.section):
@@ -214,7 +216,8 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
             # remove the section node
             replace_node_cls(sect, HiddenCellNode, False)
 
-        # pop the top-level toctree-wrappers and append them to the topmost document level
+        # pop the top-level (startdocname) toctree-wrappers
+        # and append them to the topmost document level
         for node in self.document.traverse(docutils.nodes.compound):
             if "toctree-wrapper" in node["classes"] and node.get("docname") == docname:
                 replace_node_cls(node, HiddenCellNode, False)
@@ -228,18 +231,17 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
                     replace_node_cls(original_node, HiddenCellNode, False)
                     parent_node.append(original_node)
 
-        # check if root doc has "parts", i.e. Multiple toctrees, each with a caption
-        # if yes, change `latex_toplevel_sectioning` to "part", then
-        # replace the original toctree-wrapper with a section:
-
+        # if jblatex_captions_to_parts,
+        # then replace top-level (startdocname) toctree-wrapper with a section:
         # <compound classes="toctree-wrapper">
         #   <start_of_file>
         #     <section>
         #       <title>
+        #         toctree caption
         #       <compound classes="toctree-wrapper">
         #          ...
 
-        if self.app.config["jblatex_captions_to_parts"]:
+        if self.env.jblatex_captions_to_parts:  # type: ignore[attr-defined]
 
             for node in self.document.traverse(docutils.nodes.compound):
                 if (
@@ -248,8 +250,14 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
                 ):
                     continue
 
-                caption = node.get("caption", "")
-                # TODO warn if caption is not present or null
+                caption = node.get("caption", None)
+                if not caption:
+                    logger.warning(
+                        "'%s' toctree has no caption and `jblatex_captions_to_parts` set to True",
+                        docname,
+                        location=node,
+                    )
+                    caption = "Part"
 
                 compound_parent = docutils.nodes.compound("")
                 compound_parent["classes"] = "toctree-wrapper"

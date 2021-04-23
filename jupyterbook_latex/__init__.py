@@ -17,8 +17,11 @@ def setup(app: "Sphinx") -> None:
     from .nodes import HiddenCellNode, RootHeader
     from .transforms import LatexRootDocTransforms
 
-    app.add_config_value("jblatex_captions_to_parts", False, "env")
+    # autoload the sphinx.ext.imgconverter extension
     app.add_config_value("jblatex_load_imgconverter", True, "env")
+    # turn root level toctree captions into top-level `part` headings
+    # If None, auto-infer whether to do this, or specifically specify
+    app.add_config_value("jblatex_captions_to_parts", None, "env", (type(None), bool))
 
     HiddenCellNode.add_node(app)
     RootHeader.add_node(app)

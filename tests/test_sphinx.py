@@ -105,7 +105,6 @@ def test_build_with_ext(
                       "sphinxcontrib.bibtex", "jupyterbook_latex"]
         external_toc_path = "_toc_migrated.yml"
         bibtex_bibfiles = ["references.bib"]
-        jblatex_captions_to_parts = True
         """
         ),
         encoding="utf8",
