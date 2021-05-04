@@ -68,13 +68,14 @@ def setup_latex_transforms(app: Sphinx) -> None:
         # if using the sphinx-external-toc, we can look if parts are being specified
         # TODO this should probably be made more robust
         sitemap = getattr(app.config, "external_site_map", None)
-        if (
-            sitemap is not None
-            and sitemap.file_format == "jb-book"
-            and len(sitemap.root.subtrees) > 1
-        ):
-            app.config["latex_toplevel_sectioning"] = "part"
-            app.env.jblatex_captions_to_parts = True
+        if sitemap is not None:
+            if sitemap.file_format == "jb-book" and len(sitemap.root.subtrees) > 1:
+                app.config["latex_toplevel_sectioning"] = "part"
+                app.env.jblatex_captions_to_parts = True
+            elif sitemap.file_format == "jb-book":
+                app.config["latex_toplevel_sectioning"] = "chapter"
+            elif sitemap.file_format == "jb-article":
+                app.config["latex_toplevel_sectioning"] = "section"
 
     logger.info(
         bold("jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s'",
