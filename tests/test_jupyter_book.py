@@ -7,18 +7,19 @@ from TexSoup import TexSoup
 
 @pytest.mark.requires_tex
 def test_toc(cli, file_regression, rootdir):
-    path_partsToc = rootdir.joinpath("test-partsToc")
-    cmd = f"{path_partsToc} --builder pdflatex"
+    path_parts_toc = rootdir.joinpath("test-partsToc")
+    cmd = f"{path_parts_toc} --builder pdflatex"
     result = cli.invoke(commands.build, cmd.split())
+    print(result.output)
     assert result.exit_code == 0
 
     # reading the tex file
-    path_output_file = path_partsToc.joinpath("_build", "latex", "book.tex")
+    path_output_file = path_parts_toc.joinpath("_build", "latex", "book.tex")
     file_content = TexSoup(path_output_file.read_text())
     file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")
 
     # reading the xml file
-    doctree_path = path_partsToc.joinpath("_build", ".doctrees", "intro.doctree")
+    doctree_path = path_parts_toc.joinpath("_build", ".doctrees", "intro.doctree")
     doc = pickle.load(open(doctree_path, "rb"))
     pseudoxml = doc.pformat()
 

@@ -1,10 +1,20 @@
 """AST nodes to designate notebook components."""
+from typing import Any, cast
+
 from docutils import nodes
+from sphinx.application import Sphinx
 
-from .utils import sphinxEncode
+
+def sphinx_encode(string: str) -> str:
+    """Replace tilde, hyphen and single quotes with their LaTeX commands."""
+    return (
+        string.replace("~", "\\textasciitilde{}")
+        .replace("-", "\\sphinxhyphen{}")
+        .replace("'", "\\textquotesingle{}")
+    )
 
 
-def getIndex(body, text):
+def get_index(body, text):
     index = 0
     indices = [i for i, x in enumerate(body) if x == text]
     for i in indices:
@@ -14,28 +24,58 @@ def getIndex(body, text):
     return index
 
 
+def skip(self, node: nodes.Element):
+    """skip a node in the visitor."""
+    raise nodes.SkipNode
+
+
 class HiddenCellNode(nodes.Element):
+    """A node that will not be rendered."""
+
     def __init__(self, rawsource="", *children, **attributes):
         super().__init__("", **attributes)
+
+    @classmethod
+    def add_node(cls, app: Sphinx) -> None:
+        add_node = cast(Any, app.add_node)  # has the wrong typing for sphinx<4
+        add_node(
+            cls,
+            override=True,
+            html=(visit_HiddenCellNode, None),
+            latex=(visit_HiddenCellNode, None),
+            textinfo=(visit_HiddenCellNode, None),
+            text=(visit_HiddenCellNode, None),
+            man=(visit_HiddenCellNode, None),
+        )
 
 
 def visit_HiddenCellNode(self, node):
     raise nodes.SkipNode
 
 
-class H2Node(nodes.Element):
-    def __init__(self, rawsource="", *children, **attributes):
-        super().__init__("", **attributes)
+class RootHeader(nodes.Element):
+    """A node to override the rendering of sub-headers in the index file."""
+
+    def __init__(self, rawsource="", *, level: int = 0, **attributes):
+        super().__init__(rawsource, level=level, **attributes)
+
+    @classmethod
+    def add_node(cls, app: Sphinx) -> None:
+        add_node = cast(Any, app.add_node)  # has the wrong typing for sphinx<4
+        add_node(
+            cls,
+            override=True,
+            latex=(visit_RootHeader, depart_RootHeader),
+            html=(visit_RootHeader, depart_RootHeader),
+            textinfo=(skip, None),
+            text=(skip, None),
+            man=(skip, None),
+        )
 
 
-class H3Node(nodes.Element):
-    def __init__(self, rawsource="", *children, **attributes):
-        super().__init__("", **attributes)
+def visit_RootHeader(self, node: RootHeader) -> None:
 
-
-def visit_H2Node(self, node):
-    self.h2Text = node.astext()
-    self.h2Text = sphinxEncode(self.h2Text)
+    node["header_text"] = sphinx_encode(node.astext())
 
     strong = nodes.strong("")
     strong.children = node.children
@@ -50,19 +90,9 @@ def visit_H2Node(self, node):
     node.append(line_block)
 
 
-def depart_H2Node(self, node):
-    index = getIndex(self.body, self.h2Text)
+def depart_RootHeader(self, node: RootHeader) -> None:
+    index = get_index(self.body, node["header_text"])
+    size = "\\Large " if node["level"] <= 2 else "\\large "
     if index:
-        self.body[index] = "\\Large " + self.h2Text
-    # else throw an error
-
-
-def visit_H3Node(self, node):
-    visit_H2Node(self, node)
-
-
-def depart_H3Node(self, node):
-    index = getIndex(self.body, self.h2Text)
-    if index:
-        self.body[index] = "\\large " + self.h2Text
+        self.body[index] = size + node["header_text"]
     # else throw an error

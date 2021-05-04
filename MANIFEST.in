@@ -14,4 +14,4 @@ include README.md
 include CHANGELOG.md
 
 include jupyterbook_latex/py.typed
-recursive-include jupyterbook_latex/theme *
+include jupyterbook_latex/theme/jupyterBook.cls
