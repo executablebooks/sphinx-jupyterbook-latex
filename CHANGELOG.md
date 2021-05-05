@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.3.0 - 2021-05-05
+
+This release essentially re-writes the most of the code to:
+
+1. Make this package a "standalone" sphinx extension, independent of jupyter-book, i.e. not dependant on the presence of a `_toc.yml`.
+2. Ensure HTML builds are not broken, by moving LaTeX specific doctree manipulations to post-transforms (which are builder specific)
+3. Make `myst_nb` requirement optional, and check for compatibility
+4. Auto-infer `latex_toplevel_sectioning`, when the `sphinx-external-toc` extension is being used.
+
+The package maintenance has also been improved; adding mypy type-checking and other pre-commit hooks.
+
 ## 0.2.0 - 2021-02-25
 
 ### 👌 IMPROVE
