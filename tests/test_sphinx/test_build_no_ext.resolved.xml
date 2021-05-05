@@ -25,14 +25,19 @@
                         <paragraph ids="id1">
                         <paragraph>
                             <inline ids="id6">
-                                <citation_reference docname="part1/chap2" refname="id2">
-                                    <inline>PGH11</inline>
-                                <citation_reference docname="part1/chap2" refname="id3">
-                                    <inline>HdHP+16</inline>
-                                <citation_reference docname="part1/chap2" refname="id4">
-                                    <inline>SK14</inline>
+                                [
                                 <citation_reference docname="part1/chap2" refname="id5">
-                                    <inline>CKS+10</inline>
+                                    CKS+10
+                                , 
+                                <citation_reference docname="part1/chap2" refname="id3">
+                                    HdHP+16
+                                , 
+                                <citation_reference docname="part1/chap2" refname="id2">
+                                    PGH11
+                                , 
+                                <citation_reference docname="part1/chap2" refname="id4">
+                                    SK14
+                                ]
                         <compound classes="toctree-wrapper">
                             <start_of_file docname="part1/sec1">
                                 <section docname="part1/sec1" ids="section-1 :doc" names="section\ 1">

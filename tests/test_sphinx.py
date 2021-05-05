@@ -61,7 +61,7 @@ def test_build_no_ext(
         latex_documents = [('intro', 'book.tex', 'My sample book',
                             'The Jupyter Book Community', 'jupyterBook')]
         extensions = ["myst_parser", "sphinx_external_toc", "sphinxcontrib.bibtex"]
-        external_toc_path = "_toc_migrated.yml"
+        external_toc_path = "_toc.yml"
         bibtex_bibfiles = ["references.bib"]
         """
         ),
@@ -103,7 +103,7 @@ def test_build_with_ext(
                             'The Jupyter Book Community', 'jupyterBook')]
         extensions = ["myst_parser", "sphinx_external_toc",
                       "sphinxcontrib.bibtex", "jupyterbook_latex"]
-        external_toc_path = "_toc_migrated.yml"
+        external_toc_path = "_toc.yml"
         bibtex_bibfiles = ["references.bib"]
         """
         ),

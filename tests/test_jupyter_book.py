@@ -1,7 +1,7 @@
 import pickle
 
 import pytest
-from jupyter_book import commands
+from jupyter_book.cli.main import build
 from TexSoup import TexSoup
 
 
@@ -9,8 +9,8 @@ from TexSoup import TexSoup
 def test_toc(cli, file_regression, rootdir):
     path_parts_toc = rootdir.joinpath("test-partsToc")
     cmd = f"{path_parts_toc} --builder pdflatex"
-    result = cli.invoke(commands.build, cmd.split())
-    print(result.output)
+    result = cli.invoke(build, cmd.split())
+    # print(result.output)
     assert result.exit_code == 0
 
     # reading the tex file
