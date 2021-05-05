@@ -9,7 +9,10 @@
                 This is H2
             <paragraph>
                 Etiam interdum tempor augue at volutpat. Nulla sit amet volutpat elit. In vehicula dapibus velit, a placerat neque blandit et. Etiam non mollis nibh. Mauris tortor purus, semper vel libero at, faucibus mattis enim. Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
-            <TableOfContentsNode>
+            <compound caption="part1" classes="toctree-wrapper" docname="intro">
+                <toctree caption="part1" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="False" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" titlesonly="True">
+            <compound caption="part2" classes="toctree-wrapper" docname="intro">
+                <toctree caption="part2" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="False" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" titlesonly="True">
             <section docname="intro" header_level="3" ids="this-is-h3" names="this\ is\ h3">
                 <title>
                     This is H3
@@ -20,7 +23,3 @@
                         This is H4
                     <paragraph>
                         Ipso facto
-                    <compound caption="part1" classes="toctree-wrapper" docname="intro">
-                        <toctree caption="part1" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="True" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" rawentries="" titlesonly="True">
-                    <compound caption="part2" classes="toctree-wrapper" docname="intro">
-                        <toctree caption="part2" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="True" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" rawentries="Gallery\ of\ Jupyter\ Books" titlesonly="True">
