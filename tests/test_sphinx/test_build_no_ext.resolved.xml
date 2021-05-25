@@ -26,21 +26,17 @@
                         <paragraph>
                             <inline ids="id6">
                                 [
-                                <raw_latex xml:space="preserve">
-                                CKS+10
-                                <raw_latex xml:space="preserve">
+                                <citation_reference docname="part1/chap2" refname="id5">
+                                    CKS+10
                                 , 
-                                <raw_latex xml:space="preserve">
-                                HdHP+16
-                                <raw_latex xml:space="preserve">
+                                <citation_reference docname="part1/chap2" refname="id3">
+                                    HdHP+16
                                 , 
-                                <raw_latex xml:space="preserve">
-                                PGH11
-                                <raw_latex xml:space="preserve">
+                                <citation_reference docname="part1/chap2" refname="id2">
+                                    PGH11
                                 , 
-                                <raw_latex xml:space="preserve">
-                                SK14
-                                <raw_latex xml:space="preserve">
+                                <citation_reference docname="part1/chap2" refname="id4">
+                                    SK14
                                 ]
                         <compound classes="toctree-wrapper">
                             <start_of_file docname="part1/sec1">
