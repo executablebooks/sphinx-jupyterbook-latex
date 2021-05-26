@@ -1,6 +1,6 @@
-# Jupyterbook-latex
+# sphinx-jupyterbook-latex
 
-**Improvements to LaTeX for jupyter-book**.
+**Improvements to LaTeX for [jupyter-book](https://jupyterbook.org/intro.html)**.
 
 This package contains a [Sphinx](http://www.sphinx-doc.org/en/master/)
 extension to handle LaTeX builds for [jupyter-book](https://jupyterbook.org/)
@@ -18,22 +18,22 @@ contributing.md
 (getting-started)=
 ## Getting Started
 
-To get started with `jupyterbook-latex`, first install it through pip:
+To get started with `sphinx-jupyterbook-latex`, first install it through pip:
 
 ```bash
-pip install jupyterbook-latex
+pip install sphinx-jupyterbook-latex
 ```
 
 Then add this extension to the extensions list in your sphinx project's `conf.py`:
 
 ```python
-extensions = ["jupyterbook_latex"]
+extensions = ["sphinx_jupyterbook_latex"]
 ```
 
 (feature-list)=
 ## Features List
 
-A list of features that are implemented in this `jupyter-book` extension:
+A list of features that are implemented include:
 
 ### Table Of Contents Page:
 
@@ -60,7 +60,10 @@ A list of features that are implemented in this `jupyter-book` extension:
 
 ### Master Document:
 
-The `masterdoc` page is treated strictly as `front matter`. This is similar to an `Introduction` to the book and does not appear in Table Of Contents. All the sections and sub-sections in the `masterdoc` are internally converted to bolded text of varying sizes based on the level of the section.
+The `masterdoc` page is treated strictly as `front matter`. This is similar to an
+`Introduction` to the book and does not appear in Table Of Contents. All the sections
+and sub-sections in the `masterdoc` are internally converted to bolded text of
+varying sizes based on the level of the section.
 
 ### Code Cell Tags:
 
@@ -78,10 +81,10 @@ A list of available tags can be found in [https://jupyterbook.org/reference/chea
   Which uses [ImageMagick](https://www.imagemagick.org/script/index.php), which
   needs to be installed on your system to work.
 
-```{note}
-[ImageMagick](https://www.imagemagick.org/script/index.php) is not installed by default
-so it is up to the users to install this software.
-```
+  ```{note}
+  [ImageMagick](https://www.imagemagick.org/script/index.php) is not installed by default
+  so it is up to the users to install this software.
+  ```
 
 * Fonts used at the moment are [GNU Free Fonts](https://www.gnu.org/software/freefont/),
   but it may change in the near future owing to its handling of math characters.

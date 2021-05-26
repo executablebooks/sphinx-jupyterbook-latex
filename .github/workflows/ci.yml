@@ -49,14 +49,14 @@ jobs:
 
     - name: Run pytest
       run: |
-        pytest --durations=10 --cov=jupyterbook_latex --cov-report=xml --cov-report=term-missing
+        pytest --durations=10 --cov=sphinx_jupyterbook_latex --cov-report=xml --cov-report=term-missing
         coverage xml
 
     - name: Upload to Codecov
-      if: github.repository == 'executablebooks/jupyterbook-latex'
+      if: github.repository == 'executablebooks/sphinx-jupyterbook-latex'
       uses: codecov/codecov-action@v1
       with:
-        name: jupyterbook-latex-pytest-py3.7
+        name: sphinx-jupyterbook-latex-pytest-py3.7
         flags: pytests
         file: ./coverage.xml
         fail_ci_if_error: true

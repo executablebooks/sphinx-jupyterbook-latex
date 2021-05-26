@@ -4,4 +4,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.isort]
 profile = "black"
-src_paths = ["jupyterbook_latex", "tests"]
+src_paths = ["sphinx_jupyterbook_latex", "tests"]

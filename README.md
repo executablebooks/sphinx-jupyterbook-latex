@@ -10,14 +10,14 @@ in `Jupyter Book`.
 To get started with `jupyterbook-latex`, first install it through `pip`:
 
 ```
-pip install jupyterbook-latex
+pip install sphinx-jupyterbook-latex
 ```
 
-then, add `jupyterbook_latex` to your extensions,
+then, add `sphinx_jupyterbook_latex` to your extensions,
 in a Sphinx `conf.py`:
 
 ```python
-extensions = ["jupyterbook_latex"]
+extensions = ["sphinx_jupyterbook_latex"]
 
 # autoload the sphinx.ext.imgconverter extension, optional (default is True)
 # jblatex_load_imgconverter = True
@@ -30,7 +30,7 @@ OR in the jupyterbook `config.yml`:
 ```yaml
 sphinx:
     extra_extensions:
-    - jupyterbook_latex
+    - sphinx_jupyterbook_latex
     # config:
     #   jblatex_load_imgconverter: true
     #   jblatex_captions_to_parts: true
