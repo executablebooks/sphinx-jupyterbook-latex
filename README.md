@@ -1,4 +1,4 @@
-# jupyterbook-latex [IN DEVELOPMENT]
+# sphinx-jupyterbook-latex
 
 Sphinx extension to support LaTeX infrastructure for Jupyter Book.
 
@@ -7,7 +7,7 @@ in `Jupyter Book`.
 
 ## Get started
 
-To get started with `jupyterbook-latex`, first install it through `pip`:
+To get started with `sphinx-jupyterbook-latex`, first install it through `pip`:
 
 ```
 pip install sphinx-jupyterbook-latex

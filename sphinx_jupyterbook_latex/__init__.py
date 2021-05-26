@@ -7,7 +7,7 @@ if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
 __version__ = "0.4.0"
-"""jupyterbook-latex version"""
+"""sphinx-jupyterbook-latex version"""
 
 
 def setup(app: "Sphinx") -> None:
