@@ -15,7 +15,11 @@ def setup(app: "Sphinx") -> None:
 
     from .events import override_latex_config, setup_latex_transforms
     from .nodes import HiddenCellNode, RootHeader
-    from .transforms import LatexRootDocTransforms
+    from .transforms import (
+        InterpretToctree,
+        LatexRootDocTransforms,
+        SwapTableofContents,
+    )
 
     # autoload the sphinx.ext.imgconverter extension
     app.add_config_value("jblatex_load_imgconverter", True, "env")
@@ -27,6 +31,8 @@ def setup(app: "Sphinx") -> None:
     RootHeader.add_node(app)
 
     app.add_transform(LatexRootDocTransforms)
+    app.add_transform(InterpretToctree)
+    app.add_post_transform(SwapTableofContents)
 
     app.connect("config-inited", override_latex_config)
     app.connect("builder-inited", setup_latex_transforms)

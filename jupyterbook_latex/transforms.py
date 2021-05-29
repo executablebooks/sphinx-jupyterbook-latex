@@ -1,13 +1,16 @@
 from typing import Any, List, Optional, Type
 
 import docutils
-from sphinx import addnodes
+from docutils import nodes
+from sphinx import addnodes, builders
+from sphinx.addnodes import toctree as toctree_node
 from sphinx.application import Sphinx
 from sphinx.builders.latex.nodes import thebibliography
 from sphinx.environment import BuildEnvironment
 from sphinx.transforms import SphinxTransform
 from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util import logging
+from sphinx.util.nodes import clean_astext
 
 from .nodes import HiddenCellNode, RootHeader
 
@@ -282,3 +285,98 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
             replace_node_cls(bib_node, HiddenCellNode, False)
         if bib_nodes:
             self.document.extend(bib_nodes)
+
+
+class InterpretToctree(SphinxTransform):
+
+    default_priority = 150
+
+    def apply(self, **kwargs: Any) -> None:
+        for tocnode in self.document.traverse(toctree_node):
+            if tocnode.attributes["hidden"]:
+                continue
+
+            compoundnode = tocnode.parent
+            parentcontainer = tocnode.parent.parent
+
+            dupnode = HiddenCellNode()
+            dupnode.attributes = tocnode.attributes
+            dupnode.attributes["classes"] = "latex-tableofcontents"
+
+            for i, elem in enumerate(parentcontainer.children):
+                if elem == compoundnode:
+                    insertionindex = i
+
+            parentcontainer.insert(insertionindex, dupnode)
+
+
+def has_toc_yaml(self, tocnode, listnode) -> None:
+    """constructs toc nodes from globaltoc dict
+    :param subnode: node to which toc constructed here is appended to
+    :param tocdict: dictionary of toc entries
+    :param depth: current toclevel depth
+    """
+    for item in tocnode.attributes["entries"]:
+        title, entry = item
+        internal = True
+        if "http" in entry:
+            internal = False
+        if not title:
+            title = clean_astext(self.env.titles[entry])
+        reference = nodes.reference(
+            "",
+            "",
+            internal=internal,
+            refuri="%" + entry,
+            anchorname="",
+            *[nodes.Text(title)],
+        )
+        para = addnodes.compact_paragraph("", "", reference)
+        item = nodes.list_item("", para)
+        for t in self.document.traverse(HiddenCellNode):
+            if entry == t.attributes["parent"]:
+                listone = nodes.bullet_list().deepcopy()
+                for itemi in t.attributes["entries"]:
+                    tit, en = itemi
+                    inte = True
+                    if "http" in en:
+                        inte = False
+                    if not tit:
+                        tit = clean_astext(self.env.titles[en])
+                    ref = nodes.reference(
+                        "",
+                        "",
+                        internal=inte,
+                        refuri="%" + en,
+                        anchorname="",
+                        *[nodes.Text(tit)],
+                    )
+                    par = addnodes.compact_paragraph("", "", ref)
+                    ite = nodes.list_item("", par)
+                    listone.append(ite)
+                item.append(listone)
+        listnode.append(item)
+
+
+class SwapTableofContents(SphinxPostTransform):
+    default_priority = 100
+
+    def apply(self):
+        if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
+            for tocnode in self.document.traverse(HiddenCellNode):
+                if "latex-tableofcontents" in tocnode.attributes["classes"]:
+                    listnode = nodes.bullet_list().deepcopy()
+                    parentlist = None
+                    if tocnode.attributes["caption"]:
+                        parentlist = nodes.bullet_list().deepcopy()
+                        para = addnodes.compact_paragraph(
+                            "", "", nodes.Text(tocnode.attributes["caption"])
+                        )
+                        item = nodes.list_item("", para)
+                        parentlist.append(item)
+                    has_toc_yaml(self, tocnode, listnode)
+                    if parentlist:
+                        parentlist.append(listnode)
+                        tocnode.replace_self(parentlist)
+                    else:
+                        tocnode.replace_self(listnode)
