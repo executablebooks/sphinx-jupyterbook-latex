@@ -1,10 +1,19 @@
 # Change Log
 
-## 0.4.0 - 2021-05-26
+## 0.4.0 - 2021-05-03
 
 This release updates the name of this package from `jupyterbook-latex` to
 `sphinx-jupyterbook-latex` as it is now a `sphinx` extension rather than a
 `jupyterbook` extension.
+
+## 0.3.1 - 2021-06-01
+
+This is a **minor** release to increase the flexibility for installation requirements
+
+### Maintenance
+
+- Updated [version pinning](https://github.com/executablebooks/jupyterbook-latex/pull/60) for
+  `sphinx-external-toc` and `sphinxcontrib-bibtex`
 
 
 ## 0.3.0 - 2021-05-05
