@@ -289,7 +289,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
 
 class InterpretToctree(SphinxTransform):
 
-    default_priority = 150
+    default_priority = 1000
 
     def apply(self, **kwargs: Any) -> None:
         for tocnode in self.document.traverse(toctree_node):
@@ -297,65 +297,67 @@ class InterpretToctree(SphinxTransform):
                 continue
 
             compoundnode = tocnode.parent
-            parentcontainer = tocnode.parent.parent
+            compoundparent = tocnode.parent.parent
 
-            dupnode = HiddenCellNode()
-            dupnode.attributes = tocnode.attributes
-            dupnode.attributes["classes"] = "latex-tableofcontents"
+            hiddennode = HiddenCellNode()
+            hiddennode.attributes = tocnode.attributes
+            hiddennode.attributes["classes"] = "latex-tableofcontents"
 
-            for i, elem in enumerate(parentcontainer.children):
+            for i, elem in enumerate(compoundparent.children):
                 if elem == compoundnode:
                     insertionindex = i
+            compoundparent.insert(insertionindex, hiddennode)
 
-            parentcontainer.insert(insertionindex, dupnode)
+
+def create_item_node(self, item):
+    title, entry = item
+    internal = True
+    if "http" in entry:
+        internal = False
+        val = entry
+    else:
+        val = "%" + entry
+    if not title:
+        title = clean_astext(self.env.titles[entry])
+    reference = nodes.reference(
+        "",
+        "",
+        internal=internal,
+        refuri=val,
+        anchorname="",
+        *[nodes.Text(title)],
+    )
+    para = addnodes.compact_paragraph("", "", reference)
+    item = nodes.list_item("", para)
+    return item
 
 
-def has_toc_yaml(self, tocnode, listnode) -> None:
-    """constructs toc nodes from globaltoc dict
-    :param subnode: node to which toc constructed here is appended to
-    :param tocdict: dictionary of toc entries
-    :param depth: current toclevel depth
-    """
-    for item in tocnode.attributes["entries"]:
-        title, entry = item
-        internal = True
-        if "http" in entry:
-            internal = False
-        if not title:
-            title = clean_astext(self.env.titles[entry])
-        reference = nodes.reference(
-            "",
-            "",
-            internal=internal,
-            refuri="%" + entry,
-            anchorname="",
-            *[nodes.Text(title)],
-        )
-        para = addnodes.compact_paragraph("", "", reference)
-        item = nodes.list_item("", para)
-        for t in self.document.traverse(HiddenCellNode):
-            if entry == t.attributes["parent"]:
-                listone = nodes.bullet_list().deepcopy()
-                for itemi in t.attributes["entries"]:
-                    tit, en = itemi
-                    inte = True
-                    if "http" in en:
-                        inte = False
-                    if not tit:
-                        tit = clean_astext(self.env.titles[en])
-                    ref = nodes.reference(
-                        "",
-                        "",
-                        internal=inte,
-                        refuri="%" + en,
-                        anchorname="",
-                        *[nodes.Text(tit)],
-                    )
-                    par = addnodes.compact_paragraph("", "", ref)
-                    ite = nodes.list_item("", par)
-                    listone.append(ite)
-                item.append(listone)
-        listnode.append(item)
+def insertelements(self, arr, nodesdict, insertednodes):
+    parentlist = None
+    for tocnode in arr:
+        listnode = nodes.bullet_list().deepcopy()
+        for item in tocnode.attributes["entries"]:
+            title, entry = item
+            if entry in insertednodes:
+                continue
+            insertednodes.append(entry)
+            i = create_item_node(self, item)
+            if entry in nodesdict:
+                li = insertelements(self, nodesdict[entry], nodesdict, insertednodes)
+                i.append(li)
+            listnode.append(i)
+        if tocnode.attributes["caption"]:
+            if not parentlist:
+                parentlist = nodes.bullet_list().deepcopy()
+            para = addnodes.compact_paragraph(
+                "", "", nodes.Text(tocnode.attributes["caption"])
+            )
+            item = nodes.list_item("", para)
+            parentlist.append(item)
+            parentlist.append(listnode)
+    if parentlist:
+        return parentlist
+    return listnode
 
 
 class SwapTableofContents(SphinxPostTransform):
@@ -363,20 +365,18 @@ class SwapTableofContents(SphinxPostTransform):
 
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
+            nodes_to_visit = {}
             for tocnode in self.document.traverse(HiddenCellNode):
                 if "latex-tableofcontents" in tocnode.attributes["classes"]:
-                    listnode = nodes.bullet_list().deepcopy()
-                    parentlist = None
-                    if tocnode.attributes["caption"]:
-                        parentlist = nodes.bullet_list().deepcopy()
-                        para = addnodes.compact_paragraph(
-                            "", "", nodes.Text(tocnode.attributes["caption"])
-                        )
-                        item = nodes.list_item("", para)
-                        parentlist.append(item)
-                    has_toc_yaml(self, tocnode, listnode)
-                    if parentlist:
-                        parentlist.append(listnode)
-                        tocnode.replace_self(parentlist)
-                    else:
-                        tocnode.replace_self(listnode)
+                    parent = tocnode.attributes["parent"]
+                    if parent not in nodes_to_visit:
+                        nodes_to_visit[parent] = []
+                    nodes_to_visit[parent].append(tocnode)
+
+            for tocnode in self.document.traverse(HiddenCellNode):
+                if "latex-tableofcontents" in tocnode.attributes["classes"]:
+                    inserted_nodes = []
+                    listnode = insertelements(
+                        self, [tocnode], nodes_to_visit, inserted_nodes
+                    )
+                    tocnode.replace_self(listnode)
