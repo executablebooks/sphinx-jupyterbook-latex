@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.3.1 - 2021-06-01
+
+This is a **minor** release to increase the flexibility for installation requirements
+
+### Maintenance
+
+- Updated [version pinning](https://github.com/executablebooks/jupyterbook-latex/pull/60) for
+  `sphinx-external-toc` and `sphinxcontrib-bibtex`
+
+
 ## 0.3.0 - 2021-05-05
 
 This release essentially re-writes the most of the code to:
