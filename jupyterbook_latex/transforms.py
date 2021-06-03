@@ -288,8 +288,12 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
 
 
 class InterpretToctree(SphinxTransform):
+    """
+    Creates a HiddenCellNode for each toctree node, copies its attributes and inserts
+    it in the doctree adjacent to the toctree node, to be used by a post-transform later.
+    """
 
-    default_priority = 1000
+    default_priority = 999
 
     def apply(self, **kwargs: Any) -> None:
         for tocnode in self.document.traverse(toctree_node):
@@ -299,73 +303,96 @@ class InterpretToctree(SphinxTransform):
             compoundnode = tocnode.parent
             compoundparent = tocnode.parent.parent
 
+            # copy all toctree attributes
             hiddennode = HiddenCellNode()
             hiddennode.attributes = tocnode.attributes
             hiddennode.attributes["classes"] = "latex-tableofcontents"
 
+            # inserts hiddennode adjacent to a toctree node
             for i, elem in enumerate(compoundparent.children):
                 if elem == compoundnode:
                     insertionindex = i
             compoundparent.insert(insertionindex, hiddennode)
 
 
-def create_item_node(self, item):
-    title, entry = item
-    internal = True
-    if "http" in entry:
-        internal = False
-        val = entry
-    else:
-        val = "%" + entry
-    if not title:
-        title = clean_astext(self.env.titles[entry])
-    reference = nodes.reference(
-        "",
-        "",
-        internal=internal,
-        refuri=val,
-        anchorname="",
-        *[nodes.Text(title)],
-    )
-    para = addnodes.compact_paragraph("", "", reference)
-    item = nodes.list_item("", para)
-    return item
-
-
-def insertelements(self, arr, nodesdict, insertednodes):
-    parentlist = None
-    for tocnode in arr:
-        listnode = nodes.bullet_list().deepcopy()
-        for item in tocnode.attributes["entries"]:
-            title, entry = item
-            if entry in insertednodes:
-                continue
-            insertednodes.append(entry)
-            i = create_item_node(self, item)
-            if entry in nodesdict:
-                li = insertelements(self, nodesdict[entry], nodesdict, insertednodes)
-                i.append(li)
-            listnode.append(i)
-        if tocnode.attributes["caption"]:
-            if not parentlist:
-                parentlist = nodes.bullet_list().deepcopy()
-            para = addnodes.compact_paragraph(
-                "", "", nodes.Text(tocnode.attributes["caption"])
-            )
-            item = nodes.list_item("", para)
-            parentlist.append(item)
-            parentlist.append(listnode)
-    if parentlist:
-        return parentlist
-    return listnode
-
-
 class SwapTableofContents(SphinxPostTransform):
-    default_priority = 100
+    """Swaps the HiddenCellNode with toctree attributes with a bullet list"""
+
+    default_priority = 999
+
+    def _create_item_node(self, item):
+        """
+        Creating a list item doctree node, given an item tuple.
+
+        :param item: A tuple of (title, pagename).
+        """
+        title, entry = item
+        internal = True
+        if "http" in entry:
+            internal = False
+            val = entry
+        else:
+            val = "%" + entry
+        if not title:
+            title = clean_astext(self.env.titles[entry])
+        reference = nodes.reference(
+            "",
+            "",
+            internal=internal,
+            refuri=val,
+            anchorname="",
+            *[nodes.Text(title)],
+        )
+        para = addnodes.compact_paragraph("", "", reference)
+        item = nodes.list_item("", para)
+        return item
+
+    def _insert_elements(self, arr, nodesdict, insertednodes):
+        """
+        Iterating through arr and creating list nodes for each entry with proper hierarchy.
+
+        :param arr: An array of nodes with toctree attributes.
+        :param nodesdict: A dictionary with keys as parent pagename and values
+            as HiddenCellNode with toctree attributes.
+        :param insertednodes: A list of pagenames which are already entered in the list
+            as nodes.
+        """
+        parentlist = None
+        for tocnode in arr:
+            listnode = nodes.bullet_list().deepcopy()
+            for item in tocnode.attributes["entries"]:
+                title, entry = item
+                if entry in insertednodes:
+                    continue
+                insertednodes.append(entry)
+                i = self._create_item_node(item)
+                if entry in nodesdict:
+                    li = self._insert_elements(
+                        nodesdict[entry], nodesdict, insertednodes
+                    )
+                    i.append(li)
+                listnode.append(i)
+            # If there is a caption attribute, implies its a `part`.
+            # Make a new bullet list.
+            if tocnode.attributes["caption"]:
+                if not parentlist:
+                    parentlist = nodes.bullet_list().deepcopy()
+                para = addnodes.compact_paragraph(
+                    "", "", nodes.Text(tocnode.attributes["caption"])
+                )
+                item = nodes.list_item("", para)
+                parentlist.append(item)
+                parentlist.append(listnode)
+        if parentlist:
+            return parentlist
+        return listnode
 
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
             nodes_to_visit = {}
+            # Creating a dictionary with parent pagename as keys, and
+            # all HiddenCellNode with toctree attributes which have
+            # children entries, as values.
             for tocnode in self.document.traverse(HiddenCellNode):
                 if "latex-tableofcontents" in tocnode.attributes["classes"]:
                     parent = tocnode.attributes["parent"]
@@ -373,10 +400,11 @@ class SwapTableofContents(SphinxPostTransform):
                         nodes_to_visit[parent] = []
                     nodes_to_visit[parent].append(tocnode)
 
+            # creating a bullet list of all the toctree entries
             for tocnode in self.document.traverse(HiddenCellNode):
                 if "latex-tableofcontents" in tocnode.attributes["classes"]:
                     inserted_nodes = []
-                    listnode = insertelements(
-                        self, [tocnode], nodes_to_visit, inserted_nodes
+                    listnode = self._insert_elements(
+                        [tocnode], nodes_to_visit, inserted_nodes
                     )
                     tocnode.replace_self(listnode)
