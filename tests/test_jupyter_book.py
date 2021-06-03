@@ -28,3 +28,5 @@ def test_toc(cli, file_regression, rootdir):
     substr = pseudoxml[index:]
     pseudoxml = "<document>" + substr
     file_regression.check(str(pseudoxml), extension=".xml", encoding="utf8")
+
+    # reading chap2 xml file for the second tableofcontents
