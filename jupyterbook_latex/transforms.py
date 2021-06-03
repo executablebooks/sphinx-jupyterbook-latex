@@ -287,7 +287,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
             self.document.extend(bib_nodes)
 
 
-class InterpretToctree(SphinxTransform):
+class LatexToctreeNodeInterpret(SphinxTransform):
     """
     Creates a HiddenCellNode for each toctree node, copies its attributes and inserts
     it in the doctree adjacent to the toctree node, to be used by a post-transform later.
@@ -364,7 +364,7 @@ class SwapTableofContents(SphinxPostTransform):
         """
         parentlist = None
         for tocnode in arr:
-            listnode = nodes.bullet_list().deepcopy()
+            listnode = nodes.bullet_list()
             for item in tocnode.attributes["entries"]:
                 title, entry = item
                 if entry in insertednodes:
@@ -381,7 +381,7 @@ class SwapTableofContents(SphinxPostTransform):
             # Make a new bullet list.
             if tocnode.attributes["caption"]:
                 if not parentlist:
-                    parentlist = nodes.bullet_list().deepcopy()
+                    parentlist = nodes.bullet_list()
                 para = addnodes.compact_paragraph(
                     "", "", nodes.Text(tocnode.attributes["caption"])
                 )

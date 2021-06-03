@@ -16,8 +16,8 @@ def setup(app: "Sphinx") -> None:
     from .events import override_latex_config, setup_latex_transforms
     from .nodes import HiddenCellNode, RootHeader
     from .transforms import (
-        InterpretToctree,
         LatexRootDocTransforms,
+        LatexToctreeNodeInterpret,
         SwapTableofContents,
     )
 
@@ -31,7 +31,7 @@ def setup(app: "Sphinx") -> None:
     RootHeader.add_node(app)
 
     app.add_transform(LatexRootDocTransforms)
-    app.add_transform(InterpretToctree)
+    app.add_transform(LatexToctreeNodeInterpret)
     app.add_post_transform(SwapTableofContents)
 
     app.connect("config-inited", override_latex_config)
