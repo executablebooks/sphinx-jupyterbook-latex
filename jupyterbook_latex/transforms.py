@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Type
+from typing import Any, List, Mapping, Optional, Tuple, Type
 
 import docutils
 from docutils import nodes
@@ -320,7 +320,7 @@ class SwapTableofContents(SphinxPostTransform):
 
     default_priority = 999
 
-    def _create_item_node(self, item):
+    def _create_item_node(self, item: Tuple) -> nodes.list_item:
         """
         Creating a list item doctree node, given an item tuple.
 
@@ -347,11 +347,16 @@ class SwapTableofContents(SphinxPostTransform):
         item = nodes.list_item("", para)
         return item
 
-    def _insert_elements(self, arr, nodesdict, insertednodes):
+    def _insert_elements(
+        self,
+        arr: List[HiddenCellNode],
+        nodesdict: Mapping[str, List],
+        insertednodes: List[str],
+    ) -> nodes.bullet_list:
         """
         Iterating through arr and creating list nodes for each entry with proper hierarchy.
 
-        :param arr: An array of nodes with toctree attributes.
+        :param arr: A list of nodes with toctree attributes.
         :param nodesdict: A dictionary with keys as parent pagename and values
             as HiddenCellNode with toctree attributes.
         :param insertednodes: A list of pagenames which are already entered in the list
@@ -383,6 +388,7 @@ class SwapTableofContents(SphinxPostTransform):
                 item = nodes.list_item("", para)
                 parentlist.append(item)
                 parentlist.append(listnode)
+
         if parentlist:
             return parentlist
         return listnode
