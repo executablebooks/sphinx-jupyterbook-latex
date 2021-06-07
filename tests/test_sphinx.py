@@ -49,7 +49,7 @@ def sphinx_build_factory(make_app):
 def test_build_no_ext(
     rootdir: Path, tmp_path: Path, sphinx_build_factory, file_regression
 ):
-    """Test the build without adding the `jupyterbook_latex`, to baseline the doctree."""
+    """Test the build without adding the `sphinx_jupyterbook_latex`, to baseline the doctree."""
     src_dir = tmp_path / "srcdir"
     # copy site to src_dir
     shutil.copytree(rootdir.joinpath("test-partsToc"), src_dir)
@@ -90,7 +90,7 @@ def test_build_no_ext(
 def test_build_with_ext(
     rootdir: Path, tmp_path: Path, sphinx_build_factory, file_regression
 ):
-    """Test the build without adding the `jupyterbook_latex`, to baseline the doctree."""
+    """Test the build without adding the `sphinx_jupyterbook_latex`, to baseline the doctree."""
     src_dir = tmp_path / "srcdir"
     # copy site to src_dir
     shutil.copytree(rootdir.joinpath("test-partsToc"), src_dir)
@@ -102,7 +102,7 @@ def test_build_with_ext(
         latex_documents = [('intro', 'book.tex', 'My sample book',
                             'The Jupyter Book Community', 'jupyterBook')]
         extensions = ["myst_parser", "sphinx_external_toc",
-                      "sphinxcontrib.bibtex", "jupyterbook_latex"]
+                      "sphinxcontrib.bibtex", "sphinx_jupyterbook_latex"]
         external_toc_path = "_toc.yml"
         bibtex_bibfiles = ["references.bib"]
         """

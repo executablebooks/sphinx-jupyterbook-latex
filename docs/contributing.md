@@ -15,8 +15,8 @@ For information about development conventions, practices, and infrastructure, pl
 Get the source code of this project using git:
 
 ```bash
-git clone https://github.com/executablebooks/jupyterbook-latex
-cd jupyterbook-latex
+git clone https://github.com/executablebooks/sphinx-jupyterbook-latex
+cd sphinx-jupyterbook-latex
 ```
 
 Install all the dependencies of this project, including packages for coding style and testing using:
@@ -39,7 +39,7 @@ pytest
 To run tests with `coverage` and an html coverage report:
 
 ```bash
-pytest --cov=jupyterbook_latex --cov-report=html
+pytest --cov=sphinx_jupyterbook_latex --cov-report=html
 ```
 
 ### Coding Style

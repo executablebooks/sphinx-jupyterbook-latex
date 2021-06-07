@@ -2,7 +2,7 @@
 import os
 
 # -- Project information -----------------------------------------------------
-project = "Jupyterbook-latex"
+project = "sphinx-jupyterbook-latex"
 copyright = "2020, Executable Book Project"
 author = "Executable Book Project"
 master_doc = "intro"
@@ -13,7 +13,7 @@ master_doc = "intro"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named "sphinx.ext.*") or your custom
 # ones.
-extensions = ["jupyterbook_latex", "myst_parser"]
+extensions = ["sphinx_jupyterbook_latex", "myst_parser"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -40,7 +40,7 @@ html_theme = "sphinx_book_theme"
 
 html_theme_options = {
     "path_to_docs": "docs/",
-    "repository_url": "https://github.com/executablebooks/jupyterbook-latex",
+    "repository_url": "https://github.com/executablebooks/sphinx-jupyterbook-latex",
     "use_edit_page_button": True,
 }
 

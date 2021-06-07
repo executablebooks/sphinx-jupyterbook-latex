@@ -6,8 +6,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
-__version__ = "0.3.1"
-"""jupyterbook-latex version"""
+__version__ = "0.4.0"
+"""sphinx-jupyterbook-latex version"""
 
 
 def setup(app: "Sphinx") -> None:
