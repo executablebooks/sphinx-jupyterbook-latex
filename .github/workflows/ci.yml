@@ -49,7 +49,7 @@ jobs:
 
     - name: Run pytest
       run: |
-        pytest --durations=10 --cov=sphinx_jupyterbook_latex --cov-report=xml --cov-report=term-missing
+        pytest --durations=10 --cov=sphinx_jupyterbook_latex --cov-report=xml --cov-report=term-missing --ignore=tests/test_jupyter_book.py
         coverage xml
 
     - name: Upload to Codecov
