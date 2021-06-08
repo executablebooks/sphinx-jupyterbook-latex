@@ -48,7 +48,7 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     )
 
     # at the moment, True means list for this config
-    if config["jblatex_show_tocs"] == True:
+    if type(config["jblatex_show_tocs"]) is True:  # type: ignore[comparison-overlap]
         config["jblatex_show_tocs"] = "list"
 
 
