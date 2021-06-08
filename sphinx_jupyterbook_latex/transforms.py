@@ -394,7 +394,7 @@ class SwapTableofContents(SphinxPostTransform):
         return listnode
 
     def apply(self):
-        if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
+        if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder) and self.env.app.config["jblatex_show_tocs"] == "list":
             nodes_to_visit = {}
             # Creating a dictionary with parent pagename as keys, and
             # all HiddenCellNode with toctree attributes which have

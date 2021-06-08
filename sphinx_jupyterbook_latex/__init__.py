@@ -23,6 +23,7 @@ def setup(app: "Sphinx") -> None:
 
     # autoload the sphinx.ext.imgconverter extension
     app.add_config_value("jblatex_load_imgconverter", True, "env")
+    app.add_config_value("jblatex_show_tocs", False, "env", (str, bool))
     # turn root level toctree captions into top-level `part` headings
     # If None, auto-infer whether to do this, or specifically specify
     app.add_config_value("jblatex_captions_to_parts", None, "env", (type(None), bool))

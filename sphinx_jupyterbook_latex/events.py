@@ -47,6 +47,10 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
         """
     )
 
+    # at the moment, True means list for this config
+    if config["jblatex_show_tocs"] == True:
+        config["jblatex_show_tocs"] = "list"
+
 
 def setup_latex_transforms(app: Sphinx) -> None:
     """This ``builder-inited`` event sets up aspects of the extension,
