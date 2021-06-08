@@ -59,7 +59,7 @@ jobs:
         name: sphinx-jupyterbook-latex-pytest-py3.7
         flags: pytests
         file: ./coverage.xml
-        fail_ci_if_error: false
+        fail_ci_if_error: true
 
   tests:
 
