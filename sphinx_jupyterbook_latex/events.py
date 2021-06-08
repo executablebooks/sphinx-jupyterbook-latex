@@ -78,7 +78,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
                 app.config["latex_toplevel_sectioning"] = "section"
 
     logger.info(
-        bold("jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s'",
+        bold("sphinx-jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s'",
         __version__,
         app.config["latex_engine"],
         app.config["latex_toplevel_sectioning"],
