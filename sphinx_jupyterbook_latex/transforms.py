@@ -315,7 +315,7 @@ class LatexToctreeNodeInterpret(SphinxTransform):
             compoundparent.insert(insertionindex, hiddennode)
 
 
-class SwapTableofContents(SphinxPostTransform):
+class ListTableOfContents(SphinxPostTransform):
     """Swaps the HiddenCellNode with toctree attributes with a bullet list"""
 
     default_priority = 999

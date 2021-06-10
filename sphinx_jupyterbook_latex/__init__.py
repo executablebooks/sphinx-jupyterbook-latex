@@ -18,12 +18,12 @@ def setup(app: "Sphinx") -> None:
     from .transforms import (
         LatexRootDocTransforms,
         LatexToctreeNodeInterpret,
-        SwapTableofContents,
+        ListTableOfContents,
     )
 
     # autoload the sphinx.ext.imgconverter extension
     app.add_config_value("jblatex_load_imgconverter", True, "env")
-    app.add_config_value("jblatex_show_tocs", "list", "env", (str, bool))
+    app.add_config_value("jblatex_show_tocs", True, "env", (str, bool))
     # turn root level toctree captions into top-level `part` headings
     # If None, auto-infer whether to do this, or specifically specify
     app.add_config_value("jblatex_captions_to_parts", None, "env", (type(None), bool))
@@ -33,7 +33,7 @@ def setup(app: "Sphinx") -> None:
 
     app.add_transform(LatexRootDocTransforms)
     app.add_transform(LatexToctreeNodeInterpret)
-    app.add_post_transform(SwapTableofContents)
+    app.add_post_transform(ListTableOfContents)
 
     app.connect("config-inited", override_latex_config)
     app.connect("builder-inited", setup_latex_transforms)
