@@ -44,6 +44,10 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
         \usepackage{unicode-math}
         % fixing title of the toc
         \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+        \hypersetup{
+            pdfencoding=auto,
+            psdextra
+        }
         """
     )
 
