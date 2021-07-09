@@ -40,10 +40,16 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     latex_elements["preamble"] = (
         config_preamble
         + r"""
+        % Start of preamble defined in sphinx-jupyterbook-latex %
          \usepackage[Latin,Greek]{ucharclasses}
         \usepackage{unicode-math}
         % fixing title of the toc
         \addto\captionsenglish{\renewcommand{\contentsname}{Contents}}
+        \hypersetup{
+            pdfencoding=auto,
+            psdextra
+        }
+        % End of preamble defined in sphinx-jupyterbook-latex %
         """
     )
 
