@@ -8,7 +8,7 @@
 
 ### 👌 IMPROVE
 
-- Detecting change in attributes of a toctree for triggering re-builds
+- Added hypersetup to empower hyperref to allow greek in titles 
 
 ## 0.4.0 - 2021-05-03
 
