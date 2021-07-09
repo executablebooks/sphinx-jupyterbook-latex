@@ -8,7 +8,7 @@
 
 ### 👌 IMPROVE
 
-- Added hypersetup to empower hyperref to allow greek in titles 
+- Added hypersetup to empower hyperref to allow greek symbols in titles
 
 ## 0.4.0 - 2021-05-03
 
