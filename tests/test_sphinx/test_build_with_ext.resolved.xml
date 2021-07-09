@@ -9,7 +9,42 @@
             This is H2
         <paragraph>
             Etiam interdum tempor augue at volutpat. Nulla sit amet volutpat elit. In vehicula dapibus velit, a placerat neque blandit et. Etiam non mollis nibh. Mauris tortor purus, semper vel libero at, faucibus mattis enim. Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <bullet_list classes="l a t e x - b o f c n s">
+            <list_item>
+                <compact_paragraph>
+                    part1
+            <bullet_list>
+                <list_item>
+                    <compact_paragraph>
+                        <reference anchorname="" internal="True" refuri="%part1/chap1">
+                            Chapter 1
+                <list_item>
+                    <compact_paragraph>
+                        <reference anchorname="" internal="True" refuri="%part1/chap2">
+                            Chapter 2
+                    <bullet_list>
+                        <list_item>
+                            <compact_paragraph>
+                                <reference anchorname="" internal="True" refuri="%part1/sec1">
+                                    Section 1
+                        <list_item>
+                            <compact_paragraph>
+                                <reference anchorname="" internal="True" refuri="%part1/sec2">
+                                    Section 2
         <HiddenCellNode classes="toctree-wrapper">
+        <bullet_list classes="l a t e x - b o f c n s">
+            <list_item>
+                <compact_paragraph>
+                    part2
+            <bullet_list>
+                <list_item>
+                    <compact_paragraph>
+                        <reference anchorname="" internal="False" refuri="https://executablebooks.org/en/latest/gallery.html">
+                            Gallery of Jupyter Books
+                <list_item>
+                    <compact_paragraph>
+                        <reference anchorname="" internal="True" refuri="%part2/chap3">
+                            Chapter 3
         <HiddenCellNode classes="toctree-wrapper">
         <HiddenCellNode ids="this-is-h3" names="this\ is\ h3">
         <RootHeader level="3">
@@ -61,6 +96,15 @@
                                     SK14
                                     <raw_latex xml:space="preserve">
                                     ]
+                            <bullet_list classes="l a t e x - b o f c n s">
+                                <list_item>
+                                    <compact_paragraph>
+                                        <reference anchorname="" internal="True" refuri="%part1/sec1">
+                                            Section 1
+                                <list_item>
+                                    <compact_paragraph>
+                                        <reference anchorname="" internal="True" refuri="%part1/sec2">
+                                            Section 2
                             <HiddenCellNode classes="toctree-wrapper">
                             <compound classes="toctree-wrapper">
                                 <start_of_file docname="part1/sec1">
