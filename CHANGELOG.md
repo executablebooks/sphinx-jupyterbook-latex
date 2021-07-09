@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.4.1 - 2021-07-09
+
+### ✨ NEW
+
+- Handling of tableofcontents directive in a post-transform step
+
+### 👌 IMPROVE
+
+- Detecting change in attributes of a toctree for triggering re-builds
+
 ## 0.4.0 - 2021-05-03
 
 This release updates the name of this package from `jupyterbook-latex` to
