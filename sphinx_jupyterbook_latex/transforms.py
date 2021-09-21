@@ -118,7 +118,11 @@ class MystNbPostTransform(SphinxPostTransform):
         except ImportError:
             return False
         major, minor = __version__.split(".")[0:2]
-        if major == "0" and minor in ("11", "12", "13"):  # TODO: fetch this from setup.cfg?
+        if major == "0" and minor in (
+            "11",
+            "12",
+            "13",
+        ):  # TODO: fetch this from setup.cfg?
             return True
         else:
             logger.warning(
