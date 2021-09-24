@@ -90,7 +90,7 @@ def test_build_no_ext(
 def test_build_with_ext(
     rootdir: Path, tmp_path: Path, sphinx_build_factory, file_regression
 ):
-    """Test the build without adding the `sphinx_jupyterbook_latex`, to baseline the doctree."""
+    """Test the build with the addition of `sphinx_jupyterbook_latex`."""
     src_dir = tmp_path / "srcdir"
     # copy site to src_dir
     shutil.copytree(rootdir.joinpath("test-partsToc"), src_dir)
