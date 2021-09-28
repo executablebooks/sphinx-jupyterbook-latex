@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.3 - 2021-09-29
+
+### 🔧 MAINTAIN
+
+- Updated to support `sphinx v4` [PR #75](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/75)
+
 ## 0.4.2 - 2021-07-09
 
 ### ✨ NEW
