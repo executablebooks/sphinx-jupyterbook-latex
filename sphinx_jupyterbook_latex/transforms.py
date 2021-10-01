@@ -301,7 +301,7 @@ class LatexToctreeNodeInterpret(SphinxTransform):
 
     def apply(self, **kwargs: Any) -> None:
         for tocnode in self.document.traverse(toctree_node):
-            if tocnode.attributes["hidden"]:
+            if tocnode.attributes.get("hidden"):
                 continue
 
             compoundnode = tocnode.parent
