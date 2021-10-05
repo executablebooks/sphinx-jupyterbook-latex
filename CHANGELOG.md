@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.4.4 - 2021-10-06
+
+### 🐛 FIX
+
+- Addresses missing hidden toctree attribute [PR #74](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/74)
+  Thanks to @Jegp and @xmnlab.
+
 ## 0.4.3 - 2021-09-29
 
 ### 🔧 MAINTAIN
