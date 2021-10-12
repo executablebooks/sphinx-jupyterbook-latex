@@ -5,7 +5,7 @@ import os
 project = "sphinx-jupyterbook-latex"
 copyright = "2020, Executable Book Project"
 author = "Executable Book Project"
-master_doc = "intro"
+master_doc = "index"
 
 
 # -- General configuration ---------------------------------------------------
