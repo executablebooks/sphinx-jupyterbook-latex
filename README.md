@@ -1,5 +1,7 @@
 # sphinx-jupyterbook-latex
 
+[![Documentation Status](https://readthedocs.org/projects/sphinx-jupyterbook-latex/badge/?version=latest)](https://sphinx-jupyterbook-latex.readthedocs.io/en/latest/?badge=latest)
+
 Sphinx extension to support LaTeX infrastructure for Jupyter Book.
 
 This repository is a **development** project to improve LaTeX support
