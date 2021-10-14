@@ -24,7 +24,14 @@ sections:
 ```
 :::
 :::{grid-item-card} Sphinx `toctree`
-<!-- TODO: @Aakash -->
+Adding the following sphinx toctree in the root `index` file
+```yaml
+.. toctree::
+   :hidden:
+
+   path/to/chapter1
+   path/to/chapter2
+```
 :::
 ::::
 
@@ -41,7 +48,14 @@ chapters:
 ```
 :::
 :::{grid-item-card} Sphinx toctree
-<!-- TODO: @Aakash -->
+Adding the following sphinx toctree in the root `index` file
+```yaml
+.. toctree::
+   :hidden:
+
+   path/to/chapter1
+   path/to/chapter2
+```
 :::
 ::::
 
@@ -66,7 +80,40 @@ parts:
 ```
 :::
 :::{grid-item-card} Sphinx toctree
-<!-- TODO: @Aakash -->
+Set `jblatex_captions_to_parts` config variable to `True` in conf.py.
+
+Adding the following toctrees in the root `index` file:
+```yaml
+.. toctree::
+   :caption: Name of Part 1
+   :hidden:
+
+   path/to/part1/chapter1
+   path/to/part1/chapter2
+
+.. toctree::
+   :caption: Name of Part 2
+   :hidden:
+
+   path/to/part2/chapter1
+   path/to/part2/chapter2
+```
+
+And in `path/to/part1/chapter2` file, adding the following toctree:
+```yaml
+.. toctree::
+   :hidden:
+
+   path/to/part1/chapter2/section1
+```
+
+In `path/to/part2/chapter2` file, adding the following toctree:
+```yaml
+.. toctree::
+   :hidden:
+
+   path/to/part2/chapter2/section1
+```
 :::
 ::::
 
