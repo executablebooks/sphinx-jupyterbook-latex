@@ -4,7 +4,7 @@
 \RequirePackage{xcolor}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{graphicx}
-\RequirePackage{amsmath, amssymb}
+\RequirePackage{amsmath, amssymb, amscd}
 \RequirePackage{mathrsfs}
 \RequirePackage{tikz}
 \usetikzlibrary{arrows}
@@ -14,9 +14,9 @@
 \RequirePackage{pgf}
 \RequirePackage{pgfplots}
 \RequirePackage{bbm}
-
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
+
 
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
@@ -35,6 +35,12 @@
 \newcommand{\hH}{\mathcal H}
 \newcommand{\nN}{\mathcal N}
 \newcommand{\pP}{\mathcal P}
+\newcommand{\BB}{\mathbb B}
+\newcommand{\Exp}{\operatorname{Exp}}
+\newcommand{\Binomial}{\operatorname{Binomial}}
+\newcommand{\Poisson}{\operatorname{Poisson}}
+\newcommand{\linop}{\mathcal{L}(\mathbb{B})}
+\newcommand{\linopell}{\mathcal{L}(\ell_1)}
 \DeclareMathOperator{\trace}{trace}
 \DeclareMathOperator{\Var}{Var}
 \DeclareMathOperator{\Span}{span}
