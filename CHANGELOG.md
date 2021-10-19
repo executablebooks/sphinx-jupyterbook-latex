@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.4.5 - 2021-10-20
+
+### 👌 IMPROVE
+
+- Added some macros in class file to better support math intensive lectures.
+
 ## 0.4.4 - 2021-10-06
 
 ### 🐛 FIX
