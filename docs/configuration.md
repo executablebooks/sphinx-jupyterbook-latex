@@ -30,7 +30,7 @@ sphinx:
 
 | Values |
 |--------|
-| *True* |
+| **True** |
 | False  |
 
 Loads the [sphinx.ext.imgconverter](https://www.sphinx-doc.org/en/master/usage/extensions/imgconverter.html) extension which converts images in your document to an appropriate format for the builder (in this case when targeting `latex`)
@@ -43,7 +43,7 @@ This extension uses [ImageMagick](https://www.imagemagick.org/script/index.php) 
 
 | Values |
 |--------|
-| *True* |
+| **True** |
 | False  |
 | 'list' |
 
@@ -58,7 +58,7 @@ This option is setup to enable `table of content` styles to be introduced in the
 
 | Values |
 |--------|
-| *True* |
+| **True** |
 | False  |
 
 This is an **override option** that ensures that `sphinx` is configured with:
