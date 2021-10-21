@@ -8,7 +8,7 @@ This page contains information to help you get started with development on this 
 
 ### Guidelines
 
-For information about development conventions, practices, and infrastructure, please see [the `executablebooks/` development guidelines](https://github.com/executablebooks/.github/blob/master/CONTRIBUTING.md).
+For information about development conventions, practices, and infrastructure, please see [the `executablebooks` development guidelines](https://github.com/executablebooks/.github/blob/master/CONTRIBUTING.md).
 
 ### Set-up
 
@@ -40,6 +40,12 @@ To run tests with `coverage` and an html coverage report:
 
 ```bash
 pytest --cov=sphinx_jupyterbook_latex --cov-report=html
+```
+
+You can also run tests in a controlled environment using `tox`
+
+```bash
+tox -e py38-sphinx4
 ```
 
 ### Coding Style
