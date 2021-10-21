@@ -37,5 +37,6 @@ use case so many examples are written in
 :hidden:
 getting-started
 features
+configuration
 contributing
 ```
