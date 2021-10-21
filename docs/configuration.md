@@ -70,6 +70,6 @@ latex_toplevel_sectioning = 'part'
 with behavior that is documented [here](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-latex_toplevel_sectioning). This `sphinx` option can be set to `part`, `chapter`, or `section`.
 
 ```{note}
-This option is mainly useful when using this extension directly by a `sphinx`.
+This option is mainly useful when using this extension directly by a `sphinx` project.
 The value of this option is typically inferred when using `jupyter-book` from the `sitemap` and set automatically
 ```
