@@ -431,6 +431,6 @@ class CodeBlockTransforms(SphinxPostTransform):
             from myst_nb.nodes import CellOutputNode
 
             for node in self.document.traverse(CellOutputNode):
-                celloutputnode = CellOutput()
-                celloutputnode.append(node.deepcopy())
-                node.replace_self(celloutputnode)
+                celloutput = CellOutput()
+                celloutput.append(node.deepcopy())
+                node.replace_self(celloutput)

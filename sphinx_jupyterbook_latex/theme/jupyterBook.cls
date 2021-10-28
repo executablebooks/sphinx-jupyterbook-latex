@@ -51,10 +51,10 @@
 \DeclareMathOperator*{\gt}{>}
 
 \definecolor{VerbatimOutputColor}{RGB}{232,232,224}
+\definecolor{VerbatimBorderColor}{RGB}{20,20,20}
 
 \makeatletter
 \newenvironment{sphinxVerbatimOutput}
-  {\spx@opt@verbatimwithframefalse
-  \def\spx@verbatimfcolorbox{\spx@fcolorbox{white}{VerbatimOutputColor}}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{VerbatimBorderColor}{VerbatimOutputColor}}}
   {\def\spx@verbatimfcolorbox{\spx@fcolorbox{VerbatimBorderColor}{VerbatimColor}}}
 \makeatother
