@@ -49,3 +49,12 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\gt}{>}
+
+\definecolor{VerbatimOutputColor}{RGB}{232,232,224}
+
+\makeatletter
+\newenvironment{sphinxVerbatimOutput}
+  {\spx@opt@verbatimwithframefalse
+  \def\spx@verbatimfcolorbox{\spx@fcolorbox{white}{VerbatimOutputColor}}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{VerbatimBorderColor}{VerbatimColor}}}
+\makeatother

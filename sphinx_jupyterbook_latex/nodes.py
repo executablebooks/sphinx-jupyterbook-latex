@@ -4,6 +4,8 @@ from typing import Any, cast
 from docutils import nodes
 from sphinx.application import Sphinx
 
+CR = "\n"
+
 
 def sphinx_encode(string: str) -> str:
     """Replace tilde, hyphen and single quotes with their LaTeX commands."""
@@ -96,3 +98,27 @@ def depart_RootHeader(self, node: RootHeader) -> None:
     if index:
         self.body[index] = size + node["header_text"]
     # else throw an error
+
+
+class CellOutput(nodes.Element):
+    """A node for code cell outputs designed for latex."""
+
+    def __init__(self, rawsource="", *children, **attributes):
+        super().__init__("", **attributes)
+
+    @classmethod
+    def add_node(cls, app: Sphinx) -> None:
+        add_node = cast(Any, app.add_node)  # has the wrong typing for sphinx<4
+        add_node(
+            cls,
+            override=True,
+            latex=(visit_CellOutput, depart_CellOutput),
+        )
+
+
+def visit_CellOutput(self, node) -> None:
+    self.body.append("\\begin{sphinxVerbatimOutput}" + CR)
+
+
+def depart_CellOutput(self, node) -> None:
+    self.body.append("\\end{sphinxVerbatimOutput}" + CR)

@@ -12,7 +12,7 @@ from sphinx.transforms.post_transforms import SphinxPostTransform
 from sphinx.util import logging
 from sphinx.util.nodes import clean_astext
 
-from .nodes import HiddenCellNode, RootHeader
+from .nodes import CellOutput, HiddenCellNode, RootHeader
 
 logger = logging.getLogger(__name__)
 
@@ -420,3 +420,17 @@ class ListTableOfContents(SphinxPostTransform):
                         [tocnode], nodes_to_visit, inserted_nodes
                     )
                     tocnode.replace_self(listnode)
+
+
+class CodeBlockTransforms(SphinxPostTransform):
+
+    default_priority = 999
+
+    def apply(self):
+        if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
+            from myst_nb.nodes import CellOutputNode
+
+            for node in self.document.traverse(CellOutputNode):
+                celloutputnode = CellOutput()
+                celloutputnode.append(node.deepcopy())
+                node.replace_self(celloutputnode)
