@@ -122,3 +122,27 @@ def visit_CellOutput(self, node) -> None:
 
 def depart_CellOutput(self, node) -> None:
     self.body.append("\\end{sphinxVerbatimOutput}" + CR)
+
+
+class CellInput(nodes.Element):
+    """A node for code cell inputs designed for latex."""
+
+    def __init__(self, rawsource="", *children, **attributes):
+        super().__init__("", **attributes)
+
+    @classmethod
+    def add_node(cls, app: Sphinx) -> None:
+        add_node = cast(Any, app.add_node)  # has the wrong typing for sphinx<4
+        add_node(
+            cls,
+            override=True,
+            latex=(visit_CellInput, depart_CellInput),
+        )
+
+
+def visit_CellInput(self, node) -> None:
+    self.body.append("\\begin{sphinxVerbatimInput}" + CR)
+
+
+def depart_CellInput(self, node) -> None:
+    self.body.append("\\end{sphinxVerbatimInput}" + CR)

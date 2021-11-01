@@ -14,7 +14,7 @@ def setup(app: "Sphinx") -> None:
     """The sphinx entry-point for the extension."""
 
     from .events import override_latex_config, setup_latex_transforms
-    from .nodes import CellOutput, HiddenCellNode, RootHeader
+    from .nodes import CellInput, CellOutput, HiddenCellNode, RootHeader
     from .transforms import (
         CodeBlockTransforms,
         LatexRootDocTransforms,
@@ -32,6 +32,7 @@ def setup(app: "Sphinx") -> None:
     HiddenCellNode.add_node(app)
     RootHeader.add_node(app)
     CellOutput.add_node(app)
+    CellInput.add_node(app)
 
     app.add_transform(LatexRootDocTransforms)
     app.add_transform(LatexToctreeNodeInterpret)

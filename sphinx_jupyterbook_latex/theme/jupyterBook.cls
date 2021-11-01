@@ -16,7 +16,7 @@
 \RequirePackage{bbm}
 \def\sphinxdocclass{report}
 \LoadClass{sphinxmanual}
-
+\RequirePackage[strict]{changepage}
 
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
@@ -50,11 +50,33 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\gt}{>}
 
-\definecolor{VerbatimOutputColor}{RGB}{232,232,224}
-\definecolor{VerbatimBorderColor}{RGB}{20,20,20}
+\definecolor{codeBlockInputLeftFrame}{RGB}{0,45,74}
+\definecolor{CodeBlockInputBorderColor}{RGB}{204,204,204}
+\definecolor{CodeBlockInputColor}{RGB}{247,247,247}
+\definecolor{CodeBlockOutputBorderColor}{RGB}{247,247,247}
+\definecolor{CodeBlockOutputColor}{RGB}{252,252,252}
+
+%% this environment at present does not work well with sphinxVerbatim
+\newenvironment{leftbarin}
+{%
+    \def\FrameCommand
+    {%
+        {\color{codeBlockInputLeftFrame}\vrule width 3pt}%
+        \hspace{0pt}%must no space.
+        \fboxsep=\FrameSep\colorbox{CodeBlockInputColor}%
+    }%
+    \MakeFramed{\advance\hsize-\width\@totalleftmargin\z@\linewidth\hsize\@setminipage}%
+}
+{\endMakeFramed}
+
+\makeatletter
+\newenvironment{sphinxVerbatimInput}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}} \begin{adjustwidth}{10pt}{}}
+  {\end{adjustwidth}}
+\makeatother
 
 \makeatletter
 \newenvironment{sphinxVerbatimOutput}
-  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{VerbatimBorderColor}{VerbatimOutputColor}}}
-  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{VerbatimBorderColor}{VerbatimColor}}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockOutputBorderColor}{CodeBlockOutputColor}} \begin{adjustwidth}{30pt}{}}
+  {\end{adjustwidth}}
 \makeatother
