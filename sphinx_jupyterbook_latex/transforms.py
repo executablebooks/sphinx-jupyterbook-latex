@@ -423,6 +423,7 @@ class ListTableOfContents(SphinxPostTransform):
 
 
 class CodeBlockTransforms(SphinxPostTransform):
+    """Wrapping myst_nb code cell nodes with nodes of this extension."""
 
     default_priority = 999
 

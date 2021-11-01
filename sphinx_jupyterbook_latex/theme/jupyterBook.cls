@@ -20,6 +20,7 @@
 
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
+\setlength{\fboxsep}{10pt}
 
 \newcommand{\RR}{\mathbbm R}
 \newcommand{\NN}{\mathbbm N}
