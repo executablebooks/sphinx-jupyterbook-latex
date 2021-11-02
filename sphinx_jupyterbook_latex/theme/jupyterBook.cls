@@ -57,8 +57,8 @@
 \definecolor{CodeBlockOutputBorderColor}{RGB}{247,247,247}
 \definecolor{CodeBlockOutputColor}{RGB}{252,252,252}
 
-%% this environment at present does not work well with sphinxVerbatim
-%% TODO: edit this to make a left margin
+% This environment at present does not work well with sphinxVerbatim
+% TODO: edit this to make a left margin
 \newenvironment{leftbarin}
 {%
     \def\FrameCommand
@@ -71,12 +71,14 @@
 }
 {\endMakeFramed}
 
+% Env which wraps code cell inputs
 \makeatletter
 \newenvironment{sphinxVerbatimInput}
   {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}}\begin{adjustwidth}{6pt}{}}
   {\end{adjustwidth}}
 \makeatother
 
+% Env which wraps code cell outputs
 \makeatletter
 \newenvironment{sphinxVerbatimOutput}
   {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockOutputBorderColor}{CodeBlockOutputColor}} \begin{adjustwidth}{20pt}{}}
