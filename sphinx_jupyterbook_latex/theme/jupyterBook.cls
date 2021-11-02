@@ -20,7 +20,7 @@
 
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
-\setlength{\fboxsep}{10pt}
+\setlength{\fboxsep}{6pt}
 
 \newcommand{\RR}{\mathbbm R}
 \newcommand{\NN}{\mathbbm N}
@@ -58,6 +58,7 @@
 \definecolor{CodeBlockOutputColor}{RGB}{252,252,252}
 
 %% this environment at present does not work well with sphinxVerbatim
+%% TODO: edit this to make a left margin
 \newenvironment{leftbarin}
 {%
     \def\FrameCommand
@@ -72,12 +73,12 @@
 
 \makeatletter
 \newenvironment{sphinxVerbatimInput}
-  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}} \begin{adjustwidth}{10pt}{}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}}\begin{adjustwidth}{6pt}{}}
   {\end{adjustwidth}}
 \makeatother
 
 \makeatletter
 \newenvironment{sphinxVerbatimOutput}
-  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockOutputBorderColor}{CodeBlockOutputColor}} \begin{adjustwidth}{30pt}{}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockOutputBorderColor}{CodeBlockOutputColor}} \begin{adjustwidth}{20pt}{}}
   {\end{adjustwidth}}
 \makeatother

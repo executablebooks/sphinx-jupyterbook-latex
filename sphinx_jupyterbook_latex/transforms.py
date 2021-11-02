@@ -423,12 +423,13 @@ class ListTableOfContents(SphinxPostTransform):
 
 
 class CodeBlockTransforms(SphinxPostTransform):
-    """Wrapping myst_nb code cell nodes with nodes of this extension."""
+    """Handling any post transforms needed for code cells."""
 
     default_priority = 999
 
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
+            """Wrapping myst_nb code cell nodes with nodes of this extension. """
             from myst_nb.nodes import CellInputNode, CellOutputNode
 
             for node in self.document.traverse(CellOutputNode):
