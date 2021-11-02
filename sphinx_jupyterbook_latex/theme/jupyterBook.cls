@@ -20,7 +20,7 @@
 
 \setlength{\textwidth}{17.5cm}
 \setlength{\textheight}{22cm}
-\setlength{\fboxsep}{6pt}
+\setlength{\fboxsep}{5pt}
 
 \newcommand{\RR}{\mathbbm R}
 \newcommand{\NN}{\mathbbm N}
@@ -74,7 +74,7 @@
 % Env which wraps code cell inputs
 \makeatletter
 \newenvironment{sphinxVerbatimInput}
-  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}}\begin{adjustwidth}{6pt}{}}
+  {\def\spx@verbatimfcolorbox{\spx@fcolorbox{CodeBlockInputBorderColor}{CodeBlockInputColor}}\begin{adjustwidth}{5pt}{}}
   {\end{adjustwidth}}
 \makeatother
 
