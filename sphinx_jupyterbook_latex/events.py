@@ -74,6 +74,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
     app.env.jblatex_captions_to_parts = False  # type: ignore[attr-defined]
     if app.config["jblatex_captions_to_parts"] is True:  # type: ignore[comparison-overlap]
         app.config["latex_toplevel_sectioning"] = "part"
+        app.config["numfig_secnum_depth"] = 2  # equation number with chapter numbers
         app.env.jblatex_captions_to_parts = True
     elif app.config["jblatex_captions_to_parts"] is None:
         # if using the sphinx-external-toc, we can look if parts are being specified
