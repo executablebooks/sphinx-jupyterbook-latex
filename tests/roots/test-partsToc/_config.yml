@@ -21,5 +21,3 @@ bibtex_bibfiles:
 sphinx:
   extra_extensions:
     - sphinx_jupyterbook_latex
-  config:
-    jblatex_captions_to_parts: true

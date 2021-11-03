@@ -1,49 +1,8 @@
-import os
 import shutil
 from pathlib import Path
 from textwrap import dedent
 
-import pytest
-from sphinx.testing.path import path as sphinx_path
-from sphinx.testing.util import SphinxTestApp
 from TexSoup import TexSoup
-
-
-class SphinxBuild:
-    def __init__(self, app: SphinxTestApp, src: Path):
-        self.app = app
-        self.src = src
-
-    def build(self, assert_pass=True):
-        self.app.build()
-        if assert_pass:
-            assert self.warnings == "", self.status
-        return self
-
-    @property
-    def status(self):
-        return self.app._status.getvalue()
-
-    @property
-    def warnings(self):
-        return self.app._warning.getvalue()
-
-    @property
-    def outdir(self):
-        return Path(self.app.outdir)
-
-
-@pytest.fixture()
-def sphinx_build_factory(make_app):
-    def _func(src_path: Path, buildername="latex", **kwargs) -> SphinxBuild:
-        app = make_app(
-            buildername=buildername,
-            srcdir=sphinx_path(os.path.abspath(str(src_path))),
-            **kwargs
-        )
-        return SphinxBuild(app, src_path)
-
-    yield _func
 
 
 def test_build_no_ext(
@@ -112,6 +71,11 @@ def test_build_with_ext(
     # run sphinx
     builder = sphinx_build_factory(src_dir)
     builder.build()
+
+    # check config variables
+    assert "imgconverter='sphinx.ext.imgconverter'" in builder.status
+    assert "toplevel_section='part'" in builder.status
+    assert "show_tocs='list'" in builder.status
 
     # get root doctree after transforms
     doctree = builder.app.env.get_doctree("intro")
