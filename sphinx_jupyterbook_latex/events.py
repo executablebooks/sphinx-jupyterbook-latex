@@ -29,6 +29,7 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     # only allow latex builder to access rest of the features
     config["latex_engine"] = "xelatex"
     config["latex_theme"] = "jupyterBook"
+    config["numfig"] = True
 
     latex_elements = cast(dict, config["latex_elements"])
 
@@ -81,6 +82,9 @@ def setup_latex_transforms(app: Sphinx) -> None:
         if sitemap is not None:
             if sitemap.file_format == "jb-book" and len(sitemap.root.subtrees) > 1:
                 app.config["latex_toplevel_sectioning"] = "part"
+                app.config[
+                    "numfig_secnum_depth"
+                ] = 2  # equation number with chapter numbers
                 app.env.jblatex_captions_to_parts = True
             elif sitemap.file_format == "jb-book":
                 app.config["latex_toplevel_sectioning"] = "chapter"
