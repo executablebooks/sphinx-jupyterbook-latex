@@ -72,6 +72,8 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     # decide whether we will convert top-level toctree captions to parts
     app.env.jblatex_captions_to_parts = False  # type: ignore[attr-defined]
+    app.env.img_converter_ext = False  # type: ignore[attr-defined]
+
     if app.config["jblatex_captions_to_parts"] is True:  # type: ignore[comparison-overlap]
         app.config["latex_toplevel_sectioning"] = "part"
         app.config["numfig_secnum_depth"] = 2  # equation number with chapter numbers
@@ -92,13 +94,6 @@ def setup_latex_transforms(app: Sphinx) -> None:
             elif sitemap.file_format == "jb-article":
                 app.config["latex_toplevel_sectioning"] = "section"
 
-    logger.info(
-        bold("sphinx-jupyterbook-latex v%s:") + "engine='%s', toplevel_section='%s'",
-        __version__,
-        app.config["latex_engine"],
-        app.config["latex_toplevel_sectioning"],
-    )
-
     # Copy the class theme to the output directory.
     # note: importlib.resources is the formal method to access files within packages
     with resources.as_file(resources.files(theme).joinpath("jupyterBook.cls")) as path:
@@ -110,4 +105,16 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     if app.config["jblatex_load_imgconverter"]:
         app.setup_extension("sphinx.ext.imgconverter")
+        app.env.img_converter_ext = "sphinx.ext.imgconverter"  # type: ignore[attr-defined]
+
+    logger.info(
+        bold("sphinx-jupyterbook-latex v%s:")
+        + "engine='%s', toplevel_section='%s', imgconverter='%s', show_tocs='%s'",
+        __version__,
+        app.config["latex_engine"],
+        app.config["latex_toplevel_sectioning"],
+        app.env.img_converter_ext,  # type: ignore[attr-defined]
+        app.config["jblatex_show_tocs"],
+    )
+
     app.add_post_transform(LatexRootDocPostTransforms)
