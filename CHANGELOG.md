@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.4.6 - 2021-11-05
+
+### ✨ NEW
+
+- Formatting of output code cells
+- Adding chapter numbers in equations
+
+### 👌 IMPROVE
+
+- Refactored and added tests
+
 ## 0.4.5 - 2021-10-20
 
 ### 👌 IMPROVE
