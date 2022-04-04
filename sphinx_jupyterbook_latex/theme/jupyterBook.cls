@@ -1,6 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{jupyterBook}[2020/11/06]
 
+% Pass document options defined in config to sphinxmanual.
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{sphinxmanual}}
+\ProcessOptions\relax
+
 \RequirePackage{xcolor}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{graphicx}
