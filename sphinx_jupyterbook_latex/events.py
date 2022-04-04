@@ -98,9 +98,6 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     # Copy the class theme to the output directory.
     # note: importlib.resources is the formal method to access files within packages
-    import pdb
-
-    pdb.set_trace()
     with resources.as_file(resources.files(theme).joinpath("jupyterBook.cls")) as path:
         copy_asset_file(str(path), app.outdir)
 
