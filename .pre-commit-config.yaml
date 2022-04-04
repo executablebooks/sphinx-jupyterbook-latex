@@ -48,7 +48,7 @@ repos:
     rev: v0.941
     hooks:
     - id: mypy
-      additional_dependencies: [docutils, "sphinx>=3"]
+      additional_dependencies: ["sphinx>=3"]
       args: [--no-strict-optional, --ignore-missing-imports]
       exclude: tests/roots/.*py
 
