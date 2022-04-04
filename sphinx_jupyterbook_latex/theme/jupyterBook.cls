@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{jupyterBook}[2020/11/06]
 
-% Pass document options to sphinxmanual.
+% Pass document options defined in config to sphinxmanual.
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{sphinxmanual}}
 \ProcessOptions\relax
 
