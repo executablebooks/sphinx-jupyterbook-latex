@@ -248,7 +248,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
         #       <compound classes="toctree-wrapper">
         #          ...
 
-        if self.env.jblatex_captions_to_parts:  # type: ignore[attr-defined]
+        if self.env.jblatex_captions_to_parts:
 
             for node in self.document.traverse(docutils.nodes.compound):
                 if (
