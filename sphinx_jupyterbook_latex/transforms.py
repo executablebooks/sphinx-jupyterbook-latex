@@ -35,7 +35,7 @@ def find_parent(
 ) -> Optional[docutils.nodes.Element]:
     """Find the parent node."""
     while True:
-        node = node.parent
+        node = node.parent  # type: ignore[assignment]
         if node is None:
             return None
         # parent should be a document in toc
@@ -93,7 +93,7 @@ class LatexRootDocTransforms(SphinxTransform):
         # add the docname and header_level attributes to section nodes
         # so we can identify them later, when LatexBuilder merges the doctrees
         def _recursive_assign_depth(
-            node: docutils.nodes.Element, section_depth: int
+            node: docutils.nodes.Node, section_depth: int
         ) -> None:
             for child in node.children:
                 if isinstance(child, docutils.nodes.section):
@@ -248,7 +248,7 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
         #       <compound classes="toctree-wrapper">
         #          ...
 
-        if self.env.jblatex_captions_to_parts:  # type: ignore[attr-defined]
+        if self.env.jblatex_captions_to_parts:
 
             for node in self.document.traverse(docutils.nodes.compound):
                 if (
@@ -308,7 +308,7 @@ class LatexToctreeNodeInterpret(SphinxTransform):
 
             # copy all toctree attributes
             hiddennode = HiddenCellNode()
-            hiddennode.attributes = tocnode.attributes
+            hiddennode.attributes = tocnode.attributes  # type: ignore[attr-defined]
             hiddennode.attributes["classes"] = "latex-tableofcontents"
 
             # inserts hiddennode adjacent to a toctree node
@@ -429,7 +429,7 @@ class CodeBlockTransforms(SphinxPostTransform):
 
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
-            """Wrapping myst_nb code cell nodes with nodes of this extension. """
+            """Wrapping myst_nb code cell nodes with nodes of this extension."""
             from myst_nb.nodes import CellInputNode, CellOutputNode
 
             for node in self.document.traverse(CellOutputNode):

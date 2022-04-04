@@ -55,7 +55,9 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     )
 
     # at the moment, True means list for this config
-    if (type(config["jblatex_show_tocs"]) is bool) and config["jblatex_show_tocs"]:  # type: ignore[comparison-overlap] # noqa: E501
+    if (type(config["jblatex_show_tocs"]) is bool) and config[
+        "jblatex_show_tocs"
+    ]:  # noqa: E501
         config["jblatex_show_tocs"] = "list"
 
 
@@ -68,13 +70,13 @@ def setup_latex_transforms(app: Sphinx) -> None:
         return
 
     # note: bold is a dynamically created function
-    from sphinx.util.console import bold  # type: ignore[attr-defined]
+    from sphinx.util.console import bold
 
     # decide whether we will convert top-level toctree captions to parts
-    app.env.jblatex_captions_to_parts = False  # type: ignore[attr-defined]
-    app.env.img_converter_ext = False  # type: ignore[attr-defined]
+    app.env.jblatex_captions_to_parts = False
+    app.env.img_converter_ext = False
 
-    if app.config["jblatex_captions_to_parts"] is True:  # type: ignore[comparison-overlap]
+    if app.config["jblatex_captions_to_parts"] is True:
         app.config["latex_toplevel_sectioning"] = "part"
         app.config["numfig_secnum_depth"] = 2  # equation number with chapter numbers
         app.env.jblatex_captions_to_parts = True
@@ -105,7 +107,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     if app.config["jblatex_load_imgconverter"]:
         app.setup_extension("sphinx.ext.imgconverter")
-        app.env.img_converter_ext = "sphinx.ext.imgconverter"  # type: ignore[attr-defined]
+        app.env.img_converter_ext = "sphinx.ext.imgconverter"
 
     logger.info(
         bold("sphinx-jupyterbook-latex v%s:")
@@ -113,7 +115,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
         __version__,
         app.config["latex_engine"],
         app.config["latex_toplevel_sectioning"],
-        app.env.img_converter_ext,  # type: ignore[attr-defined]
+        app.env.img_converter_ext,
         app.config["jblatex_show_tocs"],
     )
 
