@@ -55,7 +55,9 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     )
 
     # at the moment, True means list for this config
-    if (type(config["jblatex_show_tocs"]) is bool) and config["jblatex_show_tocs"]:  # type: ignore[comparison-overlap] # noqa: E501
+    if (type(config["jblatex_show_tocs"]) is bool) and config[
+        "jblatex_show_tocs"
+    ]:  # noqa: E501
         config["jblatex_show_tocs"] = "list"
 
 
@@ -71,13 +73,13 @@ def setup_latex_transforms(app: Sphinx) -> None:
     from sphinx.util.console import bold  # type: ignore[attr-defined]
 
     # decide whether we will convert top-level toctree captions to parts
-    app.env.jblatex_captions_to_parts = False  # type: ignore[attr-defined]
-    app.env.img_converter_ext = False  # type: ignore[attr-defined]
+    app.env.jblatex_captions_to_parts = False  # type: ignore[union-attr]
+    app.env.img_converter_ext = False  # type: ignore[union-attr]
 
-    if app.config["jblatex_captions_to_parts"] is True:  # type: ignore[comparison-overlap]
+    if app.config["jblatex_captions_to_parts"] is True:
         app.config["latex_toplevel_sectioning"] = "part"
         app.config["numfig_secnum_depth"] = 2  # equation number with chapter numbers
-        app.env.jblatex_captions_to_parts = True
+        app.env.jblatex_captions_to_parts = True  # type: ignore[union-attr]
     elif app.config["jblatex_captions_to_parts"] is None:
         # if using the sphinx-external-toc, we can look if parts are being specified
         # TODO this should probably be made more robust
@@ -88,7 +90,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
                 app.config[
                     "numfig_secnum_depth"
                 ] = 2  # equation number with chapter numbers
-                app.env.jblatex_captions_to_parts = True
+                app.env.jblatex_captions_to_parts = True  # type: ignore[union-attr]
             elif sitemap.file_format == "jb-book":
                 app.config["latex_toplevel_sectioning"] = "chapter"
             elif sitemap.file_format == "jb-article":
@@ -96,6 +98,9 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     # Copy the class theme to the output directory.
     # note: importlib.resources is the formal method to access files within packages
+    import pdb
+
+    pdb.set_trace()
     with resources.as_file(resources.files(theme).joinpath("jupyterBook.cls")) as path:
         copy_asset_file(str(path), app.outdir)
 
@@ -105,7 +110,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
 
     if app.config["jblatex_load_imgconverter"]:
         app.setup_extension("sphinx.ext.imgconverter")
-        app.env.img_converter_ext = "sphinx.ext.imgconverter"  # type: ignore[attr-defined]
+        app.env.img_converter_ext = "sphinx.ext.imgconverter"  # type: ignore[union-attr]
 
     logger.info(
         bold("sphinx-jupyterbook-latex v%s:")
@@ -113,7 +118,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
         __version__,
         app.config["latex_engine"],
         app.config["latex_toplevel_sectioning"],
-        app.env.img_converter_ext,  # type: ignore[attr-defined]
+        app.env.img_converter_ext,  # type: ignore[union-attr]
         app.config["jblatex_show_tocs"],
     )
 

@@ -45,10 +45,11 @@ repos:
       - pep8-naming~=0.11.1
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v0.790
+    rev: v0.941
     hooks:
     - id: mypy
-      additional_dependencies: ["sphinx>=3,<4"]
+      additional_dependencies: [types-all, "sphinx>=3"]
+      args: [--no-strict-optional, --ignore-missing-imports]
       exclude: tests/roots/.*py
 
   - repo: https://github.com/asottile/setup-cfg-fmt
