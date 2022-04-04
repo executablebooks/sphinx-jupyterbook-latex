@@ -5,6 +5,3 @@ build-backend = "setuptools.build_meta"
 [tool.isort]
 profile = "black"
 src_paths = ["sphinx_jupyterbook_latex", "tests"]
-
-[mypy]
-ignore_missing_imports = true

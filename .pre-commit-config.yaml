@@ -49,7 +49,7 @@ repos:
     hooks:
     - id: mypy
       additional_dependencies: ["sphinx>=3"]
-      args: [--no-strict-optional, --ignore-missing-imports]
+      args: [--install-types, --no-strict-optional, --ignore-missing-imports]
       exclude: tests/roots/.*py
 
   - repo: https://github.com/asottile/setup-cfg-fmt
