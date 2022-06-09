@@ -141,6 +141,25 @@ class MystNbPostTransform(SphinxPostTransform):
         dependencies = check_dependency()
         if isinstance(dependencies, dict):
             return int(dependencies.get("myst_nb", ""))
+    
+    def check_dependency(cls) -> bool:
+        """Check that myst-nb is installed and a compatible version."""
+        try:
+            from myst_nb import __version__
+        except ImportError:
+            return False
+        major, minor = __version__.split(".")[0:2]
+        if major == "0" and minor in (
+            "11",
+            "12",
+            "13",
+        ):  # TODO: fetch this from pyproject.toml?
+            return True
+        else:
+            logger.warning(
+                "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.11,<0.14: "
+                f"{__version__}"
+            )
         return False
 
     def apply(self, **kwargs: Any) -> None:
