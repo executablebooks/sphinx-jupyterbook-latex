@@ -60,6 +60,27 @@ def is_root_document(document: docutils.nodes.document, app: Sphinx) -> bool:
     return app.project.path2doc(document["source"]) == app.config.master_doc
 
 
+def is_cell(node: nodes.Node) -> bool:
+    return (
+        isinstance(node, nodes.container)
+        and node.attributes.get("nb_element") == "cell_code"
+    )
+
+
+def is_input_cell(node: nodes.Node) -> bool:
+    return (
+        isinstance(node, nodes.container)
+        and node.attributes.get("nb_element") == "cell_code_source"
+    )
+
+
+def is_output_cell(node: nodes.Node) -> bool:
+    return (
+        isinstance(node, nodes.container)
+        and node.attributes.get("nb_element") == "cell_code_output"
+    )
+
+
 class LatexRootDocTransforms(SphinxTransform):
     """Arrange the toctrees and sections in the required structure.
 
@@ -113,11 +134,7 @@ class MystNbPostTransform(SphinxPostTransform):
         except ImportError:
             return False
         major, minor = __version__.split(".")[0:2]
-        if major == "0" and minor in (
-            "11",
-            "12",
-            "13",
-        ):  # TODO: fetch this from pyproject.toml?
+        if major == "0" and minor in ("15"):  # TODO: fetch this from pyproject.toml?
             return True
         else:
             logger.warning(
@@ -127,16 +144,14 @@ class MystNbPostTransform(SphinxPostTransform):
         return False
 
     def apply(self, **kwargs: Any) -> None:
-        from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
-
-        for node in self.document.traverse(CellNode):
+        for node in self.document.traverse(is_cell):
             if "tag_hide-cell" in node["classes"]:
                 replace_node_cls(node, HiddenCellNode, True)
             if "tag_hide-input" in node["classes"]:
-                for input_node in node.traverse(CellInputNode):
+                for input_node in node.traverse(is_input_cell):
                     replace_node_cls(input_node, HiddenCellNode, True)
             if "tag_hide-output" in node["classes"]:
-                for output_node in node.traverse(CellOutputNode):
+                for output_node in node.traverse(is_output_cell):
                     replace_node_cls(output_node, HiddenCellNode, True)
 
 
@@ -425,14 +440,13 @@ class CodeBlockTransforms(SphinxPostTransform):
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
             """Wrapping myst_nb code cell nodes with nodes of this extension."""
-            from myst_nb.nodes import CellInputNode, CellOutputNode
 
-            for node in self.document.traverse(CellOutputNode):
+            for node in self.document.traverse(is_input_cell):
                 celloutput = CellOutput()
                 celloutput.append(node.deepcopy())
                 node.replace_self(celloutput)
 
-            for node in self.document.traverse(CellInputNode):
+            for node in self.document.traverse(is_output_cell):
                 cellinput = CellInput()
                 cellinput.append(node.deepcopy())
                 node.replace_self(cellinput)
