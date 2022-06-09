@@ -46,11 +46,6 @@ def find_parent(
         ):
             return node
 
-    if node.tagname == parent_tag:
-        return node
-
-    return None
-
 
 def remove_suffix(docname: str, suffixes: List[str]) -> str:
     """Remove any suffixes."""
