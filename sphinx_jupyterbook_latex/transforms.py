@@ -1,4 +1,4 @@
-6;5~from typing import Any, List, Mapping, Optional, Tuple, Type
+from typing import Any, List, Mapping, Optional, Tuple, Type
 
 import docutils
 from docutils import nodes
