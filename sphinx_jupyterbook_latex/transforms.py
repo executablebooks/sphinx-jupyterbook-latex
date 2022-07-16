@@ -100,46 +100,6 @@ class LatexRootDocTransforms(SphinxTransform):
         _recursive_assign_depth(self.document, 1)
 
 
-class MystNbPostTransform(SphinxPostTransform):
-    """Replaces hidden input/output cells with a node that is ignored when rendering."""
-
-    default_priority = 400
-
-    @classmethod
-    def check_dependency(cls) -> bool:
-        """Check that myst-nb is installed and a compatible version."""
-        try:
-            from myst_nb import __version__
-        except ImportError:
-            return False
-        major, minor = __version__.split(".")[0:2]
-        if major == "0" and minor in (
-            "11",
-            "12",
-            "13",
-        ):  # TODO: fetch this from setup.cfg?
-            return True
-        else:
-            logger.warning(
-                "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.11,<0.14: "
-                f"{__version__}"
-            )
-        return False
-
-    def apply(self, **kwargs: Any) -> None:
-        from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
-
-        for node in self.document.traverse(CellNode):
-            if "tag_hide-cell" in node["classes"]:
-                replace_node_cls(node, HiddenCellNode, True)
-            if "tag_hide-input" in node["classes"]:
-                for input_node in node.traverse(CellInputNode):
-                    replace_node_cls(input_node, HiddenCellNode, True)
-            if "tag_hide-output" in node["classes"]:
-                for output_node in node.traverse(CellOutputNode):
-                    replace_node_cls(output_node, HiddenCellNode, True)
-
-
 class LatexRootDocPostTransforms(SphinxPostTransform):
     """Arrange the sections, toctrees and bibliographies into the required structure,
     and replace sub-section nodes from the root document,
