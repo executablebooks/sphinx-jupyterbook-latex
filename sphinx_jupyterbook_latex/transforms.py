@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping, Optional, Tuple, Type
+6;5~from typing import Any, List, Mapping, Optional, Tuple, Type
 
 import docutils
 from docutils import nodes
@@ -134,11 +134,11 @@ class MystNbPostTransform(SphinxPostTransform):
         except ImportError:
             return False
         major, minor = __version__.split(".")[0:2]
-        if major == "0" and minor in ("15"):  # TODO: fetch this from pyproject.toml?
+        if int(major) == 0 and 11 <= int(minor) < 17:  # TODO: fetch this from setup.py?
             return True
         else:
             logger.warning(
-                "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.11,<0.14: "
+                "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.11,<0.17: "
                 f"{__version__}"
             )
         return False
