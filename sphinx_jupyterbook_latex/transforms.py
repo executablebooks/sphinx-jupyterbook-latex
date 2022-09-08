@@ -1,4 +1,4 @@
-from typing import Any, List, Mapping, Optional, Tuple, Type
+from typing import Any, List, Mapping, Optional, Tuple, Type, Union
 
 import docutils
 from docutils import nodes
@@ -28,6 +28,37 @@ def replace_node_cls(
     if copy_children:
         node.children = src_node.children
     src_node.replace_self([node])
+
+
+def findall(node: nodes.Element):
+    # findall replaces traverse in docutils v0.18
+    # note a difference is that findall is an iterator
+    # taken from MyST-NB
+    return getattr(node, "findall", node.traverse)
+
+
+def check_dependency() -> Union[bool, dict]:
+    """Check installed packages and their compatible versions.
+    At present only concerned with MyST-NB"""
+    try:
+        from myst_nb import __version__
+    except ImportError:
+        return False
+    major, minor = __version__.split(".")[0:2]
+    if major == "0" and minor in (
+        "13",
+        "14",
+        "15",
+        "16",
+    ):  # TODO: fetch this from setup.cfg?
+        package_versions = {"myst_nb": minor}
+        return package_versions
+    else:
+        logger.warning(
+            "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.13,<=0.16: "
+            f"{__version__}"
+        )
+    return False
 
 
 def find_parent(
@@ -111,37 +142,55 @@ class MystNbPostTransform(SphinxPostTransform):
     default_priority = 400
 
     @classmethod
-    def check_dependency(cls) -> bool:
-        """Check that myst-nb is installed and a compatible version."""
-        try:
-            from myst_nb import __version__
-        except ImportError:
-            return False
-        major, minor = __version__.split(".")[0:2]
-        if major == "0" and minor in (
-            "11",
-            "12",
-            "13",
-        ):  # TODO: fetch this from setup.cfg?
-            return True
-        else:
-            logger.warning(
-                "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.11,<0.14: "
-                f"{__version__}"
-            )
+    def check_mystnb_dependency(cls) -> Union[bool, int]:
+        dependencies = check_dependency()
+        if isinstance(dependencies, dict):
+            return int(dependencies.get("myst_nb", ""))
         return False
 
     def apply(self, **kwargs: Any) -> None:
-        from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
 
-        for node in self.document.traverse(CellNode):
+        mystnb_version = self.check_mystnb_dependency()
+
+        # checking mystnb_version for proper imports
+        if mystnb_version < 14:
+            from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
+
+            node_search = CellNode
+        else:
+
+            def node_search(node):
+                return isinstance(node, nodes.container)
+
+        for node in list(findall(self.document)(node_search)):
             if "tag_hide-cell" in node["classes"]:
                 replace_node_cls(node, HiddenCellNode, True)
             if "tag_hide-input" in node["classes"]:
-                for input_node in node.traverse(CellInputNode):
+                # checking mystnb_version for proper node search
+                if mystnb_version < 14:
+                    node_search = CellInputNode
+                else:
+
+                    def node_search(node):
+                        return isinstance(
+                            node, nodes.container
+                        ) and "cell_input" in node.attributes.get("classes", "")
+
+                for input_node in list(findall(node)(node_search)):
                     replace_node_cls(input_node, HiddenCellNode, True)
+
             if "tag_hide-output" in node["classes"]:
-                for output_node in node.traverse(CellOutputNode):
+                # checking mystnb_version for proper node search
+                if mystnb_version < 14:
+                    node_search = CellOutputNode
+                else:
+
+                    def node_search(node):
+                        return isinstance(
+                            node, nodes.container
+                        ) and "cell_output" in node.attributes.get("classes", "")
+
+                for output_node in list(findall(node)(node_search)):
                     replace_node_cls(output_node, HiddenCellNode, True)
 
 
@@ -430,14 +479,38 @@ class CodeBlockTransforms(SphinxPostTransform):
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
             """Wrapping myst_nb code cell nodes with nodes of this extension."""
-            from myst_nb.nodes import CellInputNode, CellOutputNode
+            mystnb_version = int(check_dependency()["myst_nb"])
 
-            for node in self.document.traverse(CellOutputNode):
-                celloutput = CellOutput()
-                celloutput.append(node.deepcopy())
-                node.replace_self(celloutput)
+            # checking mystnb_version for proper imports
+            if mystnb_version < 14:
+                from myst_nb.nodes import CellOutputNode
 
-            for node in self.document.traverse(CellInputNode):
+                node_search = CellOutputNode
+            else:
+
+                def node_search(node):
+                    return isinstance(
+                        node, nodes.container
+                    ) and "cell_input" in node.attributes.get("classes", "")
+
+            for node in list(findall(self.document)(node_search)):
                 cellinput = CellInput()
                 cellinput.append(node.deepcopy())
                 node.replace_self(cellinput)
+
+            # checking mystnb_version for proper imports
+            if mystnb_version < 14:
+                from myst_nb.nodes import CellInputNode
+
+                node_search = CellInputNode
+            else:
+
+                def node_search(node):
+                    return isinstance(
+                        node, nodes.container
+                    ) and "cell_output" in node.attributes.get("classes", "")
+
+            for node in list(findall(self.document)(node_search)):
+                celloutput = CellOutput()
+                celloutput.append(node.deepcopy())
+                node.replace_self(celloutput)
