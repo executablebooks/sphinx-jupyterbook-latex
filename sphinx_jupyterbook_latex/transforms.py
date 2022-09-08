@@ -483,9 +483,9 @@ class CodeBlockTransforms(SphinxPostTransform):
 
             # checking mystnb_version for proper imports
             if mystnb_version < 14:
-                from myst_nb.nodes import CellOutputNode
+                from myst_nb.nodes import CellInputNode
 
-                node_search = CellOutputNode
+                node_search = CellInputNode
             else:
 
                 def node_search(node):
@@ -500,9 +500,9 @@ class CodeBlockTransforms(SphinxPostTransform):
 
             # checking mystnb_version for proper imports
             if mystnb_version < 14:
-                from myst_nb.nodes import CellInputNode
+                from myst_nb.nodes import CellOutputNode
 
-                node_search = CellInputNode
+                node_search = CellOutputNode
             else:
 
                 def node_search(node):
