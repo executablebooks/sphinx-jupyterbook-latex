@@ -153,7 +153,8 @@ class MystNbPostTransform(SphinxPostTransform):
         mystnb_version = self.check_mystnb_dependency()
 
         # checking mystnb_version for proper imports
-        if mystnb_version < 14:
+        below_14 = mystnb_version < 14
+        if below_14:
             from myst_nb.nodes import CellInputNode, CellNode, CellOutputNode
 
             node_search = CellNode
@@ -167,7 +168,9 @@ class MystNbPostTransform(SphinxPostTransform):
                 replace_node_cls(node, HiddenCellNode, True)
             if "tag_hide-input" in node["classes"]:
                 # checking mystnb_version for proper node search
-                if mystnb_version < 14:
+                # as myst-nb has started using containers for code cells
+                # from v14
+                if below_14:
                     node_search = CellInputNode
                 else:
 
@@ -181,7 +184,9 @@ class MystNbPostTransform(SphinxPostTransform):
 
             if "tag_hide-output" in node["classes"]:
                 # checking mystnb_version for proper node search
-                if mystnb_version < 14:
+                # as myst-nb has started using containers for code cells
+                # from v14
+                if below_14:
                     node_search = CellOutputNode
                 else:
 
@@ -482,7 +487,10 @@ class CodeBlockTransforms(SphinxPostTransform):
             mystnb_version = int(check_dependency()["myst_nb"])
 
             # checking mystnb_version for proper imports
-            if mystnb_version < 14:
+            # as myst-nb has started using containers for code cells
+            # from v14
+            below_14 = mystnb_version < 14
+            if below_14:
                 from myst_nb.nodes import CellInputNode
 
                 node_search = CellInputNode
@@ -499,7 +507,9 @@ class CodeBlockTransforms(SphinxPostTransform):
                 node.replace_self(cellinput)
 
             # checking mystnb_version for proper imports
-            if mystnb_version < 14:
+            # as myst-nb has started using containers for code cells
+            # from v14
+            if below_14:
                 from myst_nb.nodes import CellOutputNode
 
                 node_search = CellOutputNode
