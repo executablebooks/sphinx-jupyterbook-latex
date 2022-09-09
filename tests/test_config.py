@@ -24,8 +24,6 @@ def test_jblatex_captions_to_parts(
     shutil.copytree(rootdir.joinpath("test-partsToc"), src_dir)
     # write conf.py
     contents = CONF_CONTENT + "    jblatex_captions_to_parts = True\n"
-    # import pdb;
-    # pdb.set_trace()
     src_dir.joinpath("conf.py").write_text(
         dedent(contents),
         encoding="utf8",
