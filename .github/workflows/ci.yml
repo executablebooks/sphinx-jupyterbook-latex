@@ -37,6 +37,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .[testing]
+        pip install myst-nb==${{ matrix.myst_nb}}
     - name: Install latex dependencies
       run: |
         sudo apt-get -qq update
@@ -79,6 +80,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -e .[testing]
+        pip install myst-nb==${{ matrix.myst_nb}}
 
     - name: Run pytest
       run: pytest --durations=10 -m 'not requires_tex'
