@@ -17,7 +17,7 @@ def test_hide_input(app, get_sphinx_app_doctree):
         )
         xml = BeautifulSoup(str(doctree), "html.parser")
         try:
-            hiddencellnode = xml.find_all("container", class_="tag_hide-input").find(
+            hiddencellnode = xml.find_all("container", class_="tag_hide-input")[0].find(
                 "hiddencellnode"
             )
             assert "cell_input" in hiddencellnode["classes"]
