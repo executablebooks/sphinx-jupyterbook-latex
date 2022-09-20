@@ -2,6 +2,7 @@ import shutil
 from pathlib import Path
 from textwrap import dedent
 
+from myst_nb import __version__ as mystnb_version
 from TexSoup import TexSoup
 
 CONF_CONTENT = """\
@@ -79,5 +80,20 @@ def test_jblatex_show_tocs(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
+
+    _, minor = mystnb_version.split(".")[0:2]
     # generated xml should not have toctree bullet lists
-    file_regression.check(doctree.pformat(), extension=".resolved.xml", encoding="utf8")
+    if int(minor) < 14:
+        file_regression.check(
+            doctree.pformat(),
+            extension=".resolved.xml",
+            encoding="utf8",
+            basename="test_jblatex_show_tocs<14",
+        )
+    else:
+        file_regression.check(
+            doctree.pformat(),
+            extension=".resolved.xml",
+            encoding="utf8",
+            basename="test_jblatex_show_tocs>14",
+        )

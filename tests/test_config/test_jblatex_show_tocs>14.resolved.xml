@@ -1,0 +1,266 @@
+<document docname="intro" source="intro">
+    <section docname="intro" header_level="1" ids="this-is-the-intro" names="this\ is\ the\ intro">
+        <title>
+            This is the intro
+        <paragraph>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel nunc vestibulum, pretium urna ac, hendrerit diam. Nulla ut mi sit amet dui placerat tempor at quis magna. Sed porttitor blandit consequat. Fusce efficitur mi eget pharetra cursus. Sed vel blandit dui, et pharetra velit. Ut eget erat rutrum, maximus felis ullamcorper, congue urna. Ut pellentesque, orci vel consectetur aliquam, velit elit vehicula libero, eu blandit tellus risus rhoncus massa. Curabitur id libero ut sapien aliquet dapibus nec et dolor. Pellentesque tincidunt iaculis ipsum vitae pretium. Quisque et egestas orci, sed dignissim sem. Vestibulum sed commodo dui. Nulla rutrum vulputate nisl nec interdum. Cras pharetra quam et tellus convallis, ut hendrerit mi mollis. Integer finibus tellus porttitor tellus bibendum, a auctor purus dapibus. Etiam mauris est, blandit ut dapibus eget, rutrum et dolor.
+        <HiddenCellNode ids="this-is-h2" names="this\ is\ h2">
+        <RootHeader level="2">
+            This is H2
+        <paragraph>
+            Etiam interdum tempor augue at volutpat. Nulla sit amet volutpat elit. In vehicula dapibus velit, a placerat neque blandit et. Etiam non mollis nibh. Mauris tortor purus, semper vel libero at, faucibus mattis enim. Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <HiddenCellNode caption="part1" classes="latex-tableofcontents" entries="(None,\ 'part1/chap1') (None,\ 'part1/chap2')" glob="False" hidden="False" includefiles="part1/chap1 part1/chap2" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part1" titlesonly="True">
+        <HiddenCellNode classes="toctree-wrapper">
+        <HiddenCellNode caption="part2" classes="latex-tableofcontents" entries="('Gallery\ of\ Jupyter\ Books',\ 'https://executablebooks.org/en/latest/gallery.html') (None,\ 'part2/chap3')" glob="False" hidden="False" includefiles="part2/chap3" includehidden="False" maxdepth="-1" numbered="0" parent="intro" rawcaption="part2" titlesonly="True">
+        <HiddenCellNode classes="toctree-wrapper">
+        <HiddenCellNode ids="this-is-h3" names="this\ is\ h3">
+        <RootHeader level="3">
+            This is H3
+        <paragraph>
+            Sed elit mi, vestibulum sit amet porttitor in, elementum a sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec gravida faucibus enim, at venenatis ante. Curabitur viverra neque vel nulla condimentum ultrices quis a ipsum.
+        <HiddenCellNode ids="this-is-h4" names="this\ is\ h4">
+        <RootHeader level="4">
+            This is H4
+        <paragraph>
+            Ipso facto
+    <HiddenCellNode classes="toctree-wrapper">
+    <HiddenCellNode classes="toctree-wrapper">
+    <compound classes="toctree-wrapper">
+        <start_of_file docname="part1">
+            <section docname="part1">
+                <title>
+                    part1
+                <compound caption="part1" classes="toctree-wrapper" docname="intro">
+                    <start_of_file docname="part1/chap1">
+                        <section docname="part1/chap1" ids="chapter-1 :doc" names="chapter\ 1">
+                            <title>
+                                Chapter 1
+                            <paragraph>
+                                Chap 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
+                    <start_of_file docname="part1/chap2">
+                        <section docname="part1/chap2" ids="chapter-2 :doc" names="chapter\ 2">
+                            <title>
+                                Chapter 2
+                            <paragraph>
+                                Chap 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
+                            <paragraph ids="id1">
+                            <paragraph>
+                                <inline ids="id6">
+                                    [
+                                    <raw_latex xml:space="preserve">
+                                    CKS+10
+                                    <raw_latex xml:space="preserve">
+                                    , 
+                                    <raw_latex xml:space="preserve">
+                                    HdHP+16
+                                    <raw_latex xml:space="preserve">
+                                    , 
+                                    <raw_latex xml:space="preserve">
+                                    PGH11
+                                    <raw_latex xml:space="preserve">
+                                    , 
+                                    <raw_latex xml:space="preserve">
+                                    SK14
+                                    <raw_latex xml:space="preserve">
+                                    ]
+                            <HiddenCellNode caption="True" classes="latex-tableofcontents" entries="(None,\ 'part1/sec1') (None,\ 'part1/sec2')" glob="False" hidden="False" includefiles="part1/sec1 part1/sec2" includehidden="False" maxdepth="-1" numbered="0" parent="part1/chap2" rawcaption="" titlesonly="True">
+                            <HiddenCellNode classes="toctree-wrapper">
+                            <compound classes="toctree-wrapper">
+                                <start_of_file docname="part1/sec1">
+                                    <section docname="part1/sec1" ids="section-1 :doc" names="section\ 1">
+                                        <title>
+                                            Section 1
+                                        <paragraph>
+                                            Sec 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
+                                <start_of_file docname="part1/sec2">
+                                    <section docname="part1/sec2" ids="section-2 :doc" names="section\ 2">
+                                        <title>
+                                            Section 2
+                                        <paragraph>
+                                            Sec 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
+    <compound classes="toctree-wrapper">
+        <start_of_file docname="part2">
+            <section docname="part2">
+                <title>
+                    part2
+                <compound caption="part2" classes="toctree-wrapper" docname="intro">
+                    <start_of_file docname="part2/chap3">
+                        <section docname="part2/chap3" ids="chapter-3 :doc" names="chapter\ 3">
+                            <title>
+                                Chapter 3
+                            <paragraph>
+                                Chap 3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
+                            <section docname="part2/chap3" ids="chap3-sub-header" names="chap3\ sub\ header">
+                                <title>
+                                    Chap3 sub header
+                                <paragraph>
+                                    Etiam quis cursus mi, fringilla aliquet ipsum. Nunc in lorem auctor, hendrerit lacus lobortis, ullamcorper velit. Phasellus turpis justo, tempus nec nibh ut, mattis consectetur lectus. Curabitur sem arcu, vulputate ut accumsan eget, ornare eu urna. Sed dapibus fermentum viverra.
+                            <HiddenCellNode classes="toctree-wrapper">
+                            <compound classes="toctree-wrapper">
+                                <start_of_file docname="part2/sec1">
+                                    <section docname="part2/sec1" ids="section-1 :doc" names="section\ 1">
+                                        <title>
+                                            Section 1
+                                        <paragraph>
+                                            Sec 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia varius sapien, et aliquet justo. Fusce sodales, magna malesuada commodo ornare, mauris erat hendrerit augue, dictum luctus dolor quam eget tellus. Nulla porta nibh eros, gravida euismod lorem placerat et. Praesent pulvinar congue gravida.
+    <thebibliography>
+        <citation backrefs="id6" docname="part1/chap2" ids="id5">
+            <label support_smartquotes="False">
+                CKS+10
+            <paragraph>
+                J
+                 
+                Gregory Caporaso, Justin Kuczynski, Jesse Stombaugh, Kyle Bittinger, Frederic
+                 
+                D Bushman, Elizabeth
+                 
+                K Costello, Noah Fierer, Antonio
+                 
+                Gonzalez Pena, Julia
+                 
+                K Goodrich, Jeffrey
+                 
+                I Gordon, and others.
+                 
+                Qiime allows analysis of high-throughput community sequencing data.
+                 
+                <emphasis>
+                    Nature methods
+                , 7(5):335–336, 2010.
+            <label support_smartquotes="False">
+                CKS+10
+            <paragraph>
+                J
+                 
+                Gregory Caporaso, Justin Kuczynski, Jesse Stombaugh, Kyle Bittinger, Frederic
+                 
+                D Bushman, Elizabeth
+                 
+                K Costello, Noah Fierer, Antonio
+                 
+                Gonzalez Pena, Julia
+                 
+                K Goodrich, Jeffrey
+                 
+                I Gordon, and others.
+                 
+                Qiime allows analysis of high-throughput community sequencing data.
+                 
+                <emphasis>
+                    Nature methods
+                , 7(5):335–336, 2010.
+        <citation backrefs="id6" docname="part1/chap2" ids="id3">
+            <label support_smartquotes="False">
+                HdHP+16
+            <paragraph>
+                Christopher
+                 
+                Ramsay Holdgraf, Wendy de
+                 
+                Heer, Brian
+                 
+                N. Pasley, Jochem
+                 
+                W. Rieger, Nathan Crone, Jack
+                 
+                J. Lin, Robert
+                 
+                T. Knight, and Frédéric
+                 
+                E. Theunissen.
+                 
+                Rapid tuning shifts in human auditory cortex enhance speech intelligibility.
+                 
+                <emphasis>
+                    Nature Communications
+                , 7(May):13654, 2016.
+                 
+                URL: 
+                <reference refuri="http://www.nature.com/doifinder/10.1038/ncomms13654">
+                    http://www.nature.com/doifinder/10.1038/ncomms13654
+                , 
+                <reference refuri="https://doi.org/10.1038/ncomms13654">
+                    doi:10.1038/ncomms13654
+                .
+            <label support_smartquotes="False">
+                HdHP+16
+            <paragraph>
+                Christopher
+                 
+                Ramsay Holdgraf, Wendy de
+                 
+                Heer, Brian
+                 
+                N. Pasley, Jochem
+                 
+                W. Rieger, Nathan Crone, Jack
+                 
+                J. Lin, Robert
+                 
+                T. Knight, and Frédéric
+                 
+                E. Theunissen.
+                 
+                Rapid tuning shifts in human auditory cortex enhance speech intelligibility.
+                 
+                <emphasis>
+                    Nature Communications
+                , 7(May):13654, 2016.
+                 
+                URL: 
+                <reference refuri="http://www.nature.com/doifinder/10.1038/ncomms13654">
+                    http://www.nature.com/doifinder/10.1038/ncomms13654
+                , 
+                <reference refuri="https://doi.org/10.1038/ncomms13654">
+                    doi:10.1038/ncomms13654
+                .
+        <citation backrefs="id6" docname="part1/chap2" ids="id2">
+            <label support_smartquotes="False">
+                PGH11
+            <paragraph>
+                Fernando Perez, Brian
+                 
+                E Granger, and John
+                 
+                D Hunter.
+                 
+                Python: an ecosystem for scientific computing.
+                 
+                <emphasis>
+                    Computing in Science \\& Engineering
+                , 13(2):13–21, 2011.
+            <label support_smartquotes="False">
+                PGH11
+            <paragraph>
+                Fernando Perez, Brian
+                 
+                E Granger, and John
+                 
+                D Hunter.
+                 
+                Python: an ecosystem for scientific computing.
+                 
+                <emphasis>
+                    Computing in Science \\& Engineering
+                , 13(2):13–21, 2011.
+        <citation backrefs="id6" docname="part1/chap2" ids="id4">
+            <label support_smartquotes="False">
+                SK14
+            <paragraph>
+                John Stachurski and Takashi Kamihigashi.
+                 
+                Stochastic stability in monotone economies.
+                 
+                <emphasis>
+                    Theoretical Economics
+                , 2014.
+            <label support_smartquotes="False">
+                SK14
+            <paragraph>
+                John Stachurski and Takashi Kamihigashi.
+                 
+                Stochastic stability in monotone economies.
+                 
+                <emphasis>
+                    Theoretical Economics
+                , 2014.
