@@ -1,5 +1,4 @@
 import pytest
-from bs4 import BeautifulSoup
 from myst_nb import __version__ as mystnb_version
 
 
@@ -9,29 +8,61 @@ def test_hide_input(app, get_sphinx_app_doctree):
     _, minor = mystnb_version.split(".")[0:2]
     if int(minor) < 14:
         get_sphinx_app_doctree(
-            app, docname="cell-hide-input", resolve=True, regress=True
+            app,
+            docname="cell-hide-input",
+            resolve=True,
+            regress=True,
+            basename="test_hide_input_<14",
         )
     else:
-        doctree = get_sphinx_app_doctree(
-            app, docname="cell-hide-input", resolve=True, regress=False
+        get_sphinx_app_doctree(
+            app,
+            docname="cell-hide-input",
+            resolve=True,
+            regress=True,
+            basename="test_hide_input_>14",
         )
-        xml = BeautifulSoup(str(doctree), "html.parser")
-        try:
-            hiddencellnode = xml.find_all("container", class_="tag_hide-input")[0].find(
-                "hiddencellnode"
-            )
-            assert "cell_input" in hiddencellnode["classes"]
-        except NameError:
-            return False
 
 
 @pytest.mark.sphinx("latex", testroot="MystNbPostTransform")
 def test_hide_output(app, get_sphinx_app_doctree):
     app.build()
-    get_sphinx_app_doctree(app, docname="cell-hide-output", resolve=True, regress=True)
+    _, minor = mystnb_version.split(".")[0:2]
+    if int(minor) < 14:
+        get_sphinx_app_doctree(
+            app,
+            docname="cell-hide-output",
+            resolve=True,
+            regress=True,
+            basename="test_hide_output_<14",
+        )
+    else:
+        get_sphinx_app_doctree(
+            app,
+            docname="cell-hide-output",
+            resolve=True,
+            regress=True,
+            basename="test_hide_output_>14",
+        )
 
 
 @pytest.mark.sphinx("latex", testroot="MystNbPostTransform")
 def test_hide_cell(app, get_sphinx_app_doctree):
     app.build()
-    get_sphinx_app_doctree(app, docname="cell-hide", resolve=True, regress=True)
+    _, minor = mystnb_version.split(".")[0:2]
+    if int(minor) < 14:
+        get_sphinx_app_doctree(
+            app,
+            docname="cell-hide",
+            resolve=True,
+            regress=True,
+            basename="test_hide_cell_<14",
+        )
+    else:
+        get_sphinx_app_doctree(
+            app,
+            docname="cell-hide",
+            resolve=True,
+            regress=True,
+            basename="test_hide_cell_>14",
+        )
