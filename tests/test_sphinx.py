@@ -35,40 +35,23 @@ def test_build_no_ext(
     # get root doctree
     doctree = builder.app.env.get_doctree("intro")
     doctree["source"] = "intro"
-    if int(minor) < 14:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".xml",
-            encoding="utf8",
-            basename="test_build_no_ext_<14",
-        )
-    else:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".xml",
-            encoding="utf8",
-            basename="test_build_no_ext_>14",
-        )
+    doctree.next_node().attributes["classes"] = []
+    file_regression.check(
+        doctree.pformat(),
+        extension=".xml",
+        encoding="utf8",
+    )
 
     # get root doctree after all doctrees are merged and post-transforms applied
     doctree = builder.app.builder.assemble_doctree(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
-    if int(minor) < 14:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_build_no_ext_<14",
-        )
-    else:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_build_no_ext_>14",
-        )
+    file_regression.check(
+        doctree.pformat(),
+        extension=".resolved.xml",
+        encoding="utf8",
+    )
     file_content = TexSoup((builder.outdir / "book.tex").read_text())
     file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")
 
@@ -109,40 +92,22 @@ def test_build_with_ext(
     doctree = builder.app.env.get_doctree("intro")
     doctree["source"] = "intro"
 
-    if int(minor) < 14:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".xml",
-            encoding="utf8",
-            basename="test_build_with_ext_<14",
-        )
-    else:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".xml",
-            encoding="utf8",
-            basename="test_build_with_ext_>14",
-        )
+    file_regression.check(
+        doctree.pformat(),
+        extension=".xml",
+        encoding="utf8",
+    )
 
     # get root doctree after all doctrees are merged and post-transforms applied
     doctree = builder.app.builder.assemble_doctree(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
-    if int(minor) < 14:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_build_with_ext_<14",
-        )
-    else:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_build_with_ext_>14",
-        )
+    file_regression.check(
+        doctree.pformat(),
+        extension=".resolved.xml",
+        encoding="utf8",
+    )
 
     file_content = TexSoup((builder.outdir / "book.tex").read_text())
     file_regression.check(str(file_content.document), extension=".tex", encoding="utf8")
