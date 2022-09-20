@@ -12,7 +12,7 @@ def test_hide_input(app, get_sphinx_app_doctree):
             docname="cell-hide-input",
             resolve=True,
             regress=True,
-            basename="test_hide_input_<14",
+            basename="test_hide_input_mystnb<14",
         )
     else:
         get_sphinx_app_doctree(
@@ -20,7 +20,7 @@ def test_hide_input(app, get_sphinx_app_doctree):
             docname="cell-hide-input",
             resolve=True,
             regress=True,
-            basename="test_hide_input_>14",
+            basename="test_hide_input_mystnb>14",
         )
 
 
@@ -34,7 +34,7 @@ def test_hide_output(app, get_sphinx_app_doctree):
             docname="cell-hide-output",
             resolve=True,
             regress=True,
-            basename="test_hide_output_<14",
+            basename="test_hide_output_mystnb<14",
         )
     else:
         get_sphinx_app_doctree(
@@ -42,7 +42,7 @@ def test_hide_output(app, get_sphinx_app_doctree):
             docname="cell-hide-output",
             resolve=True,
             regress=True,
-            basename="test_hide_output_>14",
+            basename="test_hide_output_mystnb>14",
         )
 
 
@@ -56,7 +56,7 @@ def test_hide_cell(app, get_sphinx_app_doctree):
             docname="cell-hide",
             resolve=True,
             regress=True,
-            basename="test_hide_cell_<14",
+            basename="test_hide_cell_mystnb<14",
         )
     else:
         get_sphinx_app_doctree(
@@ -64,5 +64,5 @@ def test_hide_cell(app, get_sphinx_app_doctree):
             docname="cell-hide",
             resolve=True,
             regress=True,
-            basename="test_hide_cell_>14",
+            basename="test_hide_cell_mystnb>14",
         )
