@@ -2,7 +2,6 @@ import shutil
 from pathlib import Path
 from textwrap import dedent
 
-from myst_nb import __version__ as mystnb_version
 from TexSoup import TexSoup
 
 
@@ -27,7 +26,6 @@ def test_build_no_ext(
         ),
         encoding="utf8",
     )
-    _, minor = mystnb_version.split(".")[0:2]
     # run sphinx
     builder = sphinx_build_factory(src_dir)
     builder.build()
@@ -47,6 +45,7 @@ def test_build_no_ext(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
+    doctree.next_node().attributes["classes"] = []
     file_regression.check(
         doctree.pformat(),
         extension=".resolved.xml",
@@ -78,7 +77,6 @@ def test_build_with_ext(
         ),
         encoding="utf8",
     )
-    _, minor = mystnb_version.split(".")[0:2]
     # run sphinx
     builder = sphinx_build_factory(src_dir)
     builder.build()
@@ -91,7 +89,7 @@ def test_build_with_ext(
     # get root doctree after transforms
     doctree = builder.app.env.get_doctree("intro")
     doctree["source"] = "intro"
-
+    doctree.next_node().attributes["classes"] = []
     file_regression.check(
         doctree.pformat(),
         extension=".xml",
@@ -103,6 +101,7 @@ def test_build_with_ext(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
+    doctree.next_node().attributes["classes"] = []
     file_regression.check(
         doctree.pformat(),
         extension=".resolved.xml",
