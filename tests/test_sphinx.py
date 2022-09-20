@@ -2,6 +2,7 @@ import shutil
 from pathlib import Path
 from textwrap import dedent
 
+from docutils import nodes
 from TexSoup import TexSoup
 
 
@@ -33,7 +34,11 @@ def test_build_no_ext(
     # get root doctree
     doctree = builder.app.env.get_doctree("intro")
     doctree["source"] = "intro"
-    doctree.next_node().attributes["classes"] = []
+
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     file_regression.check(
         doctree.pformat(),
         extension=".xml",
@@ -45,7 +50,11 @@ def test_build_no_ext(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
-    doctree.next_node().attributes["classes"] = []
+
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     file_regression.check(
         doctree.pformat(),
         extension=".resolved.xml",
@@ -89,7 +98,11 @@ def test_build_with_ext(
     # get root doctree after transforms
     doctree = builder.app.env.get_doctree("intro")
     doctree["source"] = "intro"
-    doctree.next_node().attributes["classes"] = []
+
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     file_regression.check(
         doctree.pformat(),
         extension=".xml",
@@ -101,7 +114,11 @@ def test_build_with_ext(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
-    doctree.next_node().attributes["classes"] = []
+
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     file_regression.check(
         doctree.pformat(),
         extension=".resolved.xml",

@@ -2,7 +2,7 @@ import shutil
 from pathlib import Path
 from textwrap import dedent
 
-from myst_nb import __version__ as mystnb_version
+from docutils import nodes
 from TexSoup import TexSoup
 
 CONF_CONTENT = """\
@@ -81,19 +81,13 @@ def test_jblatex_show_tocs(
     )
     doctree["source"] = "intro"
 
-    _, minor = mystnb_version.split(".")[0:2]
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     # generated xml should not have toctree bullet lists
-    if int(minor) < 14:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_jblatex_show_tocs<14",
-        )
-    else:
-        file_regression.check(
-            doctree.pformat(),
-            extension=".resolved.xml",
-            encoding="utf8",
-            basename="test_jblatex_show_tocs>14",
-        )
+    file_regression.check(
+        doctree.pformat(),
+        extension=".resolved.xml",
+        encoding="utf8",
+    )
