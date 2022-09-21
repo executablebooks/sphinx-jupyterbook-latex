@@ -1,5 +1,11 @@
 # Change Log
 
+## 0.5.0 - 2022-09-21
+
+### 👌 IMPROVE
+
+- Supporting myst-nb 0.16 and myst-parser 0.18
+
 ## 0.4.7 - 2022-09-21
 
 ### 🐛 FIX
