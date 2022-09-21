@@ -1,0 +1,14 @@
+<document source="cell-hide-output.md">
+    <section ids="hide-output" names="hide-output">
+        <title>
+            Hide-Output
+        <paragraph>
+            Below is a cell with hide-output tag:
+        <container cell_index="1" cell_metadata="{'tags': ['hide-output']}" classes="cell tag_hide-output" exec_count="1" nb_element="cell_code">
+            <CellInput classes="cell_input">
+                <container classes="cell_input" nb_element="cell_code_source">
+                    <literal_block language="ipython3" linenos="False" xml:space="preserve">
+                        print("Here is some code to execute")
+            <HiddenCellNode classes="cell_output">
+                <literal_block classes="output stream" language="myst-ansi" linenos="False" xml:space="preserve">
+                    Here is some code to execute

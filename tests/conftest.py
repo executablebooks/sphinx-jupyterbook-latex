@@ -23,7 +23,7 @@ def rootdir(tmpdir):
 
 @pytest.fixture
 def get_sphinx_app_doctree(file_regression):
-    def read(app, docname="index", resolve=False, regress=False):
+    def read(app, docname="index", resolve=False, regress=False, basename=False):
         if resolve:
             doctree = app.env.get_and_resolve_doctree(docname, app.builder)
             extension = ".resolved.xml"
@@ -36,7 +36,9 @@ def get_sphinx_app_doctree(file_regression):
             node["source"] = Path(node["source"]).name
 
         if regress:
-            file_regression.check(doctree.pformat(), extension=extension)
+            file_regression.check(
+                doctree.pformat(), extension=extension, basename=basename
+            )
 
         return doctree
 
