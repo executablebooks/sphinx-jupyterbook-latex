@@ -11,7 +11,7 @@ def check_mystnb_dependency():
 
 
 @pytest.mark.sphinx("latex", testroot="MystNbPostTransform")
-@pytest.mark.skipif(check_mystnb_dependency, reason="requires myst-nb")
+@pytest.mark.skipif(not check_mystnb_dependency(), reason="requires myst-nb")
 def test_hide_input(app, get_sphinx_app_doctree):
     from myst_nb import __version__ as mystnb_version
 
@@ -44,7 +44,7 @@ def test_hide_input(app, get_sphinx_app_doctree):
 
 
 @pytest.mark.sphinx("latex", testroot="MystNbPostTransform")
-@pytest.mark.skipif(check_mystnb_dependency, reason="requires myst-nb")
+@pytest.mark.skipif(not check_mystnb_dependency(), reason="requires myst-nb")
 def test_hide_output(app, get_sphinx_app_doctree):
     from myst_nb import __version__ as mystnb_version
 
@@ -77,7 +77,7 @@ def test_hide_output(app, get_sphinx_app_doctree):
 
 
 @pytest.mark.sphinx("latex", testroot="MystNbPostTransform")
-@pytest.mark.skipif(check_mystnb_dependency, reason="requires myst-nb")
+@pytest.mark.skipif(not check_mystnb_dependency(), reason="requires myst-nb")
 def test_hide_cell(app, get_sphinx_app_doctree):
     from myst_nb import __version__ as mystnb_version
 
