@@ -45,17 +45,12 @@ def check_dependency() -> Union[bool, dict]:
     except ImportError:
         return False
     major, minor = __version__.split(".")[0:2]
-    if major == "0" and minor in (
-        "13",
-        "14",
-        "15",
-        "16",
-    ):  # TODO: fetch this from setup.cfg?
+    if int(major) == 0 and 13 <= int(minor) < 18:  # TODO: fetch this from setup.cfg?
         package_versions = {"myst_nb": minor}
         return package_versions
     else:
         logger.warning(
-            "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.13,<=0.16: "
+            "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.13: "
             f"{__version__}"
         )
     return False
