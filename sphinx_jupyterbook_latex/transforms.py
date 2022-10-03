@@ -50,7 +50,7 @@ def check_dependency() -> Union[bool, dict]:
         return package_versions
     else:
         logger.warning(
-            "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.13,<=0.16: "
+            "[sphinx-jupyterbook-latex]: myst-nb version not compatible with >=0.13,<0.18: "
             f"{__version__}"
         )
     return False
@@ -475,10 +475,17 @@ class CodeBlockTransforms(SphinxPostTransform):
 
     default_priority = 999
 
+    @classmethod
+    def check_mystnb_dependency(cls) -> Union[bool, int]:
+        dependencies = check_dependency()
+        if isinstance(dependencies, dict):
+            return int(dependencies.get("myst_nb", ""))
+        return False
+
     def apply(self):
         if isinstance(self.env.app.builder, builders.latex.LaTeXBuilder):
             """Wrapping myst_nb code cell nodes with nodes of this extension."""
-            mystnb_version = int(check_dependency()["myst_nb"])
+            mystnb_version = self.check_mystnb_dependency()
 
             # checking mystnb_version for proper imports
             # as myst-nb has started using containers for code cells
