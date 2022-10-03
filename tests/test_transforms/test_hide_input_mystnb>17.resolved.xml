@@ -1,0 +1,14 @@
+<document source="cell-hide-input.md">
+    <section ids="hide-input" names="hide-input">
+        <title>
+            Hide-Input
+        <paragraph>
+            Below is a cell with hide-input tag:
+        <container cell_index="1" cell_metadata="{'tags': ['hide-input']}" classes="cell tag_hide-input" exec_count="1" hide_mode="input" nb_element="cell_code" prompt_hide="Hide code cell {type}" prompt_show="Show code cell {type}">
+            <HiddenCellNode classes="cell_input">
+                <literal_block language="ipython3" linenos="False" xml:space="preserve">
+                    print("Here is some code to execute")
+            <CellOutput classes="cell_output">
+                <container classes="cell_output" nb_element="cell_code_output">
+                    <literal_block classes="output stream" language="myst-ansi" linenos="False" xml:space="preserve">
+                        Here is some code to execute
