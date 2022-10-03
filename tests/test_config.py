@@ -2,6 +2,7 @@ import shutil
 from pathlib import Path
 from textwrap import dedent
 
+from docutils import nodes
 from TexSoup import TexSoup
 
 CONF_CONTENT = """\
@@ -24,8 +25,6 @@ def test_jblatex_captions_to_parts(
     shutil.copytree(rootdir.joinpath("test-partsToc"), src_dir)
     # write conf.py
     contents = CONF_CONTENT + "    jblatex_captions_to_parts = True\n"
-    # import pdb;
-    # pdb.set_trace()
     src_dir.joinpath("conf.py").write_text(
         dedent(contents),
         encoding="utf8",
@@ -81,5 +80,14 @@ def test_jblatex_show_tocs(
         "intro", toctree_only=False, appendices=[]
     )
     doctree["source"] = "intro"
+
+    # classes are different in different myst-nb versions, and are not important
+    for sect in doctree.traverse(nodes.section):
+        sect.attributes["classes"] = []
+
     # generated xml should not have toctree bullet lists
-    file_regression.check(doctree.pformat(), extension=".resolved.xml", encoding="utf8")
+    file_regression.check(
+        doctree.pformat(),
+        extension=".resolved.xml",
+        encoding="utf8",
+    )

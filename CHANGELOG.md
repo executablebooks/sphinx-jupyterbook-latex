@@ -1,5 +1,21 @@
 # Change Log
 
+## 0.5.0 - 2022-09-21
+
+### 👌 IMPROVE
+
+- Supporting myst-nb 0.16 and myst-parser 0.18
+
+## 0.4.7 - 2022-09-21
+
+### 🐛 FIX
+
+- Passing down document options to sphinxmanual
+
+### 👌 IMPROVE
+
+- Updating tests, and comments in source files
+
 ## 0.4.6 - 2021-11-05
 
 ### ✨ NEW

@@ -102,7 +102,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
         copy_asset_file(str(path), app.outdir)
 
     # only load when myst-nb is present
-    if MystNbPostTransform.check_dependency():
+    if MystNbPostTransform.check_mystnb_dependency():
         app.add_post_transform(MystNbPostTransform)
 
     if app.config["jblatex_load_imgconverter"]:
