@@ -2,6 +2,12 @@
 
 ## 0.5.1 - 2022-10-04
 
+### 👌 IMPROVE
+
+- Checking if myst-nb is installed to run some transforms and tests
+- Accomodating mystnb 0.17, moved myst_nb to install_requires
+- Updating versions in CI, including python.
+
 
 ## 0.5.0 - 2022-09-21
 
