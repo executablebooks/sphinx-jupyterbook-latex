@@ -1,0 +1,15 @@
+<document source="cell-hide.md">
+    <section ids="hide-cell" names="hide-cell">
+        <title>
+            Hide-Cell
+        <paragraph>
+            Code Cells with tags in it:
+        <HiddenCellNode classes="cell tag_hide-cell">
+            <CellInput classes="cell_input">
+                <container classes="cell_input" nb_element="cell_code_source">
+                    <literal_block language="ipython3" linenos="False" xml:space="preserve">
+                        print("Here is some code to execute")
+            <CellOutput classes="cell_output">
+                <container classes="cell_output" nb_element="cell_code_output">
+                    <literal_block classes="output stream" language="myst-ansi" linenos="False" xml:space="preserve">
+                        Here is some code to execute

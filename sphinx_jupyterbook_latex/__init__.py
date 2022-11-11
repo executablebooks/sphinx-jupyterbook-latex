@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 """sphinx-jupyterbook-latex version"""
 
 
@@ -36,8 +36,11 @@ def setup(app: "Sphinx") -> None:
 
     app.add_transform(LatexRootDocTransforms)
     app.add_transform(LatexToctreeNodeInterpret)
+
+    if CodeBlockTransforms.check_mystnb_dependency():
+        app.add_post_transform(CodeBlockTransforms)
+
     app.add_post_transform(ListTableOfContents)
-    app.add_post_transform(CodeBlockTransforms)
 
     app.connect("config-inited", override_latex_config)
     app.connect("builder-inited", setup_latex_transforms)
