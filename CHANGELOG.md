@@ -1,5 +1,15 @@
 # Change Log
 
+## 0.5.2 - 2022-11-16
+
+### 👌 IMPROVE
+
+- Bump upper sphinx version limit to 5.1
+
+### 🐛 FIX
+
+- Set colours for Verbatim without using private Sphinx macros
+
 ## 0.5.1 - 2022-10-04
 
 ### 👌 IMPROVE
