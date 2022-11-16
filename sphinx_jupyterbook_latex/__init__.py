@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
-__version__ = "0.5.1"
+__version__ = "0.5.2"
 """sphinx-jupyterbook-latex version"""
 
 
