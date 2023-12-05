@@ -90,7 +90,7 @@ def sphinx_build_factory(make_app):
         app = make_app(
             buildername=buildername,
             srcdir=sphinx_path(os.path.abspath(str(src_path))),
-            **kwargs
+            **kwargs,
         )
         return SphinxBuild(app, src_path)
 

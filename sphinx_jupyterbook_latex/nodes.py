@@ -76,7 +76,6 @@ class RootHeader(nodes.Element):
 
 
 def visit_RootHeader(self, node: RootHeader) -> None:
-
     node["header_text"] = sphinx_encode(node.astext())
 
     strong = nodes.strong("")
