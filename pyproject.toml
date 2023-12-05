@@ -59,13 +59,6 @@ Homepage = "https://executablebooks.org/"
 [tool.flit.module]
 name = "sphinx_jupyterbook_latex"
 
-[tool.isort]
-profile = "black"
-src_paths = [
-  "sphinx_jupyterbook_latex",
-  "tests"
-]
-
 [tool.mypy]
 no_implicit_optional = true
 show_error_codes = true
