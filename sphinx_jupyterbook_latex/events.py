@@ -55,9 +55,7 @@ def override_latex_config(app: Sphinx, config: Config) -> None:
     )
 
     # at the moment, True means list for this config
-    if (type(config["jblatex_show_tocs"]) is bool) and config[
-        "jblatex_show_tocs"
-    ]:  # noqa: E501
+    if isinstance(config["jblatex_show_tocs"], bool) and config["jblatex_show_tocs"]:  # noqa: E501
         config["jblatex_show_tocs"] = "list"
 
 

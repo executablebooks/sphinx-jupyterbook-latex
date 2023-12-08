@@ -45,7 +45,9 @@ def check_dependency() -> Union[bool, dict]:
     except ImportError:
         return False
     major, minor = __version__.split(".")[0:2]
-    if int(major) == 0 and 13 <= int(minor) < 18:  # TODO: fetch this from setup.cfg?
+    if (
+        int(major) == 0 and 13 <= int(minor) < 18
+    ):  # TODO: fetch this from pyproject.toml?
         package_versions = {"myst_nb": minor}
         return package_versions
     else:
@@ -100,7 +102,6 @@ class LatexRootDocTransforms(SphinxTransform):
     default_priority = 500
 
     def apply(self, **kwargs: Any) -> None:
-
         # TODO this assumes that `latex_documents` is set with the master_doc as the startdocname
         if self.env.docname != self.app.config.master_doc:
             return
@@ -144,7 +145,6 @@ class MystNbPostTransform(SphinxPostTransform):
         return False
 
     def apply(self, **kwargs: Any) -> None:
-
         mystnb_version = self.check_mystnb_dependency()
 
         # checking mystnb_version for proper imports
@@ -234,7 +234,6 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
     default_priority = 700
 
     def apply(self, **kwargs: Any) -> None:
-
         # TODO this assumes that `latex_documents` is set with the master_doc as the startdocname
         if not is_root_document(self.document, self.app):
             return
@@ -297,7 +296,6 @@ class LatexRootDocPostTransforms(SphinxPostTransform):
         #          ...
 
         if self.env.jblatex_captions_to_parts:
-
             for node in self.document.traverse(docutils.nodes.compound):
                 if (
                     "toctree-wrapper" not in node["classes"]
@@ -389,10 +387,10 @@ class ListTableOfContents(SphinxPostTransform):
         reference = nodes.reference(
             "",
             "",
+            nodes.Text(title),
             internal=internal,
             refuri=val,
             anchorname="",
-            *[nodes.Text(title)],
         )
         para = addnodes.compact_paragraph("", "", reference)
         item = nodes.list_item("", para)
