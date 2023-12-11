@@ -8,7 +8,11 @@ from sphinx.util import logging
 from sphinx.util.fileutil import copy_asset_file
 
 from . import __version__, theme
-from .transforms import LatexRootDocPostTransforms, MystNbPostTransform
+from .transforms import (
+    LatexRootDocPostTransforms,
+    MystNbPostTransform,
+    _check_mystnb_dependency,
+)
 
 if sys.version_info < (3, 9):
     import importlib_resources as resources
@@ -100,7 +104,7 @@ def setup_latex_transforms(app: Sphinx) -> None:
         copy_asset_file(str(path), app.outdir)
 
     # only load when myst-nb is present
-    if MystNbPostTransform.check_mystnb_dependency():
+    if _check_mystnb_dependency():
         app.add_post_transform(MystNbPostTransform)
 
     if app.config["jblatex_load_imgconverter"]:

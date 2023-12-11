@@ -17,7 +17,8 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: CPython"
 ]
 dependencies = [
-  "sphinx>=5"
+  "sphinx>=5",
+  "packaging"
 ]
 description = "Latex specific features for jupyter book"
 dynamic = [
@@ -42,11 +43,11 @@ rtd = [
   "sphinx-jupyterbook-latex"
 ]
 testing = [
-  "coverage<5.0",
+  "coverage>=6.0",
   "myst-nb>=1.0.0",
-  "pytest-cov~=2.8",
+  "pytest-cov>=3",
   "pytest-regressions",
-  "pytest>=3.6,<4",
+  "pytest>=7.1",
   "sphinx-external-toc>=1.0.0",
   "sphinxcontrib-bibtex>=2.6.0",
   "texsoup"
