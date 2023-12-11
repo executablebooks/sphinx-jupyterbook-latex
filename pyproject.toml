@@ -10,15 +10,15 @@ classifiers = [
   "License :: OSI Approved :: BSD License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.6",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: Implementation :: CPython"
 ]
 dependencies = [
-  "importlib-resources;python_version<'3.9'",
-  "sphinx>=3,<5"
+  "sphinx>=5",
+  "packaging"
 ]
 description = "Latex specific features for jupyter book"
 dynamic = [
@@ -27,14 +27,14 @@ dynamic = [
 license = {file = "LICENSE"}
 name = "sphinx-jupyterbook-latex"
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.9"
 
 [project.optional-dependencies]
 code_style = [
   "pre-commit~=2.12"
 ]
 myst = [
-  "myst-nb>=0.13,<0.14"
+  "myst-nb>=1.0.0"
 ]
 rtd = [
   "myst-parser",
@@ -43,13 +43,13 @@ rtd = [
   "sphinx-jupyterbook-latex"
 ]
 testing = [
-  "coverage<5.0",
-  "myst-nb>=0.13,<0.14",
-  "pytest-cov~=2.8",
+  "coverage>=6.0",
+  "myst-nb>=1.0.0",
+  "pytest-cov>=3",
   "pytest-regressions",
-  "pytest>=3.6,<4",
-  "sphinx-external-toc>=0.1.0,<0.3.0",
-  "sphinxcontrib-bibtex>=2.2.1,<2.3.0",
+  "pytest>=7.1",
+  "sphinx-external-toc>=1.0.0",
+  "sphinxcontrib-bibtex>=2.6.0",
   "texsoup"
 ]
 

@@ -1,5 +1,10 @@
 \begin{document}
 
+\ifdefined\shorthandoff
+  \ifnum\catcode`\=\string=\active\shorthandoff{=}\fi
+  \ifnum\catcode`\"=\active\shorthandoff{"}\fi
+\fi
+
 \pagestyle{empty}
 \sphinxmaketitle
 \pagestyle{plain}
@@ -32,9 +37,6 @@ Chap 1 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
 \label{\detokenize{part1/chap2:chapter-2}}\label{\detokenize{part1/chap2::doc}}
 \sphinxAtStartPar
 Chap 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
-
-\sphinxAtStartPar
-
 
 \sphinxAtStartPar{[}\hyperlink{cite.part1/chap2:id5}{CKS+10}, \hyperlink{cite.part1/chap2:id3}{HdHP+16}, \hyperlink{cite.part1/chap2:id2}{PGH11}, \hyperlink{cite.part1/chap2:id4}{SK14}{]}
 

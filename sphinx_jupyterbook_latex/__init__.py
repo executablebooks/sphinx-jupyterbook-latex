@@ -20,6 +20,7 @@ def setup(app: "Sphinx") -> None:
         LatexRootDocTransforms,
         LatexToctreeNodeInterpret,
         ListTableOfContents,
+        _check_mystnb_dependency,
     )
 
     # autoload the sphinx.ext.imgconverter extension
@@ -37,7 +38,7 @@ def setup(app: "Sphinx") -> None:
     app.add_transform(LatexRootDocTransforms)
     app.add_transform(LatexToctreeNodeInterpret)
 
-    if CodeBlockTransforms.check_mystnb_dependency():
+    if _check_mystnb_dependency():
         app.add_post_transform(CodeBlockTransforms)
 
     app.add_post_transform(ListTableOfContents)

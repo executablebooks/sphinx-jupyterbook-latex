@@ -76,7 +76,7 @@
                                 Chapter 2
                             <paragraph>
                                 Chap 2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dapibus.
-                            <paragraph ids="id1">
+                            <container ids="id1">
                             <paragraph>
                                 <inline ids="id6">
                                     [
