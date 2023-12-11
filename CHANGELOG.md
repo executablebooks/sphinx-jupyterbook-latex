@@ -1,5 +1,31 @@
 # Change Log
 
+## v1.0.0 - 23-12-11
+
+([full changelog](https://github.com/executablebooks/sphinx-jupyterbook-latex/compare/v0.5.1...f4aa25f7cb58e0ec62c4c3f0f41ddbba88ce5062))
+
+### Bugs fixed
+
+- FIX: set colours for Verbatim without using private Sphinx macros [#102](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/102) ([@jfbu](https://github.com/jfbu))
+
+### Maintenance and upkeep improvements
+
+- MAINT: update for Sphinx==7 and general maintenance [#121](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/121) ([@agoose77](https://github.com/agoose77))
+- MAINT: bump upper sphinx version limit to 5.1 [#114](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/114) ([@michaelosthege](https://github.com/michaelosthege))
+- MAINT: move to Flit build backend [#98](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/98) ([@agoose77](https://github.com/agoose77))
+
+### Other merged PRs
+
+- Updating CHANGELOG for 0.5.2 [#117](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/117) ([@AakashGfude](https://github.com/AakashGfude))
+- 🚀 RELEASE: v0.5.2 [#116](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/116) ([@AakashGfude](https://github.com/AakashGfude))
+- 🚀 RELEASE: v0.5.1 [#113](https://github.com/executablebooks/sphinx-jupyterbook-latex/pull/113) ([@AakashGfude](https://github.com/AakashGfude))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/executablebooks/sphinx-jupyterbook-latex/graphs/contributors?from=2022-10-04&to=2023-12-11&type=c))
+
+[@AakashGfude](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3AAakashGfude+updated%3A2022-10-04..2023-12-11&type=Issues) | [@agoose77](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Aagoose77+updated%3A2022-10-04..2023-12-11&type=Issues) | [@chrisjsewell](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Achrisjsewell+updated%3A2022-10-04..2023-12-11&type=Issues) | [@codecov](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Acodecov+updated%3A2022-10-04..2023-12-11&type=Issues) | [@jfbu](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Ajfbu+updated%3A2022-10-04..2023-12-11&type=Issues) | [@michaelosthege](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Amichaelosthege+updated%3A2022-10-04..2023-12-11&type=Issues) | [@mmcky](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Ammcky+updated%3A2022-10-04..2023-12-11&type=Issues) | [@welcome](https://github.com/search?q=repo%3Aexecutablebooks%2Fsphinx-jupyterbook-latex+involves%3Awelcome+updated%3A2022-10-04..2023-12-11&type=Issues)
+
 ## 0.5.2 - 2022-11-16
 
 ### 👌 IMPROVE
